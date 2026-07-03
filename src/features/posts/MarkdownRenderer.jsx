@@ -65,10 +65,32 @@ function enhanceAllCodeBlocks(container) {
   pres.forEach((pre) => {
     const code = pre.querySelector("code");
     if (!code) return;
-    // 提取语言
     const langMatch = code.className.match(/language-(\w+)/);
     const lang = langMatch ? langMatch[1].toUpperCase() : "";
     enhanceCodeBlock(pre, lang);
+  });
+}
+
+/**
+ * 增强外部链接：新窗口打开 + 外链图标 + 独特样式
+ */
+function enhanceLinks(container) {
+  const links = container.querySelectorAll("a");
+  links.forEach((link) => {
+    const href = link.getAttribute("href") || "";
+    // 只处理外部链接（http/https 开头）
+    if (/^https?:\/\//.test(href)) {
+      link.setAttribute("target", "_blank");
+      link.setAttribute("rel", "noopener noreferrer");
+      link.classList.add("external-link");
+      // 添加外链图标（避免重复添加）
+      if (!link.querySelector(".external-icon")) {
+        const icon = document.createElement("span");
+        icon.className = "external-icon";
+        icon.innerHTML = "↗";
+        link.appendChild(icon);
+      }
+    }
   });
 }
 
@@ -85,6 +107,7 @@ export default function MarkdownRenderer({ content }) {
   useEffect(() => {
     if (containerRef.current) {
       enhanceAllCodeBlocks(containerRef.current);
+      enhanceLinks(containerRef.current);
     }
   }, [content]);
 

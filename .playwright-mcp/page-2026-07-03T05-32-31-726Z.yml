@@ -1,0 +1,133 @@
+- generic [ref=f5e3]:
+  - banner [ref=f5e4]:
+    - generic [ref=f5e5]:
+      - link "yxshan's Blog" [ref=f5e6] [cursor=pointer]:
+        - /url: /blog
+      - generic [ref=f5e7]:
+        - button "搜索" [ref=f5e8] [cursor=pointer]:
+          - img [ref=f5e9]
+        - button "切换到暗色模式" [ref=f5e11] [cursor=pointer]:
+          - img [ref=f5e12]
+  - link "跳到正文" [ref=f5e14] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=f5e15]:
+    - generic [ref=f5e17]:
+      - article [ref=f5e18]:
+        - generic [ref=f5e19]:
+          - heading "两数之和" [level=1] [ref=f5e20]
+          - generic [ref=f5e21]:
+            - time [ref=f5e22]: 2026-07-01
+            - generic [ref=f5e23]: ·
+            - generic [ref=f5e24]: 约 3 分钟
+          - generic [ref=f5e25]:
+            - link "简单" [ref=f5e26] [cursor=pointer]:
+              - /url: /blog?tag=%E7%AE%80%E5%8D%95
+            - link "哈希表" [ref=f5e27] [cursor=pointer]:
+              - /url: /blog?tag=%E5%93%88%E5%B8%8C%E8%A1%A8
+            - link "数组" [ref=f5e28] [cursor=pointer]:
+              - /url: /blog?tag=%E6%95%B0%E7%BB%84
+        - generic [ref=f5e29]:
+          - heading "[1] 两数之和" [level=1] [ref=f5e30]
+          - heading "题目信息" [level=2] [ref=f5e31]
+          - paragraph [ref=f5e32]:
+            - link "题目链接 ↗" [ref=f5e33] [cursor=pointer]:
+              - /url: https://leetcode.cn/problems/two-sum/
+              - text: 题目链接
+              - generic [ref=f5e34]: ↗
+          - paragraph [ref=f5e35]:
+            - generic [ref=f5e36]: "#简单"
+            - generic [ref=f5e37]: "#哈希表"
+            - generic [ref=f5e38]: "#数组"
+          - blockquote [ref=f5e39]:
+            - paragraph [ref=f5e40]: 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出和为目标值 target 的那两个整数，并返回它们的数组下标。
+            - paragraph [ref=f5e41]: 数据范围：2 <= nums.length <= 10^4 要求：时间复杂度 O(n)，空间复杂度 O(n)
+          - heading "解题思路" [level=2] [ref=f5e42]
+          - heading "方法一：哈希表" [level=3] [ref=f5e43]
+          - list [ref=f5e44]:
+            - listitem [ref=f5e45]:
+              - paragraph [ref=f5e46]:
+                - strong [ref=f5e47]: 核心思想
+                - text: ：遍历数组，用哈希表存储已访问元素的值和下标。
+              - list [ref=f5e48]:
+                - listitem [ref=f5e49]: 要点1：检查 target - nums[i] 是否在表中
+                - listitem [ref=f5e50]: 要点2：若存在则返回 [map.get(target - nums[i]), i]
+            - listitem [ref=f5e51]:
+              - paragraph [ref=f5e52]:
+                - strong [ref=f5e53]: 步骤图解
+                - text: ：
+              - generic [ref=f5e54]:
+                - generic [ref=f5e55]:
+                  - generic [ref=f5e56]: text
+                  - button "复制" [ref=f5e57] [cursor=pointer]:
+                    - img [ref=f5e58]
+                    - generic [ref=f5e61]: 复制
+                - code [ref=f5e64]: 遍历 i=0..n-1 -> 计算 complement = target - nums[i] -> 查询哈希表 - 存在 -> 返回结果 - 不存在 -> 将 (nums[i], i) 存入哈希表
+            - listitem [ref=f5e65]:
+              - paragraph [ref=f5e66]:
+                - strong [ref=f5e67]: 关键点
+                - text: ：
+              - list [ref=f5e68]:
+                - listitem [ref=f5e69]: 哈希表查询 O(1) 是性能关键
+                - listitem [ref=f5e70]: 一次遍历完成，避免二次循环
+            - listitem [ref=f5e71]:
+              - paragraph [ref=f5e72]:
+                - strong [ref=f5e73]: 边界处理
+                - text: ：
+              - list [ref=f5e74]:
+                - listitem [ref=f5e75]: 数组长度为2的最小情况 → 直接返回两个下标
+                - listitem [ref=f5e76]: 存在多组解时只需返回第一组
+          - heading "代码实现" [level=2] [ref=f5e77]
+          - heading "方法一" [level=3] [ref=f5e78]
+          - generic [ref=f5e79]:
+            - generic [ref=f5e80]:
+              - generic [ref=f5e81]: C
+              - button "复制" [ref=f5e82] [cursor=pointer]:
+                - img [ref=f5e83]
+                - generic [ref=f5e86]: 复制
+            - code [ref=f5e89]: "/** * Note: The returned array must be malloced, assume caller calls free(). */ int* twoSum(int* nums, int numsSize, int target, int* returnSize) { // 假设哈希表已实现 int* result = (int*)malloc(2 * sizeof(int)); // ... 哈希表操作 return result; }"
+          - paragraph [ref=f5e90]: 时间复杂度：O(n) 空间复杂度：O(n)
+          - heading "易错点" [level=2] [ref=f5e91]
+          - table [ref=f5e92]:
+            - rowgroup [ref=f5e93]:
+              - row "序号 易错点 正确做法" [ref=f5e94]:
+                - columnheader "序号" [ref=f5e95]
+                - columnheader "易错点" [ref=f5e96]
+                - columnheader "正确做法" [ref=f5e97]
+            - rowgroup [ref=f5e98]:
+              - row "1 忘记处理返回数组内存分配 需使用 malloc 分配，并设置 returnSize" [ref=f5e99]:
+                - cell "1" [ref=f5e100]
+                - cell "忘记处理返回数组内存分配" [ref=f5e101]
+                - cell "需使用 malloc 分配，并设置 returnSize" [ref=f5e102]
+              - row "2 哈希表未处理冲突 使用链地址法或开放寻址法" [ref=f5e103]:
+                - cell "2" [ref=f5e104]
+                - cell "哈希表未处理冲突" [ref=f5e105]
+                - cell "使用链地址法或开放寻址法" [ref=f5e106]
+          - heading "总结" [level=2] [ref=f5e107]
+          - list [ref=f5e108]:
+            - listitem [ref=f5e109]: 核心思想：空间换时间，用哈希表将查找时间从 O(n) 降为 O(1)
+            - listitem [ref=f5e110]: 方法对比：暴力法 O(n^2) vs 哈希表法 O(n)
+            - listitem [ref=f5e111]: 题目独立，不跨题总结
+        - paragraph [ref=f5e112]: 最后更新于 2 天前
+        - generic [ref=f5e113]:
+          - navigation [ref=f5e114]:
+            - link "上一篇 反转链表（BM1/BM2/BM3）" [ref=f5e115] [cursor=pointer]:
+              - /url: /blog/posts/algorithm/reverse-linked-list
+              - img [ref=f5e116]
+              - generic [ref=f5e118]:
+                - generic [ref=f5e119]: 上一篇
+                - generic [ref=f5e120]: 反转链表（BM1/BM2/BM3）
+          - generic [ref=f5e121]:
+            - heading "相关文章" [level=3] [ref=f5e122]
+            - list [ref=f5e123]:
+              - listitem [ref=f5e124]:
+                - link "反转链表（BM1/BM2/BM3） 2026-07-03" [ref=f5e125] [cursor=pointer]:
+                  - /url: /blog/posts/algorithm/reverse-linked-list
+                  - generic [ref=f5e126]: 反转链表（BM1/BM2/BM3）
+                  - time [ref=f5e127]: 2026-07-03
+      - complementary [ref=f5e128]
+    - button "返回顶部":
+      - img
+  - contentinfo [ref=f5e129]:
+    - generic [ref=f5e130]:
+      - paragraph [ref=f5e131]: © 2026 yxshan's Blog
+      - paragraph [ref=f5e132]: Built with React + Vite
