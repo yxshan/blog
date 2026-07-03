@@ -207,3 +207,24 @@ html.dark .hljs-emphasis { color: #c9d1d9; font-style: italic; }
 html.dark .hljs-strong { color: #c9d1d9; font-weight: 700; }
 html.dark .hljs-addition { color: #aff5b4; background-color: #033a16; }
 html.dark .hljs-deletion { color: #ffdcd7; background-color: #67060c; }
+
+/* 行号样式 */
+.hljs-ln { border-collapse: collapse; }
+.hljs-ln td { padding: 0; }
+.hljs-ln td.hljs-ln-numbers {
+  user-select: none;
+  text-align: right;
+  color: #8b949e;
+  border-right: 1px solid #d0d7de;
+  padding-right: 10px;
+  vertical-align: top;
+  min-width: 2.5em;
+  font-size: 0.85em;
+}
+.dark .hljs-ln td.hljs-ln-numbers {
+  color: #6e7681;
+  border-right-color: #30363d;
+}
+.hljs-ln td.hljs-ln-code { padding-left: 12px; }
+.hljs-ln tr:hover { background: rgba(99, 102, 241, 0.05); }
+.dark .hljs-ln tr:hover { background: rgba(99, 102, 241, 0.1); }

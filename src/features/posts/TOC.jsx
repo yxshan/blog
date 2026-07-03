@@ -9,6 +9,8 @@ import { useEffect, useState, useCallback } from "react";
 //   - 移动端：默认隐藏
 //   - 滚动监听：IntersectionObserver 高亮当前阅读位置对应的标题
 //   - 点击标题平滑滚动到对应位置
+//   - 点击 h2 可折叠/展开其 h3 子目录（chevron 图标指示状态）
+//   - 活跃标题平滑过渡高亮 + 左侧指示线动画
 //   - 无标题时自动隐藏整个组件
 // ============================================================
 
@@ -67,6 +69,8 @@ export default function TOC({ slug }) {
   const [tree, setTree] = useState([]);
   // 当前活跃（视口中）的标题 id
   const [activeId, setActiveId] = useState(null);
+  // h2 折叠状态：{ [h2Id]: true } 表示已折叠（隐藏 h3 子项）
+  const [collapsed, setCollapsed] = useState({});
 
   // ============================================================
   // 提取标题 & 建立 IntersectionObserver
@@ -125,6 +129,10 @@ export default function TOC({ slug }) {
     }
   }, []);
 
+  const toggleCollapse = useCallback((h2Id) => {
+    setCollapsed((prev) => ({ ...prev, [h2Id]: !prev[h2Id] }));
+  }, []);
+
   // ============================================================
   // 无标题时不渲染
   // ============================================================
@@ -144,9 +152,13 @@ export default function TOC({ slug }) {
             <li key={h2.id}>
               {/* h2 标题项 */}
               <button
-                onClick={() => handleClick(h2.id)}
+                onClick={() =>
+                  h2.children.length > 0
+                    ? toggleCollapse(h2.id)
+                    : handleClick(h2.id)
+                }
                 className={`
-                  block w-full py-1 pl-3 pr-2 text-left text-sm transition-colors
+                  block w-full py-1 pl-3 pr-2 text-left text-sm transition-all duration-200
                   border-l-2 -ml-px
                   ${
                     activeId === h2.id
@@ -155,31 +167,52 @@ export default function TOC({ slug }) {
                   }
                 `}
               >
-                {h2.text}
+                <span className="inline-flex items-center gap-1">
+                  {h2.children.length > 0 && (
+                    <svg
+                      className={`inline h-3 w-3 shrink-0 transition-transform duration-200 ${collapsed[h2.id] ? "-rotate-90" : ""}`}
+                      viewBox="0 0 12 12"
+                    >
+                      <path
+                        d="M3 5l3 3 3-3"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        fill="none"
+                      />
+                    </svg>
+                  )}
+                  {h2.text}
+                </span>
               </button>
 
-              {/* h3 子标题（缩进） */}
+              {/* h3 子标题（可折叠） */}
               {h2.children.length > 0 && (
-                <ul className="space-y-1">
-                  {h2.children.map((h3) => (
-                    <li key={h3.id}>
-                      <button
-                        onClick={() => handleClick(h3.id)}
-                        className={`
-                          block w-full py-1 pl-6 pr-2 text-left text-sm transition-colors
-                          border-l-2 -ml-px
-                          ${
-                            activeId === h3.id
-                              ? "border-indigo-500 text-indigo-600 font-bold dark:text-indigo-400"
-                              : "border-transparent text-gray-500 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-300"
-                          }
-                        `}
-                      >
-                        {h3.text}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
+                <div
+                  className={`overflow-hidden transition-all duration-300 ${
+                    collapsed[h2.id] ? "max-h-0" : "max-h-96"
+                  }`}
+                >
+                  <ul className="space-y-1">
+                    {h2.children.map((h3) => (
+                      <li key={h3.id}>
+                        <button
+                          onClick={() => handleClick(h3.id)}
+                          className={`
+                            block w-full py-1 pl-6 pr-2 text-left text-sm transition-all duration-200
+                            border-l-2 -ml-px
+                            ${
+                              activeId === h3.id
+                                ? "border-indigo-500 text-indigo-600 font-bold dark:text-indigo-400"
+                                : "border-transparent text-gray-500 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-300"
+                            }
+                          `}
+                        >
+                          {h3.text}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               )}
             </li>
           ))}

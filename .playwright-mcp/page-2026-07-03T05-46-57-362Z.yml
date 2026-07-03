@@ -1,0 +1,133 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "yxshan's Blog" [ref=e6] [cursor=pointer]:
+        - /url: /blog
+      - generic [ref=e7]:
+        - button "搜索" [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+        - button "切换到暗色模式" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+  - link "跳到正文" [ref=e14] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e15]:
+    - generic [ref=e17]:
+      - article [ref=e18]:
+        - generic [ref=e19]:
+          - heading "两数之和" [level=1] [ref=e20]
+          - generic [ref=e21]:
+            - time [ref=e22]: 2026-07-01
+            - generic [ref=e23]: ·
+            - generic [ref=e24]: 约 3 分钟
+          - generic [ref=e25]:
+            - link "简单" [ref=e26] [cursor=pointer]:
+              - /url: /blog?tag=%E7%AE%80%E5%8D%95
+            - link "哈希表" [ref=e27] [cursor=pointer]:
+              - /url: /blog?tag=%E5%93%88%E5%B8%8C%E8%A1%A8
+            - link "数组" [ref=e28] [cursor=pointer]:
+              - /url: /blog?tag=%E6%95%B0%E7%BB%84
+        - generic [ref=e29]:
+          - heading "[1] 两数之和" [level=1] [ref=e30]
+          - heading "题目信息" [level=2] [ref=e31]
+          - paragraph [ref=e32]:
+            - link "题目链接 ↗" [ref=e33] [cursor=pointer]:
+              - /url: https://leetcode.cn/problems/two-sum/
+              - text: 题目链接
+              - generic [ref=e34]: ↗
+          - paragraph [ref=e35]:
+            - generic [ref=e36]: "#简单"
+            - generic [ref=e37]: "#哈希表"
+            - generic [ref=e38]: "#数组"
+          - blockquote [ref=e39]:
+            - paragraph [ref=e40]: 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出和为目标值 target 的那两个整数，并返回它们的数组下标。
+            - paragraph [ref=e41]: 数据范围：2 <= nums.length <= 10^4 要求：时间复杂度 O(n)，空间复杂度 O(n)
+          - heading "解题思路" [level=2] [ref=e42]
+          - heading "方法一：哈希表" [level=3] [ref=e43]
+          - list [ref=e44]:
+            - listitem [ref=e45]:
+              - paragraph [ref=e46]:
+                - strong [ref=e47]: 核心思想
+                - text: ：遍历数组，用哈希表存储已访问元素的值和下标。
+              - list [ref=e48]:
+                - listitem [ref=e49]: 要点1：检查 target - nums[i] 是否在表中
+                - listitem [ref=e50]: 要点2：若存在则返回 [map.get(target - nums[i]), i]
+            - listitem [ref=e51]:
+              - paragraph [ref=e52]:
+                - strong [ref=e53]: 步骤图解
+                - text: ：
+              - generic [ref=e54]:
+                - generic [ref=e55]:
+                  - generic [ref=e56]: text
+                  - button "复制" [ref=e57] [cursor=pointer]:
+                    - img [ref=e58]
+                    - generic [ref=e61]: 复制
+                - code [ref=e64]: 遍历 i=0..n-1 -> 计算 complement = target - nums[i] -> 查询哈希表 - 存在 -> 返回结果 - 不存在 -> 将 (nums[i], i) 存入哈希表
+            - listitem [ref=e65]:
+              - paragraph [ref=e66]:
+                - strong [ref=e67]: 关键点
+                - text: ：
+              - list [ref=e68]:
+                - listitem [ref=e69]: 哈希表查询 O(1) 是性能关键
+                - listitem [ref=e70]: 一次遍历完成，避免二次循环
+            - listitem [ref=e71]:
+              - paragraph [ref=e72]:
+                - strong [ref=e73]: 边界处理
+                - text: ：
+              - list [ref=e74]:
+                - listitem [ref=e75]: 数组长度为2的最小情况 → 直接返回两个下标
+                - listitem [ref=e76]: 存在多组解时只需返回第一组
+          - heading "代码实现" [level=2] [ref=e77]
+          - heading "方法一" [level=3] [ref=e78]
+          - generic [ref=e79]:
+            - generic [ref=e80]:
+              - generic [ref=e81]: C
+              - button "复制" [ref=e82] [cursor=pointer]:
+                - img [ref=e83]
+                - generic [ref=e86]: 复制
+            - code [ref=e89]: "/** * Note: The returned array must be malloced, assume caller calls free(). */ int* twoSum(int* nums, int numsSize, int target, int* returnSize) { // 假设哈希表已实现 int* result = (int*)malloc(2 * sizeof(int)); // ... 哈希表操作 return result; }"
+          - paragraph [ref=e90]: 时间复杂度：O(n) 空间复杂度：O(n)
+          - heading "易错点" [level=2] [ref=e91]
+          - table [ref=e92]:
+            - rowgroup [ref=e93]:
+              - row "序号 易错点 正确做法" [ref=e94]:
+                - columnheader "序号" [ref=e95]
+                - columnheader "易错点" [ref=e96]
+                - columnheader "正确做法" [ref=e97]
+            - rowgroup [ref=e98]:
+              - row "1 忘记处理返回数组内存分配 需使用 malloc 分配，并设置 returnSize" [ref=e99]:
+                - cell "1" [ref=e100]
+                - cell "忘记处理返回数组内存分配" [ref=e101]
+                - cell "需使用 malloc 分配，并设置 returnSize" [ref=e102]
+              - row "2 哈希表未处理冲突 使用链地址法或开放寻址法" [ref=e103]:
+                - cell "2" [ref=e104]
+                - cell "哈希表未处理冲突" [ref=e105]
+                - cell "使用链地址法或开放寻址法" [ref=e106]
+          - heading "总结" [level=2] [ref=e107]
+          - list [ref=e108]:
+            - listitem [ref=e109]: 核心思想：空间换时间，用哈希表将查找时间从 O(n) 降为 O(1)
+            - listitem [ref=e110]: 方法对比：暴力法 O(n^2) vs 哈希表法 O(n)
+            - listitem [ref=e111]: 题目独立，不跨题总结
+        - paragraph [ref=e112]: 最后更新于 2 天前
+        - generic [ref=e113]:
+          - navigation [ref=e114]:
+            - link "上一篇 反转链表（BM1/BM2/BM3）" [ref=e115] [cursor=pointer]:
+              - /url: /blog/posts/algorithm/reverse-linked-list
+              - img [ref=e116]
+              - generic [ref=e118]:
+                - generic [ref=e119]: 上一篇
+                - generic [ref=e120]: 反转链表（BM1/BM2/BM3）
+          - generic [ref=e121]:
+            - heading "相关文章" [level=3] [ref=e122]
+            - list [ref=e123]:
+              - listitem [ref=e124]:
+                - link "反转链表（BM1/BM2/BM3） 2026-07-03" [ref=e125] [cursor=pointer]:
+                  - /url: /blog/posts/algorithm/reverse-linked-list
+                  - generic [ref=e126]: 反转链表（BM1/BM2/BM3）
+                  - time [ref=e127]: 2026-07-03
+      - complementary [ref=e128]
+    - button "返回顶部":
+      - img
+  - contentinfo [ref=e129]:
+    - generic [ref=e130]:
+      - paragraph [ref=e131]: © 2026 yxshan's Blog
+      - paragraph [ref=e132]: Built with React + Vite

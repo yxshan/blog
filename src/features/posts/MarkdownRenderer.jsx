@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { marked } from "marked";
 import hljs from "highlight.js";
+window.hljs = hljs; // highlightjs-line-numbers.js 需要全局 hljs
 import { ClipboardIcon } from "@heroicons/react/24/outline";
+import markedKatex from "marked-katex-extension";
 import "highlight.js/styles/github.css";
+import "highlightjs-line-numbers.js";
 
 // 配置 marked：GFM + 代码高亮
 marked.setOptions({
@@ -14,7 +17,20 @@ marked.setOptions({
     }
     return hljs.highlightAuto(code).value;
   },
+  renderer: {
+    heading({ tokens, depth }) {
+      const text = this.parser.parseInline(tokens);
+      const id = text
+        .toLowerCase()
+        .replace(/[^\w\u4e00-\u9fff]+/g, "-")
+        .replace(/(^-|-$)/g, "");
+      return `<h${depth} id="${id}">${text}</h${depth}>`;
+    },
+  },
 });
+
+// 数学公式：$...$ 内联，$$...$$ 块级
+marked.use(markedKatex({ throwOnError: false, nonStandard: true }));
 
 /**
  * 给单个代码块添加顶栏（语言标签 + 复制按钮）
@@ -43,6 +59,12 @@ function enhanceCodeBlock(block, lang) {
 
   // 替换原始 pre 元素
   block.parentElement.replaceChild(wrapper, block);
+
+  // 启用行号
+  const codeEl = wrapper.querySelector("code.hljs");
+  if (codeEl) {
+    hljs.lineNumbersBlock(codeEl, { startFrom: 1 });
+  }
 
   // 复制按钮事件
   const copyBtn = header.querySelector(".copy-btn");
