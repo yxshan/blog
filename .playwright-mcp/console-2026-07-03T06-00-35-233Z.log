@@ -9,3 +9,13 @@
 [   26191ms] [LOG] [posts] /posts/algorithm/002-reverse-linked-list/index.md → slug: algorithm/reverse-linked-list @ http://localhost:4401/blog/assets/index-BX4Ezii7.js:596
 [   26191ms] [LOG] [posts] /posts/algorithm/001-two-sum/index.md → slug: algorithm/two-sum @ http://localhost:4401/blog/assets/index-BX4Ezii7.js:596
 [   26191ms] [LOG] [posts] /posts/algorithm/002-reverse-linked-list/index.md → slug: algorithm/reverse-linked-list @ http://localhost:4401/blog/assets/index-BX4Ezii7.js:596
+[  100919ms] [LOG] [posts] 已扫描到文章: 2 篇 @ http://localhost:4401/blog/assets/index-ChSxcLxZ.js:596
+[  100950ms] [LOG] [posts] /posts/algorithm/001-two-sum/index.md → slug: algorithm/two-sum @ http://localhost:4401/blog/assets/index-ChSxcLxZ.js:596
+[  100951ms] [LOG] [posts] /posts/algorithm/002-reverse-linked-list/index.md → slug: algorithm/reverse-linked-list @ http://localhost:4401/blog/assets/index-ChSxcLxZ.js:596
+[  100951ms] [LOG] [posts] /posts/algorithm/001-two-sum/index.md → slug: algorithm/two-sum @ http://localhost:4401/blog/assets/index-ChSxcLxZ.js:596
+[  100951ms] [LOG] [posts] /posts/algorithm/002-reverse-linked-list/index.md → slug: algorithm/reverse-linked-list @ http://localhost:4401/blog/assets/index-ChSxcLxZ.js:596
+[  225582ms] [LOG] [posts] 已扫描到文章: 2 篇 @ http://localhost:4401/blog/assets/index-BF4qlFDT.js:596
+[  225614ms] [LOG] [posts] /posts/algorithm/001-two-sum/index.md → slug: algorithm/two-sum @ http://localhost:4401/blog/assets/index-BF4qlFDT.js:596
+[  225614ms] [LOG] [posts] /posts/algorithm/002-reverse-linked-list/index.md → slug: algorithm/reverse-linked-list @ http://localhost:4401/blog/assets/index-BF4qlFDT.js:596
+[  225615ms] [LOG] [posts] /posts/algorithm/001-two-sum/index.md → slug: algorithm/two-sum @ http://localhost:4401/blog/assets/index-BF4qlFDT.js:596
+[  225615ms] [LOG] [posts] /posts/algorithm/002-reverse-linked-list/index.md → slug: algorithm/reverse-linked-list @ http://localhost:4401/blog/assets/index-BF4qlFDT.js:596

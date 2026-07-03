@@ -139,25 +139,23 @@ export default function TOC({ slug }) {
   if (tree.length === 0) return null;
 
   return (
-    <nav aria-label="文章目录" className="hidden lg:block">
-      <div className="sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto">
-        {/* 目录标题 */}
-        <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-          目录
-        </h3>
+    <nav aria-label="文章目录">
+      <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+        目录
+      </h3>
 
-        {/* 嵌套标题列表 */}
-        <ul className="space-y-1 border-l border-gray-200 dark:border-gray-700">
-          {tree.map((h2) => (
-            <li key={h2.id}>
-              {/* h2 标题项 */}
-              <button
-                onClick={() =>
-                  h2.children.length > 0
-                    ? toggleCollapse(h2.id)
-                    : handleClick(h2.id)
-                }
-                className={`
+      {/* 嵌套标题列表 */}
+      <ul className="space-y-1 border-l border-gray-200 dark:border-gray-700">
+        {tree.map((h2) => (
+          <li key={h2.id}>
+            {/* h2 标题项 */}
+            <button
+              onClick={() =>
+                h2.children.length > 0
+                  ? toggleCollapse(h2.id)
+                  : handleClick(h2.id)
+              }
+              className={`
                   block w-full py-1 pl-3 pr-2 text-left text-sm transition-all duration-200
                   border-l-2 -ml-px
                   ${
@@ -166,38 +164,38 @@ export default function TOC({ slug }) {
                       : "border-transparent text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
                   }
                 `}
-              >
-                <span className="inline-flex items-center gap-1">
-                  {h2.children.length > 0 && (
-                    <svg
-                      className={`inline h-3 w-3 shrink-0 transition-transform duration-200 ${collapsed[h2.id] ? "-rotate-90" : ""}`}
-                      viewBox="0 0 12 12"
-                    >
-                      <path
-                        d="M3 5l3 3 3-3"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        fill="none"
-                      />
-                    </svg>
-                  )}
-                  {h2.text}
-                </span>
-              </button>
+            >
+              <span className="inline-flex items-center gap-1">
+                {h2.children.length > 0 && (
+                  <svg
+                    className={`inline h-3 w-3 shrink-0 transition-transform duration-200 ${collapsed[h2.id] ? "-rotate-90" : ""}`}
+                    viewBox="0 0 12 12"
+                  >
+                    <path
+                      d="M3 5l3 3 3-3"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      fill="none"
+                    />
+                  </svg>
+                )}
+                {h2.text}
+              </span>
+            </button>
 
-              {/* h3 子标题（可折叠） */}
-              {h2.children.length > 0 && (
-                <div
-                  className={`overflow-hidden transition-all duration-300 ${
-                    collapsed[h2.id] ? "max-h-0" : "max-h-96"
-                  }`}
-                >
-                  <ul className="space-y-1">
-                    {h2.children.map((h3) => (
-                      <li key={h3.id}>
-                        <button
-                          onClick={() => handleClick(h3.id)}
-                          className={`
+            {/* h3 子标题（可折叠） */}
+            {h2.children.length > 0 && (
+              <div
+                className={`overflow-hidden transition-all duration-300 ${
+                  collapsed[h2.id] ? "max-h-0" : "max-h-96"
+                }`}
+              >
+                <ul className="space-y-1">
+                  {h2.children.map((h3) => (
+                    <li key={h3.id}>
+                      <button
+                        onClick={() => handleClick(h3.id)}
+                        className={`
                             block w-full py-1 pl-6 pr-2 text-left text-sm transition-all duration-200
                             border-l-2 -ml-px
                             ${
@@ -206,18 +204,17 @@ export default function TOC({ slug }) {
                                 : "border-transparent text-gray-500 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-300"
                             }
                           `}
-                        >
-                          {h3.text}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
+                      >
+                        {h3.text}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
     </nav>
   );
 }
