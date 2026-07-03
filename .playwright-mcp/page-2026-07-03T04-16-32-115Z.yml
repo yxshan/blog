@@ -1,0 +1,23 @@
+- generic [ref=f82e3]:
+  - banner [ref=f82e4]:
+    - generic [ref=f82e5]:
+      - link "yxshan's Blog" [ref=f82e6] [cursor=pointer]:
+        - /url: "#/"
+      - generic [ref=f82e7]:
+        - button "搜索" [ref=f82e8] [cursor=pointer]:
+          - img [ref=f82e9]
+        - button "切换到暗色模式" [ref=f82e11] [cursor=pointer]:
+          - img [ref=f82e12]
+  - link "跳到正文" [ref=f82e14] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=f82e15]:
+    - generic [ref=f82e55]:
+      - heading "404" [level=1] [ref=f82e56]
+      - paragraph [ref=f82e57]: 页面未找到
+      - paragraph [ref=f82e58]: 你访问的页面不存在或已被移除
+      - link "返回首页" [ref=f82e59] [cursor=pointer]:
+        - /url: "#/"
+  - contentinfo [ref=f82e51]:
+    - generic [ref=f82e52]:
+      - paragraph [ref=f82e53]: © 2026 yxshan's Blog
+      - paragraph [ref=f82e54]: Built with React + Vite

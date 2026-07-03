@@ -10,6 +10,7 @@ const postModules = import.meta.glob("/posts/**/index.md", {
   import: "default",
   eager: true,
 });
+console.log("[posts] 已扫描到文章:", Object.keys(postModules).length, "篇");
 
 // ============================================================
 // 工具函数
