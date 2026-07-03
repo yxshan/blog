@@ -1,6 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { Buffer } from "buffer";
 import App from "./App";
+
+// Node.js Buffer polyfill — gray-matter 在浏览器端需要
+globalThis.Buffer = Buffer;
+globalThis.global = globalThis;
 
 // 全局样式 — 顺序很重要
 import "./index.css"; // TailwindCSS base/components/utilities
