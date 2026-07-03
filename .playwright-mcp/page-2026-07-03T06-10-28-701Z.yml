@@ -1,0 +1,787 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "yxshan's Blog" [ref=e6] [cursor=pointer]:
+        - /url: /blog
+      - generic [ref=e7]:
+        - button "搜索" [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+        - button "切换到暗色模式" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+  - link "跳到正文" [ref=e14] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e15]:
+    - generic [ref=e17]:
+      - article [ref=e18]:
+        - generic [ref=e19]:
+          - heading "反转链表（BM1/BM2/BM3）" [level=1] [ref=e20]
+          - generic [ref=e21]:
+            - time [ref=e22]: 2026-07-03
+            - generic [ref=e23]: ·
+            - generic [ref=e24]: 约 7 分钟
+          - generic [ref=e25]:
+            - link "简单" [ref=e26] [cursor=pointer]:
+              - /url: /blog?tag=%E7%AE%80%E5%8D%95
+            - link "中等" [ref=e27] [cursor=pointer]:
+              - /url: /blog?tag=%E4%B8%AD%E7%AD%89
+            - link "链表" [ref=e28] [cursor=pointer]:
+              - /url: /blog?tag=%E9%93%BE%E8%A1%A8
+            - link "反转" [ref=e29] [cursor=pointer]:
+              - /url: /blog?tag=%E5%8F%8D%E8%BD%AC
+            - link "区间" [ref=e30] [cursor=pointer]:
+              - /url: /blog?tag=%E5%8C%BA%E9%97%B4
+        - generic [ref=e31]:
+          - heading "题目信息" [level=2] [ref=e32]
+          - paragraph [ref=e33]:
+            - link "BM1 反转链表 ↗" [ref=e34] [cursor=pointer]:
+              - /url: https://www.nowcoder.com/practice/75e878df47f24fdc9dc3e400ec6058ca?tpId=295&tqId=23286&sourceUrl=%2Fexam%2Foj%3FquestionJobId%3D166%26subTabName%3Donline_coding_page
+              - text: BM1 反转链表
+              - generic [ref=e35]: ↗
+          - paragraph [ref=e36]:
+            - generic [ref=e37]: "#简单"
+            - generic [ref=e38]: "#链表"
+            - generic [ref=e39]: "#反转"
+          - blockquote [ref=e40]:
+            - paragraph [ref=e41]: 给定一个单链表的头结点pHead(该头节点是有值的，比如在下图，它的val是1)，长度为n，反转该链表后，返回新链表的表头。
+            - paragraph [ref=e42]: 数据范围： 0≤n≤1000 要求：空间复杂度 O(1)，时间复杂度 O(n) 。
+          - heading "解题思路" [level=2] [ref=e43]
+          - heading "三指针迭代法（标准解法）" [level=3] [ref=e44]
+          - list [ref=e45]:
+            - listitem [ref=e46]:
+              - paragraph [ref=e47]:
+                - strong [ref=e48]: 核心思想
+                - text: ：遍历原链表，逐个改变指针方向
+              - list [ref=e49]:
+                - listitem [ref=e50]:
+                  - text: 用
+                  - code [ref=e51]: pre
+                  - text: 指向已反转部分的头（初始为 NULL）
+                - listitem [ref=e52]:
+                  - text: 用
+                  - code [ref=e53]: cur
+                  - text: 指向当前处理的节点（初始为 head）
+                - listitem [ref=e54]:
+                  - text: 用
+                  - code [ref=e55]: tmp
+                  - text: 暂存
+                  - code [ref=e56]: cur->next
+                  - text: ，防止断链
+            - listitem [ref=e57]:
+              - paragraph [ref=e58]:
+                - strong [ref=e59]: 步骤图解
+                - text: ：
+              - generic [ref=e60]:
+                - generic [ref=e61]:
+                  - generic [ref=e62]: text
+                  - button "复制" [ref=e63] [cursor=pointer]:
+                    - img [ref=e64]
+                    - generic [ref=e67]: 复制
+                - code [ref=e70]: 原始：head → 1 → 2 → 3 → NULL pre=NULL cur=1 第一步：tmp=2, 1→NULL, pre=1, cur=2 第二步：tmp=3, 2→1, pre=2, cur=3 第三步：tmp=NULL, 3→2, pre=3, cur=NULL 结束：return pre → 3 → 2 → 1 → NULL
+            - listitem [ref=e71]:
+              - paragraph [ref=e72]:
+                - strong [ref=e73]: 关键点
+                - text: ：
+              - list [ref=e74]:
+                - listitem [ref=e75]:
+                  - text: 必须先保存
+                  - code [ref=e76]: cur->next
+                  - text: ，否则转向后丢失后续节点
+                - listitem [ref=e77]:
+                  - text: 返回的是
+                  - code [ref=e78]: pre
+                  - text: （反转后的新头），不是
+                  - code [ref=e79]: cur
+                  - text: （此时为 NULL）
+            - listitem [ref=e80]:
+              - paragraph [ref=e81]:
+                - strong [ref=e82]: 边界处理
+                - text: ：
+              - list [ref=e83]:
+                - listitem [ref=e84]: 链表为空：直接返回 NULL
+                - listitem [ref=e85]:
+                  - text: 单节点链表：循环不执行，
+                  - code [ref=e86]: pre
+                  - text: 指向唯一节点，正确
+          - heading "递归法（理解用）" [level=3] [ref=e87]
+          - paragraph [ref=e88]: 递归到尾节点后逐层反转。空间复杂度 O(n)（递归栈），不满足题目 O(1) 要求，仅作理解。
+          - heading "代码实现" [level=2] [ref=e89]
+          - generic [ref=e90]:
+            - generic [ref=e91]:
+              - generic [ref=e92]: C
+              - button "复制" [ref=e93] [cursor=pointer]:
+                - img [ref=e94]
+                - generic [ref=e97]: 复制
+            - code [ref=e100]:
+              - generic [ref=e101]: /**
+              - generic [ref=e102]: "* struct ListNode {"
+              - generic [ref=e103]: "* int val;"
+              - generic [ref=e104]: "* struct ListNode *next;"
+              - generic [ref=e105]: "* };"
+              - generic [ref=e106]: "*/"
+              - generic [ref=e108]: "struct ListNode* ReverseList(struct ListNode* head) {"
+              - generic [ref=e109]: // 空链表直接返回
+              - generic [ref=e110]: "if (head == NULL) {"
+              - generic [ref=e111]: return NULL;
+              - generic [ref=e112]: "}"
+              - generic [ref=e114]: struct ListNode* pre = NULL; // 已反转部分的头节点
+              - generic [ref=e115]: struct ListNode* cur = head; // 当前处理的节点
+              - generic [ref=e117]: "while (cur != NULL) {"
+              - generic [ref=e118]: struct ListNode* tmp = cur->next; // ★ 先暂存后继，防止断链
+              - generic [ref=e119]: cur->next = pre; // 反转指针方向
+              - generic [ref=e120]: pre = cur; // pre 前移
+              - generic [ref=e121]: cur = tmp; // cur 前移
+              - generic [ref=e122]: "}"
+              - generic [ref=e124]: return pre; // pre 即为新链表的头（cur 此时为 NULL）
+              - generic [ref=e125]: "}"
+          - paragraph [ref=e127]: 时间复杂度：O(n) 空间复杂度：O(1)
+          - heading "易错点" [level=2] [ref=e128]
+          - table [ref=e129]:
+            - rowgroup [ref=e130]:
+              - row "序号 易错点 正确做法" [ref=e131]:
+                - columnheader "序号" [ref=e132]
+                - columnheader "易错点" [ref=e133]
+                - columnheader "正确做法" [ref=e134]
+            - rowgroup [ref=e135]:
+              - row "1 返回 cur 而非 pre 循环结束时 cur == NULL，pre 才是新头" [ref=e136]:
+                - cell "1" [ref=e137]
+                - cell "返回 cur 而非 pre" [ref=e138]:
+                  - text: 返回
+                  - code [ref=e139]: cur
+                  - text: 而非
+                  - code [ref=e140]: pre
+                - cell "循环结束时 cur == NULL，pre 才是新头" [ref=e141]:
+                  - text: 循环结束时
+                  - code [ref=e142]: cur == NULL
+                  - text: ，
+                  - code [ref=e143]: pre
+                  - text: 才是新头
+              - row "2 忘记先保存 cur->next 先 tmp = cur->next，再 cur->next = pre，顺序不能反" [ref=e144]:
+                - cell "2" [ref=e145]
+                - cell "忘记先保存 cur->next" [ref=e146]:
+                  - text: 忘记先保存
+                  - code [ref=e147]: cur->next
+                - cell "先 tmp = cur->next，再 cur->next = pre，顺序不能反" [ref=e148]:
+                  - text: 先
+                  - code [ref=e149]: tmp = cur->next
+                  - text: ，再
+                  - code [ref=e150]: cur->next = pre
+                  - text: ，顺序不能反
+              - row "3 不处理空链表 开头判空 if (head == NULL) return NULL" [ref=e151]:
+                - cell "3" [ref=e152]
+                - cell "不处理空链表" [ref=e153]
+                - cell "开头判空 if (head == NULL) return NULL" [ref=e154]:
+                  - text: 开头判空
+                  - code [ref=e155]: if (head == NULL) return NULL
+          - heading "总结" [level=2] [ref=e156]
+          - list [ref=e157]:
+            - listitem [ref=e158]:
+              - strong [ref=e159]: 核心
+              - text: ：三指针
+              - code [ref=e160]: pre/cur/tmp
+              - text: 逐个反转指针方向，返回
+              - code [ref=e161]: pre
+            - listitem [ref=e162]:
+              - strong [ref=e163]: 关键
+              - text: ：先暂存后继再转向，避免断链
+          - heading "链表内指定区间反转" [level=1] [ref=e164]
+          - paragraph [ref=e165]:
+            - link "BM2 链表内指定区间反转 ↗" [ref=e166] [cursor=pointer]:
+              - /url: https://www.nowcoder.com/practice/b58434e200a648c589ca2063f1faf58c?tpId=295&tqId=654&sourceUrl=%2Fexam%2Foj%3FquestionJobId%3D166%26subTabName%3Donline_coding_page
+              - text: BM2 链表内指定区间反转
+              - generic [ref=e167]: ↗
+          - paragraph [ref=e168]:
+            - generic [ref=e169]: "#中等"
+            - generic [ref=e170]: "#链表"
+            - generic [ref=e171]: "#反转"
+            - generic [ref=e172]: "#区间"
+          - heading "题目信息" [level=2] [ref=e173]
+          - blockquote [ref=e174]:
+            - paragraph [ref=e175]:
+              - text: 将一个节点数为 size 链表 m 位置到 n 位置之间的
+              - strong [ref=e176]: 区间
+              - text: 反转，要求时间复杂度 O(n)，空间复杂度 O(1)。
+              - text: 例如：
+              - text: 给出的链表为 1→2→3→4→5→NULL, m=2,n=4
+              - text: 返回 1→4→3→2→5→NULL
+            - paragraph [ref=e177]: 数据范围： 链表长度 0<size≤1000，0<m≤n≤size，链表中每个节点的值满足 ∣val∣≤1000 要求：时间复杂度 O(n) ，空间复杂度 O(n) 进阶：时间复杂度 O(n)，空间复杂度 O(1)
+          - heading "解题思路" [level=2] [ref=e178]
+          - heading "直接反转法" [level=3] [ref=e179]
+          - list [ref=e180]:
+            - listitem [ref=e181]: 第一反应：暴力法 - 提取区间，反转，再插入 问题：需要额外空间，且断链麻烦
+            - listitem [ref=e182]:
+              - text: 优化思路：原地反转 关键点：
+              - list [ref=e183]:
+                - listitem [ref=e184]: 找到反转区间的前驱节点
+                - listitem [ref=e185]: 记录区间首尾
+                - listitem [ref=e186]: 反转区间内指针方向
+                - listitem [ref=e187]: 重新连接
+            - listitem [ref=e188]:
+              - text: 边界条件：
+              - list [ref=e189]:
+                - listitem [ref=e190]: m=n：直接返回
+                - listitem [ref=e191]: m=1：需要虚拟头节点
+                - listitem [ref=e192]: 链表为空或只有一个节点
+          - heading "头插法（推荐）" [level=3] [ref=e193]
+          - list [ref=e194]:
+            - listitem [ref=e195]:
+              - paragraph [ref=e196]:
+                - strong [ref=e197]: 核心思想
+                - text: ：不直接反转指针方向，而是把区间内每个节点逐个"拔出来"，插入到
+                - code [ref=e198]: pre
+                - text: 之后（即区间头部）
+              - list [ref=e199]:
+                - listitem [ref=e200]:
+                  - code [ref=e201]: pre
+                  - text: 固定指向反转区间的前驱节点
+                - listitem [ref=e202]:
+                  - code [ref=e203]: cur
+                  - text: 固定指向反转区间的第一个节点（也是反转后的尾节点）
+                - listitem [ref=e204]:
+                  - text: 每次把
+                  - code [ref=e205]: cur->next
+                  - text: 从链上摘下，头插到
+                  - code [ref=e206]: pre
+                  - text: 之后
+            - listitem [ref=e207]:
+              - paragraph [ref=e208]:
+                - strong [ref=e209]: 步骤图解
+                - text: （m=2, n=4，1→2→3→4→5）：
+              - generic [ref=e210]:
+                - generic [ref=e211]:
+                  - generic [ref=e212]: text
+                  - button "复制" [ref=e213] [cursor=pointer]:
+                    - img [ref=e214]
+                    - generic [ref=e217]: 复制
+                - code [ref=e220]: 初始：dummy→1→2→3→4→5 pre=1, cur=2 i=2：摘3，插入pre后：1→3→2→4→5 i=3：摘4，插入pre后：1→4→3→2→5 结束：return 1→4→3→2→5
+            - listitem [ref=e221]:
+              - paragraph [ref=e222]:
+                - strong [ref=e223]: 关键点
+                - text: ：
+              - list [ref=e224]:
+                - listitem [ref=e225]:
+                  - text: 循环次数 =
+                  - code [ref=e226]: n - m
+                  - text: （不是
+                  - code [ref=e227]: n - m + 1
+                  - text: ）
+                - listitem [ref=e228]:
+                  - code [ref=e229]: cur
+                  - text: 始终不动，变的是它后面的节点一个个往前插
+                - listitem [ref=e230]:
+                  - text: 三步操作顺序不能乱：
+                  - code [ref=e231]: tmp=cur->next
+                  - text: →
+                  - code [ref=e232]: cur->next=tmp->next
+                  - text: →
+                  - code [ref=e233]: tmp->next=pre->next
+                  - text: →
+                  - code [ref=e234]: pre->next=tmp
+          - heading "代码实现" [level=2] [ref=e235]
+          - heading "直接反转法" [level=3] [ref=e236]
+          - generic [ref=e237]:
+            - generic [ref=e238]:
+              - generic [ref=e239]: C
+              - button "复制" [ref=e240] [cursor=pointer]:
+                - img [ref=e241]
+                - generic [ref=e244]: 复制
+            - code [ref=e247]:
+              - generic [ref=e248]: /**
+              - generic [ref=e249]: "* struct ListNode {"
+              - generic [ref=e250]: "* int val;"
+              - generic [ref=e251]: "* struct ListNode *next;"
+              - generic [ref=e252]: "* };"
+              - generic [ref=e253]: "*/"
+              - generic [ref=e255]: "struct ListNode* reverseBetween(struct ListNode* head, int m, int n) {"
+              - generic [ref=e256]: "if (m == n || head == NULL || head->next == NULL) {"
+              - generic [ref=e257]: return head;
+              - generic [ref=e258]: "}"
+              - generic [ref=e260]: // 使用虚拟头节点处理 m=1 的情况
+              - generic [ref=e261]: struct ListNode dummy;
+              - generic [ref=e262]: dummy.next = head;
+              - generic [ref=e263]: struct ListNode* prev = &dummy;
+              - generic [ref=e265]: // 找到 m 的前一个节点
+              - generic [ref=e266]: "for (int i = 1; i < m; i++) {"
+              - generic [ref=e267]: prev = prev->next;
+              - generic [ref=e268]: "}"
+              - generic [ref=e270]: // ★ 三指针：start(前驱) cur(区间首) end(区间尾)
+              - generic [ref=e271]: struct ListNode* start = prev; // 反转区间的前一个节点（不动）
+              - generic [ref=e272]: struct ListNode* cur = prev->next; // 反转区间的第一个节点
+              - generic [ref=e273]: struct ListNode* end = cur; // ★ 记住区间尾，反转后用于连接后续
+              - generic [ref=e274]: struct ListNode* pre = NULL;
+              - generic [ref=e276]: // 反转从 m 到 n 的节点（与 BM1 反转链表完全相同的逻辑）
+              - generic [ref=e277]: int count = n - m + 1; // 区间长度
+              - generic [ref=e278]: "while (count > 0 && cur != NULL) {"
+              - generic [ref=e279]: struct ListNode* next = cur->next; // 暂存后继
+              - generic [ref=e280]: cur->next = pre; // 反转指向
+              - generic [ref=e281]: pre = cur;
+              - generic [ref=e282]: cur = next;
+              - generic [ref=e283]: count--;
+              - generic [ref=e284]: "}"
+              - generic [ref=e286]: // ★ 重新连接：前驱→反转后头，反转后尾→剩余部分
+              - generic [ref=e287]: start->next = pre; // 例：1 → 4（反转后头）
+              - generic [ref=e288]: end->next = cur; // 例：2 → 5（剩余部分）
+              - generic [ref=e290]: return dummy.next;
+              - generic [ref=e291]: "}"
+          - paragraph [ref=e293]: 时间复杂度：O(n) 空间复杂度：O(1)
+          - heading "头插法（推荐）" [level=3] [ref=e294]
+          - generic [ref=e295]:
+            - generic [ref=e296]:
+              - generic [ref=e297]: C
+              - button "复制" [ref=e298] [cursor=pointer]:
+                - img [ref=e299]
+                - generic [ref=e302]: 复制
+            - code [ref=e305]:
+              - generic [ref=e306]: /**
+              - generic [ref=e307]: "* struct ListNode {"
+              - generic [ref=e308]: "* int val;"
+              - generic [ref=e309]: "* struct ListNode *next;"
+              - generic [ref=e310]: "* };"
+              - generic [ref=e311]: "*/"
+              - generic [ref=e313]: "struct ListNode* reverseBetween(struct ListNode* head, int m, int n) {"
+              - generic [ref=e314]: "if (m == n || head == NULL || head->next == NULL) {"
+              - generic [ref=e315]: return head;
+              - generic [ref=e316]: "}"
+              - generic [ref=e318]: struct ListNode dummy;
+              - generic [ref=e319]: dummy.next = head;
+              - generic [ref=e320]: struct ListNode* pre = &dummy;
+              - generic [ref=e322]: "for (int i = 1; i < m; i++) {"
+              - generic [ref=e323]: pre = pre->next;
+              - generic [ref=e324]: "}"
+              - generic [ref=e326]: struct ListNode* cur = pre->next; // cur 固定指向区间首节点（反转后的尾）★不动
+              - generic [ref=e328]: // 循环 n-m 次，每次把 cur->next 摘下来头插到 pre 后
+              - generic [ref=e329]: "for (int i = m; i < n; i++) {"
+              - generic [ref=e330]: struct ListNode* tmp = cur->next; // ★ 摘下待头插的节点
+              - generic [ref=e331]: cur->next = tmp->next; // cur 跳过 tmp，连接后续
+              - generic [ref=e332]: tmp->next = pre->next; // tmp 指向当前区间首节点
+              - generic [ref=e333]: pre->next = tmp; // pre 指向新的区间首节点
+              - generic [ref=e334]: "}"
+              - generic [ref=e336]: return dummy.next;
+              - generic [ref=e337]: "}"
+          - paragraph [ref=e339]: 时间复杂度：O(n) 空间复杂度：O(1)
+          - heading "易错点" [level=2] [ref=e340]
+          - table [ref=e341]:
+            - rowgroup [ref=e342]:
+              - row "序号 易错点 正确做法" [ref=e343]:
+                - columnheader "序号" [ref=e344]
+                - columnheader "易错点" [ref=e345]
+                - columnheader "正确做法" [ref=e346]
+            - rowgroup [ref=e347]:
+              - row "1 头插法循环次数写成 n-m+1 头插法只需 n-m 次（区间首节点不动，其余 n-m 个节点头插）" [ref=e348]:
+                - cell "1" [ref=e349]
+                - cell "头插法循环次数写成 n-m+1" [ref=e350]:
+                  - text: 头插法循环次数写成
+                  - code [ref=e351]: n-m+1
+                - cell "头插法只需 n-m 次（区间首节点不动，其余 n-m 个节点头插）" [ref=e352]:
+                  - text: 头插法只需
+                  - code [ref=e353]: n-m
+                  - text: 次（区间首节点不动，其余 n-m 个节点头插）
+              - row "2 头插法操作顺序颠倒 严格按照：摘(tmp=cur->next) → 跳过(cur->next=tmp->next) → 接前(tmp->next=pre->next) → 接后(pre->next=tmp)" [ref=e354]:
+                - cell "2" [ref=e355]
+                - cell "头插法操作顺序颠倒" [ref=e356]
+                - cell "严格按照：摘(tmp=cur->next) → 跳过(cur->next=tmp->next) → 接前(tmp->next=pre->next) → 接后(pre->next=tmp)" [ref=e357]
+              - row "3 忘记虚拟头节点处理 m=1 m=1 时 pre 需要指向 head 之前的节点，虚拟头节点统一处理" [ref=e358]:
+                - cell "3" [ref=e359]
+                - cell "忘记虚拟头节点处理 m=1" [ref=e360]
+                - cell "m=1 时 pre 需要指向 head 之前的节点，虚拟头节点统一处理" [ref=e361]
+              - row "4 区间反转后忘记重新连接 直接反转法必须 start->next=pre 和 end->next=cur 两步连接" [ref=e362]:
+                - cell "4" [ref=e363]
+                - cell "区间反转后忘记重新连接" [ref=e364]
+                - cell "直接反转法必须 start->next=pre 和 end->next=cur 两步连接" [ref=e365]:
+                  - text: 直接反转法必须
+                  - code [ref=e366]: start->next=pre
+                  - text: 和
+                  - code [ref=e367]: end->next=cur
+                  - text: 两步连接
+          - heading "总结" [level=2] [ref=e368]
+          - list [ref=e369]:
+            - listitem [ref=e370]:
+              - strong [ref=e371]: 直接反转法
+              - text: ：找前驱 → 三指针反转区间 → 重新连接首尾，逻辑与 BM1 相同
+            - listitem [ref=e372]:
+              - strong [ref=e373]: 头插法（推荐）
+              - text: ：
+              - code [ref=e374]: cur
+              - text: 不动，逐个摘
+              - code [ref=e375]: cur->next
+              - text: 头插到
+              - code [ref=e376]: pre
+              - text: 后，循环 n-m 次
+          - heading "链表中的节点每k个一组翻转" [level=1] [ref=e377]
+          - paragraph [ref=e378]:
+            - link "BM3 链表中的节点每k个一组翻转 ↗" [ref=e379] [cursor=pointer]:
+              - /url: https://www.nowcoder.com/practice/b49c3dc907814e9bbfa8437c251b028e?tpId=295&tqId=722&sourceUrl=%2Fexam%2Foj%3FquestionJobId%3D166%26subTabName%3Donline_coding_page
+              - text: BM3 链表中的节点每k个一组翻转
+              - generic [ref=e380]: ↗
+          - paragraph [ref=e381]:
+            - generic [ref=e382]: "#中等"
+            - generic [ref=e383]: "#链表"
+            - generic [ref=e384]: "#反转"
+            - generic [ref=e385]: "#区间"
+          - heading "题目信息" [level=2] [ref=e386]
+          - blockquote [ref=e387]:
+            - paragraph [ref=e388]:
+              - text: 将给出的链表中的节点每 k 个一组翻转，返回翻转后的链表
+              - text: 如果链表中的节点数不是 k 的倍数，将最后剩下的节点保持原样
+              - text: 你不能更改节点中的值，只能更改节点本身。
+            - paragraph [ref=e389]:
+              - text: 数据范围： 0≤n≤2000， 1≤k≤2000，链表中每个元素都满足 0≤val≤1000
+              - text: 要求空间复杂度 O(1)，时间复杂度 O(n)
+            - paragraph [ref=e390]: 例如： 给定的链表是 1→2→3→4→5 对于 k=2k=2 , 你应该返回 2→1→4→3→5 对于 k=3k=3 , 你应该返回 3→2→1→4→5
+          - heading "解题思路" [level=2] [ref=e391]
+          - heading "模拟法" [level=3] [ref=e392]
+          - list [ref=e393]:
+            - listitem [ref=e394]:
+              - paragraph [ref=e395]:
+                - strong [ref=e396]: 核心思想
+                - text: ：先计算链表总长度确定要反转几组（
+                - code [ref=e397]: groups = len / k
+                - text: ），然后逐组进行 k 个节点的反转，关键是用
+                - code [ref=e398]: groupStart
+                - text: 记住每组反转后的组尾，用于连接下一组
+              - list [ref=e399]:
+                - listitem [ref=e400]: 外层循环控制组数，内层循环反转每组 k 个节点
+                - listitem [ref=e401]:
+                  - text: 每反转完一组，连接
+                  - code [ref=e402]: pre→组头
+                  - text: 和
+                  - code [ref=e403]: 组尾→下一组首
+            - listitem [ref=e404]:
+              - paragraph [ref=e405]:
+                - strong [ref=e406]: 步骤图解
+                - text: （1→2→3→4→5, k=2）：
+              - generic [ref=e407]:
+                - generic [ref=e408]:
+                  - generic [ref=e409]: text
+                  - button "复制" [ref=e410] [cursor=pointer]:
+                    - img [ref=e411]
+                    - generic [ref=e414]: 复制
+                - code [ref=e417]: 初始：dummy→1→2→3→4→5 pre=&dummy, cur=1 第1组(g=0)： 反转[1,2]：prev=2→1, cur=3 连接：groupStart(1)→3, pre→2, pre更新为1 结果：dummy→2→1→3→4→5 第2组(g=1)： 反转[3,4]：prev=4→3, cur=5 连接：groupStart(3)→5, pre(1)→4, pre更新为3 结果：dummy→2→1→4→3→5 结束：return 2→1→4→3→5
+            - listitem [ref=e418]:
+              - paragraph [ref=e419]:
+                - strong [ref=e420]: 关键点
+                - text: ：
+              - list [ref=e421]:
+                - listitem [ref=e422]:
+                  - code [ref=e423]: groups = len / k
+                  - text: 确定循环次数，剩余不足 k 个的节点保持不动
+                - listitem [ref=e424]:
+                  - code [ref=e425]: groupStart
+                  - text: 是反转前的组首、反转后的组尾，用于
+                  - code [ref=e426]: groupStart->next = cur
+                  - text: 连接下一组
+                - listitem [ref=e427]:
+                  - text: 反转完一组后
+                  - code [ref=e428]: pre
+                  - text: 更新为
+                  - code [ref=e429]: groupStart
+                  - text: （当前组尾），为下一组做准备
+            - listitem [ref=e430]:
+              - paragraph [ref=e431]:
+                - strong [ref=e432]: 边界处理
+                - text: ：
+              - list [ref=e433]:
+                - listitem [ref=e434]: k ≤ 1 或链表为空：直接返回
+                - listitem [ref=e435]:
+                  - text: k 大于链表长度：
+                  - code [ref=e436]: groups = 0
+                  - text: ，不反转，直接返回
+                - listitem [ref=e437]:
+                  - text: 最后不足 k 个：
+                  - code [ref=e438]: groups
+                  - text: 已排除，不进入反转循环
+          - heading "递归法" [level=3] [ref=e439]
+          - list [ref=e440]:
+            - listitem [ref=e441]:
+              - paragraph [ref=e442]:
+                - strong [ref=e443]: 核心思想
+                - text: ：递归到子问题——先检查是否有 k 个节点，有则反转前 k 个，然后递归处理剩余链表
+              - list [ref=e444]:
+                - listitem [ref=e445]:
+                  - text: 反转后
+                  - code [ref=e446]: head
+                  - text: 变成组尾，
+                  - code [ref=e447]: head->next
+                  - text: 指向递归结果
+            - listitem [ref=e448]:
+              - paragraph [ref=e449]:
+                - strong [ref=e450]: 步骤图解
+                - text: （1→2→3→4→5, k=2）：
+              - generic [ref=e451]:
+                - generic [ref=e452]:
+                  - generic [ref=e453]: text
+                  - button "复制" [ref=e454] [cursor=pointer]:
+                    - img [ref=e455]
+                    - generic [ref=e458]: 复制
+                - code [ref=e461]: reverseKGroup(1→2→3→4→5)： 检查有≥2个 ✓，反转前2个：prev=2→1, cur=3 head(1)->next = reverseKGroup(3→4→5) 检查有≥2个 ✓，反转前2个：prev=4→3, cur=5 head(3)->next = reverseKGroup(5) 检查只有1个 < k，return 5 返回 4→3→5 返回 2→1→4→3→5
+            - listitem [ref=e462]:
+              - paragraph [ref=e463]:
+                - strong [ref=e464]: 关键点
+                - text: ：
+              - list [ref=e465]:
+                - listitem [ref=e466]: 反转前必须检查剩余节点数是否 ≥ k，不够直接返回 head
+                - listitem [ref=e467]:
+                  - text: 反转后
+                  - code [ref=e468]: head
+                  - text: 是组尾，
+                  - code [ref=e469]: head->next = reverseKGroup(cur, k)
+                  - text: 连接递归结果
+                - listitem [ref=e470]: 空间复杂度 O(n/k)（递归栈深度），不满足 O(1) 但代码简洁
+          - heading "代码实现" [level=2] [ref=e471]
+          - heading "模拟法" [level=3] [ref=e472]
+          - generic [ref=e473]:
+            - generic [ref=e474]:
+              - generic [ref=e475]: C
+              - button "复制" [ref=e476] [cursor=pointer]:
+                - img [ref=e477]
+                - generic [ref=e480]: 复制
+            - code [ref=e483]:
+              - generic [ref=e484]: "struct ListNode* reverseKGroup(struct ListNode* head, int k) {"
+              - generic [ref=e485]: // 边界：空链表或 k≤1 无需反转
+              - generic [ref=e486]: "if (head == NULL || k <= 1) {"
+              - generic [ref=e487]: return head;
+              - generic [ref=e488]: "}"
+              - generic [ref=e490]: // ★ 先计算链表长度，确定需要反转的组数
+              - generic [ref=e491]: struct ListNode* p = head;
+              - generic [ref=e492]: int len = 0;
+              - generic [ref=e493]: "while (p != NULL) {"
+              - generic [ref=e494]: len++;
+              - generic [ref=e495]: p = p->next;
+              - generic [ref=e496]: "}"
+              - generic [ref=e497]: int groups = len / k; // ★ 整除，不足 k 个的剩余节点不动
+              - generic [ref=e499]: // 虚拟头节点统一处理
+              - generic [ref=e500]: struct ListNode dummy;
+              - generic [ref=e501]: dummy.next = head;
+              - generic [ref=e502]: struct ListNode* pre = &dummy; // pre 指向当前组的前驱
+              - generic [ref=e503]: struct ListNode* cur = head; // cur 指向当前组首节点
+              - generic [ref=e505]: // ★ 外层循环：逐组反转
+              - generic [ref=e506]: "for (int g = 0; g < groups; g++) {"
+              - generic [ref=e507]: struct ListNode* groupStart = cur; // ★ 记住组首（反转后变成组尾）
+              - generic [ref=e509]: // 内层循环：三指针反转 k 个节点（与 BM1 相同逻辑）
+              - generic [ref=e510]: struct ListNode* prev = NULL;
+              - generic [ref=e511]: "for (int i = 0; i < k; i++) {"
+              - generic [ref=e512]: struct ListNode* next = cur->next; // 暂存后继
+              - generic [ref=e513]: cur->next = prev; // 反转指向
+              - generic [ref=e514]: prev = cur;
+              - generic [ref=e515]: cur = next;
+              - generic [ref=e516]: "}"
+              - generic [ref=e517]: // 此时：prev=组头，cur=下一组首节点，groupStart=组尾
+              - generic [ref=e519]: // ★ 连接前后组
+              - generic [ref=e520]: groupStart->next = cur; // 组尾 → 下一组首
+              - generic [ref=e521]: pre->next = prev; // 前驱 → 组头
+              - generic [ref=e522]: pre = groupStart; // ★ pre 移到当前组尾，为下一组做准备
+              - generic [ref=e523]: "}"
+              - generic [ref=e525]: return dummy.next;
+              - generic [ref=e526]: "}"
+          - paragraph [ref=e528]: 时间复杂度：O(n) 空间复杂度：O(1)
+          - heading "递归法" [level=3] [ref=e529]
+          - generic [ref=e530]:
+            - generic [ref=e531]:
+              - generic [ref=e532]: C
+              - button "复制" [ref=e533] [cursor=pointer]:
+                - img [ref=e534]
+                - generic [ref=e537]: 复制
+            - code [ref=e540]:
+              - generic [ref=e541]: "struct ListNode* reverseKGroup(struct ListNode* head, int k) {"
+              - generic [ref=e542]: // 边界：空链表或 k≤1 直接返回
+              - generic [ref=e543]: if (head == NULL || k <= 1) return head;
+              - generic [ref=e545]: // ★ 先检查剩余节点是否足够 k 个，不够则不反转
+              - generic [ref=e546]: struct ListNode* check = head;
+              - generic [ref=e547]: int count = 0;
+              - generic [ref=e548]: "while (check != NULL && count < k) {"
+              - generic [ref=e549]: check = check->next;
+              - generic [ref=e550]: count++;
+              - generic [ref=e551]: "}"
+              - generic [ref=e552]: if (count < k) return head; // 不足 k 个，保持原样
+              - generic [ref=e554]: // 三指针反转前 k 个节点（与 BM1 相同逻辑）
+              - generic [ref=e555]: struct ListNode* prev = NULL;
+              - generic [ref=e556]: struct ListNode* cur = head;
+              - generic [ref=e557]: "for (int i = 0; i < k; i++) {"
+              - generic [ref=e558]: struct ListNode* next = cur->next; // 暂存后继
+              - generic [ref=e559]: cur->next = prev; // 反转指向
+              - generic [ref=e560]: prev = cur;
+              - generic [ref=e561]: cur = next;
+              - generic [ref=e562]: "}"
+              - generic [ref=e563]: // 此时：prev=组头，cur=剩余链表首节点，head=组尾
+              - generic [ref=e565]: // ★ head 变成组尾，递归连接后续结果
+              - generic [ref=e566]: head->next = reverseKGroup(cur, k);
+              - generic [ref=e568]: return prev; // 返回组头
+              - generic [ref=e569]: "}"
+          - heading "易错点" [level=2] [ref=e571]
+          - table [ref=e572]:
+            - rowgroup [ref=e573]:
+              - row "序号 易错点 正确做法" [ref=e574]:
+                - columnheader "序号" [ref=e575]
+                - columnheader "易错点" [ref=e576]
+                - columnheader "正确做法" [ref=e577]
+            - rowgroup [ref=e578]:
+              - row "1 groups = len/k + 1 多算一组 groups = len/k，整除自动排除不足 k 个的尾巴" [ref=e579]:
+                - cell "1" [ref=e580]
+                - cell "groups = len/k + 1 多算一组" [ref=e581]:
+                  - code [ref=e582]: groups = len/k + 1
+                  - text: 多算一组
+                - cell "groups = len/k，整除自动排除不足 k 个的尾巴" [ref=e583]:
+                  - code [ref=e584]: groups = len/k
+                  - text: ，整除自动排除不足 k 个的尾巴
+              - row "2 反转后 pre 更新为 prev ★ pre 应更新为 groupStart（组尾），而非 prev（组头）" [ref=e585]:
+                - cell "2" [ref=e586]
+                - cell "反转后 pre 更新为 prev" [ref=e587]:
+                  - text: 反转后
+                  - code [ref=e588]: pre
+                  - text: 更新为
+                  - code [ref=e589]: prev
+                - cell "★ pre 应更新为 groupStart（组尾），而非 prev（组头）" [ref=e590]:
+                  - text: ★
+                  - code [ref=e591]: pre
+                  - text: 应更新为
+                  - code [ref=e592]: groupStart
+                  - text: （组尾），而非
+                  - code [ref=e593]: prev
+                  - text: （组头）
+              - row "3 忘记 groupStart->next = cur 反转后组尾必须连接下一组首，否则断链" [ref=e594]:
+                - cell "3" [ref=e595]
+                - cell "忘记 groupStart->next = cur" [ref=e596]:
+                  - text: 忘记
+                  - code [ref=e597]: groupStart->next = cur
+                - cell "反转后组尾必须连接下一组首，否则断链" [ref=e598]
+              - row "4 递归中 head->next 连接错误 ★ head 是组尾，head->next = reverseKGroup(cur, k)，不是 prev->next" [ref=e599]:
+                - cell "4" [ref=e600]
+                - cell "递归中 head->next 连接错误" [ref=e601]:
+                  - text: 递归中
+                  - code [ref=e602]: head->next
+                  - text: 连接错误
+                - cell "★ head 是组尾，head->next = reverseKGroup(cur, k)，不是 prev->next" [ref=e603]:
+                  - text: ★
+                  - code [ref=e604]: head
+                  - text: 是组尾，
+                  - code [ref=e605]: head->next = reverseKGroup(cur, k)
+                  - text: ，不是
+                  - code [ref=e606]: prev->next
+              - row "5 递归忘记先检查剩余节点数 必须检查 count < k 直接返回，否则会越界" [ref=e607]:
+                - cell "5" [ref=e608]
+                - cell "递归忘记先检查剩余节点数" [ref=e609]
+                - cell "必须检查 count < k 直接返回，否则会越界" [ref=e610]:
+                  - text: 必须检查
+                  - code [ref=e611]: count < k
+                  - text: 直接返回，否则会越界
+          - heading "总结" [level=2] [ref=e612]
+          - list [ref=e613]:
+            - listitem [ref=e614]:
+              - strong [ref=e615]: 模拟法
+              - text: ：算长度定组数 → 逐组三指针反转 k 个 →
+              - code [ref=e616]: groupStart
+              - text: 连接前后，空间 O(1)
+            - listitem [ref=e617]:
+              - strong [ref=e618]: 递归法
+              - text: ：检查→反转前 k 个→
+              - code [ref=e619]: head->next
+              - text: 递归连接，代码简洁但空间 O(n/k)
+            - listitem [ref=e620]:
+              - strong [ref=e621]: 与 BM1/BM2 关系
+              - text: ：BM1 反转整个链表（k=n），BM2 反转一个区间，BM3 是多个定长区间的组合
+        - paragraph [ref=e622]: 最后更新于今天
+        - generic [ref=e623]:
+          - navigation [ref=e624]:
+            - link "下一篇 两数之和" [ref=e625] [cursor=pointer]:
+              - /url: /blog/posts/algorithm/two-sum
+              - generic [ref=e626]:
+                - generic [ref=e627]: 下一篇
+                - generic [ref=e628]: 两数之和
+              - img [ref=e629]
+          - generic [ref=e631]:
+            - heading "相关文章" [level=3] [ref=e632]
+            - list [ref=e633]:
+              - listitem [ref=e634]:
+                - link "两数之和 2026-07-01" [ref=e635] [cursor=pointer]:
+                  - /url: /blog/posts/algorithm/two-sum
+                  - generic [ref=e636]: 两数之和
+                  - time [ref=e637]: 2026-07-01
+      - complementary [ref=e638]:
+        - navigation "文章目录" [ref=e640]:
+          - heading "目录" [level=3] [ref=e641]
+          - list [ref=e642]:
+            - listitem [ref=e643]:
+              - button "题目信息" [ref=e644] [cursor=pointer]:
+                - generic [ref=e645]: 题目信息
+            - listitem [ref=e646]:
+              - button "解题思路" [ref=e647] [cursor=pointer]:
+                - generic [ref=e648]:
+                  - img [ref=e649]
+                  - text: 解题思路
+              - list [ref=e652]:
+                - listitem [ref=e653]:
+                  - button "三指针迭代法（标准解法）" [ref=e654] [cursor=pointer]
+                - listitem [ref=e655]:
+                  - button "递归法（理解用）" [ref=e656] [cursor=pointer]
+            - listitem [ref=e657]:
+              - button "代码实现" [ref=e658] [cursor=pointer]:
+                - generic [ref=e659]: 代码实现
+            - listitem [ref=e660]:
+              - button "易错点" [ref=e661] [cursor=pointer]:
+                - generic [ref=e662]: 易错点
+            - listitem [ref=e663]:
+              - button "总结" [ref=e664] [cursor=pointer]:
+                - generic [ref=e665]: 总结
+            - listitem [ref=e666]:
+              - button "题目信息" [ref=e667] [cursor=pointer]:
+                - generic [ref=e668]: 题目信息
+            - listitem [ref=e669]:
+              - button "解题思路" [ref=e670] [cursor=pointer]:
+                - generic [ref=e671]:
+                  - img [ref=e672]
+                  - text: 解题思路
+              - list [ref=e675]:
+                - listitem [ref=e676]:
+                  - button "直接反转法" [ref=e677] [cursor=pointer]
+                - listitem [ref=e678]:
+                  - button "头插法（推荐）" [ref=e679] [cursor=pointer]
+            - listitem [ref=e680]:
+              - button "代码实现" [ref=e681] [cursor=pointer]:
+                - generic [ref=e682]:
+                  - img [ref=e683]
+                  - text: 代码实现
+              - list [ref=e686]:
+                - listitem [ref=e687]:
+                  - button "直接反转法" [ref=e688] [cursor=pointer]
+                - listitem [ref=e689]:
+                  - button "头插法（推荐）" [ref=e690] [cursor=pointer]
+            - listitem [ref=e691]:
+              - button "易错点" [ref=e692] [cursor=pointer]:
+                - generic [ref=e693]: 易错点
+            - listitem [ref=e694]:
+              - button "总结" [ref=e695] [cursor=pointer]:
+                - generic [ref=e696]: 总结
+            - listitem [ref=e697]:
+              - button "题目信息" [ref=e698] [cursor=pointer]:
+                - generic [ref=e699]: 题目信息
+            - listitem [ref=e700]:
+              - button "解题思路" [ref=e701] [cursor=pointer]:
+                - generic [ref=e702]:
+                  - img [ref=e703]
+                  - text: 解题思路
+              - list [ref=e706]:
+                - listitem [ref=e707]:
+                  - button "模拟法" [ref=e708] [cursor=pointer]
+                - listitem [ref=e709]:
+                  - button "递归法" [ref=e710] [cursor=pointer]
+            - listitem [ref=e711]:
+              - button "代码实现" [ref=e712] [cursor=pointer]:
+                - generic [ref=e713]:
+                  - img [ref=e714]
+                  - text: 代码实现
+              - list [ref=e717]:
+                - listitem [ref=e718]:
+                  - button "模拟法" [ref=e719] [cursor=pointer]
+                - listitem [ref=e720]:
+                  - button "递归法" [ref=e721] [cursor=pointer]
+            - listitem [ref=e722]:
+              - button "易错点" [ref=e723] [cursor=pointer]:
+                - generic [ref=e724]: 易错点
+            - listitem [ref=e725]:
+              - button "总结" [ref=e726] [cursor=pointer]:
+                - generic [ref=e727]: 总结
+    - button "返回顶部":
+      - img
+  - contentinfo [ref=e728]:
+    - generic [ref=e729]:
+      - paragraph [ref=e730]: © 2026 yxshan's Blog
+      - paragraph [ref=e731]: Built with React + Vite

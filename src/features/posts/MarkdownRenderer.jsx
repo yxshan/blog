@@ -111,13 +111,21 @@ function enhanceLinks(container) {
  */
 function enhanceHeadings(container) {
   const headings = container.querySelectorAll("h1, h2, h3, h4");
+  const seen = {};
   headings.forEach((h) => {
     if (h.id) return;
     const text = h.textContent || "";
-    h.id = text
+    let id = text
       .toLowerCase()
       .replace(/[^\w\u4e00-\u9fff]+/g, "-")
       .replace(/(^-|-$)/g, "");
+    if (seen[id] !== undefined) {
+      seen[id]++;
+      id = id + "-" + seen[id];
+    } else {
+      seen[id] = 0;
+    }
+    h.id = id;
   });
 }
 
