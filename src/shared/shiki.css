@@ -1,0 +1,38 @@
+/* ============================================================
+ * Shiki 双主题 CSS
+ * 配合 rehype-pretty-code 生成的代码块 HTML 结构
+ *
+ * 原理：
+ *   rehype-pretty-code 在双主题模式下为每个 token 生成两组 <span>：
+ *     - data-theme="github-light" 的 span（浅色主题颜色）
+ *     - data-theme="github-dark" 的 span（深色主题颜色）
+ *   通过显示/隐藏对应 span 实现主题切换，无需 JS 介入
+ *
+ * 注意：
+ *   - 默认（浅色）模式：显示 light span，隐藏 dark span
+ *   - .dark 模式：隐藏 light span，显示 dark span
+ *   - <code> 元素的背景色同步切换
+ * ============================================================ */
+
+/* 默认：浅色模式 */
+pre code span[data-theme="github-dark"] {
+  display: none;
+}
+
+/* 深色模式 */
+html.dark pre code span[data-theme="github-light"] {
+  display: none;
+}
+
+html.dark pre code span[data-theme="github-dark"] {
+  display: inline;
+}
+
+/* 代码块背景色跟随主题 */
+pre code[data-theme] {
+  background-color: #f6f8fa;
+}
+
+html.dark pre code[data-theme] {
+  background-color: #0d1117;
+}

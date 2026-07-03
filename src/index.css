@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+ * Admonitions 提示框样式
+ * 配合 MarkdownRenderer 中的 remarkAdmonitions 插件
+ * 支持三种类型：tip（提示）、warning（警告）、danger（危险）
+ * ============================================================ */
+@layer components {
+  .admonition {
+    @apply my-6 rounded-lg border-l-4 p-4;
+  }
+
+  .admonition-title {
+    @apply mb-2 font-semibold;
+  }
+
+  /* tip — 提示 */
+  .admonition-tip {
+    @apply border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-950/30;
+  }
+  .admonition-tip .admonition-title {
+    @apply text-blue-700 dark:text-blue-300;
+  }
+
+  /* warning — 警告 */
+  .admonition-warning {
+    @apply border-amber-500 bg-amber-50 dark:border-amber-400 dark:bg-amber-950/30;
+  }
+  .admonition-warning .admonition-title {
+    @apply text-amber-700 dark:text-amber-300;
+  }
+
+  /* danger — 危险 */
+  .admonition-danger {
+    @apply border-red-500 bg-red-50 dark:border-red-400 dark:bg-red-950/30;
+  }
+  .admonition-danger .admonition-title {
+    @apply text-red-700 dark:text-red-300;
+  }
+}
+
+/* ============================================================
+ * 打印样式
+ * 隐藏所有 UI 装饰，只保留文章正文内容
+ * ============================================================ */
+@media print {
+  /* 隐藏导航和装饰 */
+  header,
+  footer,
+  nav,
+  .admonition-title,
+  [role="navigation"] {
+    display: none !important;
+  }
+
+  /* 文章内容全宽 */
+  main {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* 基础排版调整 */
+  body {
+    font-family: "Times New Roman", serif;
+    font-size: 12pt;
+    line-height: 1.6;
+    color: #000;
+    background: #fff;
+  }
+
+  /* 代码块适配打印 */
+  pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+    border: 1px solid #ddd;
+    padding: 8pt;
+    font-size: 9pt;
+  }
+
+  /* 链接显示 URL */
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+
+  /* 避免页面内断 */
+  h2, h3, h4 {
+    page-break-after: avoid;
+  }
+
+  pre, blockquote, table {
+    page-break-inside: avoid;
+  }
+}
+
+/* ============================================================
+ * 减少动画偏好
+ * 尊重用户的 prefers-reduced-motion 系统设置
+ * ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
