@@ -19,7 +19,7 @@ function App() {
           <Routes>
             <Route element={<BlogLayout />}>
               <Route index element={<Home />} />
-              <Route path="posts/:slug" element={<PostWrapper />} />
+              <Route path="/posts/:slug" element={<PostWrapper />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
