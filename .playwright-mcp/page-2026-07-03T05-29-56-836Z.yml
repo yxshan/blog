@@ -1,0 +1,131 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "yxshan's Blog" [ref=e6] [cursor=pointer]:
+        - /url: /blog
+      - generic [ref=e7]:
+        - button "搜索" [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+        - button "切换到暗色模式" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+  - link "跳到正文" [ref=e14] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e15]:
+    - generic [ref=e17]:
+      - article [ref=e18]:
+        - generic [ref=e19]:
+          - heading "两数之和" [level=1] [ref=e20]
+          - generic [ref=e21]:
+            - time [ref=e22]: 2026-07-01
+            - generic [ref=e23]: ·
+            - generic [ref=e24]: 约 3 分钟
+          - generic [ref=e25]:
+            - link "简单" [ref=e26] [cursor=pointer]:
+              - /url: /blog?tag=%E7%AE%80%E5%8D%95
+            - link "哈希表" [ref=e27] [cursor=pointer]:
+              - /url: /blog?tag=%E5%93%88%E5%B8%8C%E8%A1%A8
+            - link "数组" [ref=e28] [cursor=pointer]:
+              - /url: /blog?tag=%E6%95%B0%E7%BB%84
+        - generic [ref=e29]:
+          - heading "[1] 两数之和" [level=1] [ref=e30]
+          - heading "题目信息" [level=2] [ref=e31]
+          - paragraph [ref=e32]:
+            - link "题目链接" [ref=e33] [cursor=pointer]:
+              - /url: https://leetcode.cn/problems/two-sum/
+          - paragraph [ref=e34]:
+            - generic [ref=e35]: "#简单"
+            - generic [ref=e36]: "#哈希表"
+            - generic [ref=e37]: "#数组"
+          - blockquote [ref=e38]:
+            - paragraph [ref=e39]: 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出和为目标值 target 的那两个整数，并返回它们的数组下标。
+            - paragraph [ref=e40]: 数据范围：2 <= nums.length <= 10^4 要求：时间复杂度 O(n)，空间复杂度 O(n)
+          - heading "解题思路" [level=2] [ref=e41]
+          - heading "方法一：哈希表" [level=3] [ref=e42]
+          - list [ref=e43]:
+            - listitem [ref=e44]:
+              - paragraph [ref=e45]:
+                - strong [ref=e46]: 核心思想
+                - text: ：遍历数组，用哈希表存储已访问元素的值和下标。
+              - list [ref=e47]:
+                - listitem [ref=e48]: 要点1：检查 target - nums[i] 是否在表中
+                - listitem [ref=e49]: 要点2：若存在则返回 [map.get(target - nums[i]), i]
+            - listitem [ref=e50]:
+              - paragraph [ref=e51]:
+                - strong [ref=e52]: 步骤图解
+                - text: ：
+              - generic [ref=e53]:
+                - generic [ref=e54]:
+                  - generic [ref=e55]: text
+                  - button "复制" [ref=e56] [cursor=pointer]:
+                    - img [ref=e57]
+                    - generic [ref=e60]: 复制
+                - code [ref=e63]: 遍历 i=0..n-1 -> 计算 complement = target - nums[i] -> 查询哈希表 - 存在 -> 返回结果 - 不存在 -> 将 (nums[i], i) 存入哈希表
+            - listitem [ref=e64]:
+              - paragraph [ref=e65]:
+                - strong [ref=e66]: 关键点
+                - text: ：
+              - list [ref=e67]:
+                - listitem [ref=e68]: 哈希表查询 O(1) 是性能关键
+                - listitem [ref=e69]: 一次遍历完成，避免二次循环
+            - listitem [ref=e70]:
+              - paragraph [ref=e71]:
+                - strong [ref=e72]: 边界处理
+                - text: ：
+              - list [ref=e73]:
+                - listitem [ref=e74]: 数组长度为2的最小情况 → 直接返回两个下标
+                - listitem [ref=e75]: 存在多组解时只需返回第一组
+          - heading "代码实现" [level=2] [ref=e76]
+          - heading "方法一" [level=3] [ref=e77]
+          - generic [ref=e78]:
+            - generic [ref=e79]:
+              - generic [ref=e80]: C
+              - button "复制" [ref=e81] [cursor=pointer]:
+                - img [ref=e82]
+                - generic [ref=e85]: 复制
+            - code [ref=e88]: "/** * Note: The returned array must be malloced, assume caller calls free(). */ int* twoSum(int* nums, int numsSize, int target, int* returnSize) { // 假设哈希表已实现 int* result = (int*)malloc(2 * sizeof(int)); // ... 哈希表操作 return result; }"
+          - paragraph [ref=e89]: 时间复杂度：O(n) 空间复杂度：O(n)
+          - heading "易错点" [level=2] [ref=e90]
+          - table [ref=e91]:
+            - rowgroup [ref=e92]:
+              - row "序号 易错点 正确做法" [ref=e93]:
+                - columnheader "序号" [ref=e94]
+                - columnheader "易错点" [ref=e95]
+                - columnheader "正确做法" [ref=e96]
+            - rowgroup [ref=e97]:
+              - row "1 忘记处理返回数组内存分配 需使用 malloc 分配，并设置 returnSize" [ref=e98]:
+                - cell "1" [ref=e99]
+                - cell "忘记处理返回数组内存分配" [ref=e100]
+                - cell "需使用 malloc 分配，并设置 returnSize" [ref=e101]
+              - row "2 哈希表未处理冲突 使用链地址法或开放寻址法" [ref=e102]:
+                - cell "2" [ref=e103]
+                - cell "哈希表未处理冲突" [ref=e104]
+                - cell "使用链地址法或开放寻址法" [ref=e105]
+          - heading "总结" [level=2] [ref=e106]
+          - list [ref=e107]:
+            - listitem [ref=e108]: 核心思想：空间换时间，用哈希表将查找时间从 O(n) 降为 O(1)
+            - listitem [ref=e109]: 方法对比：暴力法 O(n^2) vs 哈希表法 O(n)
+            - listitem [ref=e110]: 题目独立，不跨题总结
+        - paragraph [ref=e111]: 最后更新于 2 天前
+        - generic [ref=e112]:
+          - navigation [ref=e113]:
+            - link "上一篇 反转链表（BM1/BM2/BM3）" [ref=e114] [cursor=pointer]:
+              - /url: /blog/posts/algorithm/reverse-linked-list
+              - img [ref=e115]
+              - generic [ref=e117]:
+                - generic [ref=e118]: 上一篇
+                - generic [ref=e119]: 反转链表（BM1/BM2/BM3）
+          - generic [ref=e120]:
+            - heading "相关文章" [level=3] [ref=e121]
+            - list [ref=e122]:
+              - listitem [ref=e123]:
+                - link "反转链表（BM1/BM2/BM3） 2026-07-03" [ref=e124] [cursor=pointer]:
+                  - /url: /blog/posts/algorithm/reverse-linked-list
+                  - generic [ref=e125]: 反转链表（BM1/BM2/BM3）
+                  - time [ref=e126]: 2026-07-03
+      - complementary [ref=e127]
+    - button "返回顶部":
+      - img
+  - contentinfo [ref=e128]:
+    - generic [ref=e129]:
+      - paragraph [ref=e130]: © 2026 yxshan's Blog
+      - paragraph [ref=e131]: Built with React + Vite

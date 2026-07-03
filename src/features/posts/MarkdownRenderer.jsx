@@ -74,7 +74,13 @@ function enhanceAllCodeBlocks(container) {
 
 export default function MarkdownRenderer({ content }) {
   const containerRef = useRef(null);
-  const html = marked.parse(content);
+  let html = marked.parse(content);
+
+  // 将 #文字 替换为标签样式（不处理标题中的 #）
+  html = html.replace(
+    /(?<!<[^>]*)(?<!["\w])#([\u4e00-\u9fff\w]+)/g,
+    '<span class="hash-tag">#$1</span>',
+  );
 
   useEffect(() => {
     if (containerRef.current) {

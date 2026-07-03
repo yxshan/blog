@@ -133,6 +133,18 @@
 }
 
 /* ============================================================
+ * 文章内 #标签 样式
+ * ============================================================ */
+@layer components {
+  .hash-tag {
+    @apply inline-flex items-center rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-medium text-indigo-600 no-underline;
+  }
+  .dark .hash-tag {
+    @apply bg-indigo-900/30 text-indigo-300;
+  }
+}
+
+/* ============================================================
  * Admonitions 提示框样式
  * ============================================================ */
 @layer components {
