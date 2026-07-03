@@ -4,7 +4,6 @@ import hljs from "highlight.js";
 import { ClipboardIcon } from "@heroicons/react/24/outline";
 import markedKatex from "marked-katex-extension";
 import "highlight.js/styles/github.css";
-import "highlightjs-line-numbers.js";
 
 // 配置 marked：GFM + 代码高亮
 marked.setOptions({
@@ -43,17 +42,19 @@ function enhanceCodeBlock(block, lang) {
   body.className = "overflow-x-auto bg-[#f6f8fa] dark:bg-[#0d1117]";
   body.appendChild(block.cloneNode(true));
 
+  const codeEl = body.querySelector("code");
+  if (codeEl) {
+    codeEl.classList.add("hljs");
+    const lines = codeEl.innerHTML.split("\n");
+    codeEl.innerHTML = lines
+      .map((line, i) => `<span class="hljs-line">${line || " "}</span>`)
+      .join("\n");
+  }
+
   wrapper.appendChild(header);
   wrapper.appendChild(body);
 
-  // 替换原始 pre 元素
   block.parentElement.replaceChild(wrapper, block);
-
-  // 启用行号
-  const codeEl = wrapper.querySelector("code.hljs");
-  if (codeEl) {
-    hljs.lineNumbersBlock(codeEl, { startFrom: 1 });
-  }
 
   // 复制按钮事件
   const copyBtn = header.querySelector(".copy-btn");
