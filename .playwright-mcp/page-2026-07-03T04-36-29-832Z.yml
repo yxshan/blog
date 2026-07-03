@@ -1,0 +1,41 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "yxshan's Blog" [ref=e6] [cursor=pointer]:
+        - /url: "#/"
+      - generic [ref=e7]:
+        - button "搜索" [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+        - button "切换到暗色模式" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+  - link "跳到正文" [ref=e14] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e15]:
+    - generic [ref=e16]:
+      - generic [ref=e18]:
+        - img
+        - textbox "搜索文章标题或摘要..." [ref=e19]
+      - generic [ref=e21]:
+        - button "简单 (1)" [ref=e22] [cursor=pointer]:
+          - generic [ref=e24]: 简单
+          - generic [ref=e25]: (1)
+        - button "哈希表 (1)" [ref=e26] [cursor=pointer]:
+          - generic [ref=e28]: 哈希表
+          - generic [ref=e29]: (1)
+        - button "数组 (1)" [ref=e30] [cursor=pointer]:
+          - generic [ref=e32]: 数组
+          - generic [ref=e33]: (1)
+      - paragraph [ref=e34]: 共 1 篇文章
+      - 'link "两数之和 2026-07-01 题目链接 #简单 #哈希表 #数组 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出和为目标值 target 的那两个整数，并返回它们的数组下标。 数据范围：2 <= nums.length <= 10^4 要求：时间复杂度 O(n)，空间复杂度 O(n) 核心思想：遍 简单 哈希表 数组" [ref=e40] [cursor=pointer]':
+        - /url: "#/posts/algorithm/two-sum"
+        - heading "两数之和" [level=2] [ref=e41]
+        - paragraph [ref=e42]: 2026-07-01
+        - paragraph [ref=e43]: "题目链接 #简单 #哈希表 #数组 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出和为目标值 target 的那两个整数，并返回它们的数组下标。 数据范围：2 <= nums.length <= 10^4 要求：时间复杂度 O(n)，空间复杂度 O(n) 核心思想：遍"
+        - generic [ref=e44]:
+          - generic [ref=e45]: 简单
+          - generic [ref=e47]: 哈希表
+          - generic [ref=e49]: 数组
+  - contentinfo [ref=e51]:
+    - generic [ref=e52]:
+      - paragraph [ref=e53]: © 2026 yxshan's Blog
+      - paragraph [ref=e54]: Built with React + Vite

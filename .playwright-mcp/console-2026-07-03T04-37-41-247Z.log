@@ -1,0 +1,2 @@
+[      82ms] [LOG] [posts] 已扫描到文章: 1 篇 @ http://localhost:4206/blog/assets/index-DOgdDs-w.js:167
+[     117ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4206/blog/favicon.ico:0

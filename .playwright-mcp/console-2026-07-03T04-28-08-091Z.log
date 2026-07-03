@@ -1,0 +1,3 @@
+[     137ms] [LOG] [posts] 已扫描到文章: 1 篇 @ http://localhost:4189/blog/assets/index-DlAvGYDH.js:169
+[     144ms] [LOG] [Post] 模块已加载 @ http://localhost:4189/blog/assets/index-DlAvGYDH.js:500
+[     196ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4189/blog/favicon.ico:0

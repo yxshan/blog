@@ -121,37 +121,5 @@ const components = {
 };
 
 export default function MarkdownRenderer({ content }) {
-  return (
-    <div className="prose prose-gray max-w-none dark:prose-invert prose-headings:scroll-mt-20 prose-a:no-underline prose-pre:bg-transparent prose-pre:p-0 prose-code:before:content-none prose-code:after:content-none">
-      <ReactMarkdown
-        allowDangerousHtml
-        remarkPlugins={[
-          remarkFrontmatter,
-          remarkGfm,
-          remarkMath,
-          remarkDirective,
-          remarkAdmonitions,
-        ]}
-        rehypePlugins={[
-          rehypeSlug,
-          [
-            rehypeAutolinkHeadings,
-            {
-              behavior: "append",
-              properties: {
-                className: ["anchor-link"],
-                ariaHidden: true,
-                tabIndex: -1,
-              },
-            },
-          ],
-          [rehypePrettyCode, prettyCodeOptions],
-          rehypeKatex,
-        ]}
-        components={components}
-      >
-        {content}
-      </ReactMarkdown>
-    </div>
-  );
+  return <pre className="whitespace-pre-wrap">{content}</pre>;
 }
