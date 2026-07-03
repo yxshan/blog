@@ -4,3 +4,4 @@ dist/
 *.local
 .omo/run-continuation/
 .codegraph/
+.DS_Store
