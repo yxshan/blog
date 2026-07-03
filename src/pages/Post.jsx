@@ -50,7 +50,13 @@ function daysSince(date) {
 
 export default function Post() {
   const { slug } = useParams();
+  console.log("[Post] useParams slug:", slug);
   const post = getPostBySlug(slug);
+  console.log("[Post] getPostBySlug result:", post ? post.slug : "null");
+  console.log(
+    "[Post] all posts slugs:",
+    getAllPosts().map((p) => p.slug),
+  );
   const allPosts = useMemo(() => getAllPosts(), []);
 
   const readingTime = useMemo(
