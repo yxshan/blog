@@ -1,0 +1,2 @@
+[     111ms] [LOG] [posts] 已扫描到文章: 1 篇 @ http://localhost:4186/blog/assets/index-C8bGj-OZ.js:168
+[     152ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:4186/blog/favicon.ico:0

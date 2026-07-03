@@ -1,0 +1,48 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "yxshan's Blog" [ref=e6] [cursor=pointer]:
+        - /url: /blog
+      - generic [ref=e7]:
+        - button "搜索" [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+        - button "切换到暗色模式" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+  - link "跳到正文" [ref=e14] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e15]:
+    - generic [ref=e17]:
+      - article [ref=e18]:
+        - generic [ref=e19]:
+          - heading "两数之和" [level=1] [ref=e20]
+          - generic [ref=e21]:
+            - time [ref=e22]: 2026-07-01
+            - generic [ref=e23]: ·
+            - generic [ref=e24]: 约 3 分钟
+          - generic [ref=e25]:
+            - link "简单" [ref=e26] [cursor=pointer]:
+              - /url: /blog?tag=%E7%AE%80%E5%8D%95
+            - link "哈希表" [ref=e27] [cursor=pointer]:
+              - /url: /blog?tag=%E5%93%88%E5%B8%8C%E8%A1%A8
+            - link "数组" [ref=e28] [cursor=pointer]:
+              - /url: /blog?tag=%E6%95%B0%E7%BB%84
+        - generic [ref=e29]:
+          - text: "<h1>[1] 两数之和</h1> <h2>题目信息</h2> <p><a href=\"https://leetcode.cn/problems/two-sum/\">题目链接</a></p> <p>#简单 #哈希表 #数组</p> <blockquote> <p>给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出和为目标值 target 的那两个整数，并返回它们的数组下标。</p> <p>数据范围：2 &lt;= nums.length &lt;= 10^4 要求：时间复杂度 O(n)，空间复杂度 O(n)</p> </blockquote> <h2>解题思路</h2> <h3>方法一：哈希表</h3> <ol> <li><p><strong>核心思想</strong>：遍历数组，用哈希表存储已访问元素的值和下标。</p> <ul> <li>要点1：检查 target - nums[i] 是否在表中</li> <li>要点2：若存在则返回 [map.get(target - nums[i]), i]</li> </ul> </li> <li><p><strong>步骤图解</strong>：</p>"
+          - generic [ref=e30]:
+            - generic [ref=e31]:
+              - generic [ref=e32]: text
+              - button "复制" [ref=e33] [cursor=pointer]:
+                - img [ref=e34]
+                - generic [ref=e36]: 复制
+            - code [ref=e39]: 遍历 i=0..n-1 -> 计算 complement = target - nums[i] -> 查询哈希表 - 存在 -> 返回结果 - 不存在 -> 将 (nums[i], i) 存入哈希表
+          - text: "</li> <li><p><strong>关键点</strong>：</p> <ul> <li>哈希表查询 O(1) 是性能关键</li> <li>一次遍历完成，避免二次循环</li> </ul> </li> <li><p><strong>边界处理</strong>：</p> <ul> <li>数组长度为2的最小情况 → 直接返回两个下标</li> <li>存在多组解时只需返回第一组</li> </ul> </li> </ol> <h2>代码实现</h2> <h3>方法一</h3> <pre><code class=\"language-c\">/** * Note: The returned array must be malloced, assume caller calls free(). */ int* twoSum(int* nums, int numsSize, int target, int* returnSize) { // 假设哈希表已实现 int* result = (int*)malloc(2 * sizeof(int)); // ... 哈希表操作 return result; } </code></pre> <p>时间复杂度：O(n) 空间复杂度：O(n)</p> <h2>易错点</h2> <table> <thead> <tr> <th>序号</th> <th>易错点</th> <th>正确做法</th> </tr> </thead> <tbody><tr> <td>1</td> <td>忘记处理返回数组内存分配</td> <td>需使用 malloc 分配，并设置 returnSize</td> </tr> <tr> <td>2</td> <td>哈希表未处理冲突</td> <td>使用链地址法或开放寻址法</td> </tr> </tbody></table> <h2>总结</h2> <ul> <li>核心思想：空间换时间，用哈希表将查找时间从 O(n) 降为 O(1)</li> <li>方法对比：暴力法 O(n^2) vs 哈希表法 O(n)</li> <li>题目独立，不跨题总结</li> </ul>"
+        - paragraph [ref=e40]: 最后更新于 2 天前
+        - generic [ref=e41]:
+          - navigation
+      - complementary [ref=e42]
+    - button "返回顶部":
+      - img
+  - contentinfo [ref=e43]:
+    - generic [ref=e44]:
+      - paragraph [ref=e45]: © 2026 yxshan's Blog
+      - paragraph [ref=e46]: Built with React + Vite
