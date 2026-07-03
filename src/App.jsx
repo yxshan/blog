@@ -6,6 +6,11 @@ import Home from "./pages/Home";
 import Post from "./pages/Post";
 import { NotFound } from "./pages/NotFound";
 
+function PostWrapper() {
+  console.log("[App] Post route matched, rendering Post component");
+  return <Post />;
+}
+
 function App() {
   return (
     <HashRouter>
@@ -14,7 +19,7 @@ function App() {
           <Routes>
             <Route element={<BlogLayout />}>
               <Route index element={<Home />} />
-              <Route path="posts/:slug" element={<Post />} />
+              <Route path="posts/:slug" element={<PostWrapper />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
