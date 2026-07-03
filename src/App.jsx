@@ -12,13 +12,21 @@ function PostWrapper() {
 }
 
 function App() {
+  console.log("[App] rendering, hash:", window.location.hash);
   return (
     <HashRouter>
       <HelmetProvider>
         <ThemeProvider>
           <Routes>
             <Route element={<BlogLayout />}>
-              <Route index element={<Home />} />
+              <Route
+                index
+                element={
+                  <>
+                    <Home />
+                  </>
+                }
+              />
               <Route path="/posts/:slug" element={<PostWrapper />} />
               <Route path="*" element={<NotFound />} />
             </Route>
