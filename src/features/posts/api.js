@@ -1,4 +1,4 @@
-import matter from "gray-matter";
+import fm from "front-matter";
 
 // ============================================================
 // 全局导入：使用 Vite 的 import.meta.glob 一次性导入所有文章
@@ -91,8 +91,17 @@ function extractExcerpt(content) {
 function processPosts() {
   const posts = Object.entries(postModules)
     .map(([filePath, raw]) => {
-      // gray-matter 解析：分离元数据（data）和正文（content）
-      const { data, content } = matter(raw);
+      // front-matter 解析：分离元数据（attributes）和正文（body）
+      let attributes, body;
+      try {
+        const parsed = fm(raw);
+        attributes = parsed.attributes;
+        body = parsed.body;
+      } catch (e) {
+        console.warn("[posts] 解析失败:", filePath, e.message);
+        attributes = {};
+        body = raw;
+      }
       const slug = deriveSlug(filePath);
 
       return {
@@ -101,17 +110,17 @@ function processPosts() {
         category: deriveCategory(slug),
 
         // 元数据（来自 frontmatter）
-        title: data.title || "",
-        date: data.date ? new Date(data.date) : null,
-        updated: data.updated ? new Date(data.updated) : null,
-        tags: Array.isArray(data.tags) ? data.tags : [],
-        difficulty: data.difficulty || null,
-        leetcode: data.leetcode || null,
-        draft: data.draft === true,
+        title: attributes.title || "",
+        date: attributes.date ? new Date(attributes.date) : null,
+        updated: attributes.updated ? new Date(attributes.updated) : null,
+        tags: Array.isArray(attributes.tags) ? attributes.tags : [],
+        difficulty: attributes.difficulty || null,
+        leetcode: attributes.leetcode || null,
+        draft: attributes.draft === true,
 
         // 正文
-        excerpt: extractExcerpt(content),
-        content, // 完整 Markdown 内容，供 react-markdown 渲染
+        excerpt: extractExcerpt(body),
+        content: body, // 完整 Markdown 内容，供 react-markdown 渲染
       };
     })
     // 生产环境下过滤草稿文章

@@ -12,6 +12,7 @@
     "@heroicons/react": "^2.2.0",
     "@tanstack/react-virtual": "^3.0.0",
     "buffer": "^6.0.3",
+    "front-matter": "^4.0.2",
     "fuse.js": "^7.0.0",
     "gray-matter": "^4.0.0",
     "hastscript": "^9.0.0",

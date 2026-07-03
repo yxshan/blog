@@ -1,0 +1,17 @@
+- generic [ref=f19e3]:
+  - banner [ref=f19e4]:
+    - generic [ref=f19e5]:
+      - link "yxshan's Blog" [ref=f19e6] [cursor=pointer]:
+        - /url: "#/"
+      - generic [ref=f19e7]:
+        - button "搜索" [ref=f19e8] [cursor=pointer]:
+          - img [ref=f19e9]
+        - button "切换到暗色模式" [ref=f19e11] [cursor=pointer]:
+          - img [ref=f19e12]
+  - link "跳到正文" [ref=f19e14] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=f19e15]
+  - contentinfo [ref=f19e18]:
+    - generic [ref=f19e19]:
+      - paragraph [ref=f19e20]: © 2026 yxshan's Blog
+      - paragraph [ref=f19e21]: Built with React + Vite
