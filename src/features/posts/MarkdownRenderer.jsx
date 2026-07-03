@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { marked } from "marked";
 import hljs from "highlight.js";
-window.hljs = hljs; // highlightjs-line-numbers.js 需要全局 hljs
 import { ClipboardIcon } from "@heroicons/react/24/outline";
 import markedKatex from "marked-katex-extension";
 import "highlight.js/styles/github.css";
@@ -16,16 +15,6 @@ marked.setOptions({
       return hljs.highlight(code, { language: lang }).value;
     }
     return hljs.highlightAuto(code).value;
-  },
-  renderer: {
-    heading({ tokens, depth }) {
-      const text = this.parser.parseInline(tokens);
-      const id = text
-        .toLowerCase()
-        .replace(/[^\w\u4e00-\u9fff]+/g, "-")
-        .replace(/(^-|-$)/g, "");
-      return `<h${depth} id="${id}">${text}</h${depth}>`;
-    },
   },
 });
 
@@ -116,6 +105,21 @@ function enhanceLinks(container) {
   });
 }
 
+/**
+ * 给所有标题添加 id 属性（供 TOC 提取）
+ */
+function enhanceHeadings(container) {
+  const headings = container.querySelectorAll("h1, h2, h3, h4");
+  headings.forEach((h) => {
+    if (h.id) return;
+    const text = h.textContent || "";
+    h.id = text
+      .toLowerCase()
+      .replace(/[^\w\u4e00-\u9fff]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+  });
+}
+
 export default function MarkdownRenderer({ content }) {
   const containerRef = useRef(null);
   let html = marked.parse(content);
@@ -130,6 +134,7 @@ export default function MarkdownRenderer({ content }) {
     if (containerRef.current) {
       enhanceAllCodeBlocks(containerRef.current);
       enhanceLinks(containerRef.current);
+      enhanceHeadings(containerRef.current);
     }
   }, [content]);
 

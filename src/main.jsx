@@ -1,6 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import hljs from "highlight.js";
 import App from "./App";
+
+// highlightjs-line-numbers.js 通过 import 加载前需要全局 hljs
+window.hljs = hljs;
 
 // 全局样式 — 顺序很重要
 import "./index.css"; // TailwindCSS base/components/utilities
