@@ -104,6 +104,7 @@ function processPosts() {
         body = raw;
       }
       const slug = deriveSlug(filePath);
+      console.log("[posts]", filePath, "→ slug:", slug);
 
       return {
         // 身份标识
