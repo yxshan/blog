@@ -9,15 +9,16 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeKatex from "rehype-katex";
 import { visit } from "unist-util-visit";
-import { h } from "hastscript";
-import { toHast } from "mdast-util-to-hast";
-import { toHtml } from "hast-util-to-html";
 import { ClipboardIcon } from "@heroicons/react/24/outline";
 import "katex/dist/katex.min.css";
 
 // ============================================================
 // 自定义 remark 插件：将 :::tip / :::warning / :::danger 语法
-// 转换为带 HTML 结构的警示框（admonition）
+// 转换为 HTML 注释包裹的 div 结构
+//
+// 采用简单方案：在 directive 前后插入 HTML bracket 节点，
+// 子节点由 remark 正常处理，不需要 mdast→hast 转换，避免
+// Node.js 专有依赖（Buffer、fs 等）在浏览器端不可用的问题。
 // ============================================================
 function remarkAdmonitions() {
   return (tree) => {
@@ -27,36 +28,20 @@ function remarkAdmonitions() {
       const titleMap = { tip: "提示", warning: "警告", danger: "危险" };
       const title = titleMap[node.name];
 
-      // 将 directive 的 mdast 子节点逐个转换为 hast
-      const childrenHast = node.children
-        .map((child) => {
-          const root = /** @type {import("hast").Root} */ (
-            toHast({ type: "root", children: [child] })
-          );
-          return root.children[0];
-        })
-        .filter(Boolean);
-
-      // 使用 hastscript 构建警示框 HTML 结构
-      const admonition = h(
-        "div",
+      // 替换 directive 节点为 HTML bracket + 子节点 + 闭合 bracket
+      parent.children.splice(
+        index,
+        1,
         {
-          class: `admonition admonition-${node.name}`,
-          "data-admonition": node.name,
+          type: "html",
+          value: `<div class="admonition admonition-${node.name}" data-admonition="${node.name}"><div class="admonition-title">${title}</div>`,
         },
-        [h("div", { class: "admonition-title" }, title), ...childrenHast],
+        ...node.children,
+        { type: "html", value: "</div>" },
       );
 
-      // 序列化 hast → HTML 字符串，并替换原始 directive 节点
-      const htmlString = toHtml(admonition, { allowDangerousHtml: true });
-
-      parent.children.splice(index, 1, {
-        type: "html",
-        value: htmlString,
-      });
-
-      // 返回 [SKIP] 告知 visit 不再遍历已替换位置
-      return index;
+      // 返回 SKIP 索引
+      return index + node.children.length + 2;
     });
   };
 }
@@ -197,6 +182,7 @@ export default function MarkdownRenderer({ content }) {
   return (
     <div className="prose prose-gray max-w-none dark:prose-invert prose-headings:scroll-mt-20 prose-a:no-underline prose-pre:bg-transparent prose-pre:p-0 prose-code:before:content-none prose-code:after:content-none">
       <ReactMarkdown
+        allowDangerousHtml
         remarkPlugins={[
           remarkFrontmatter,
           remarkGfm,
