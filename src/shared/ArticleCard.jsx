@@ -116,7 +116,7 @@ function ArticleCard({ post }) {
               >
                 {/* 彩色小圆点 */}
                 <span
-                  className={`inline-block h-1.5 w-1.5 rounded-full ${colorClass.split(" ")[0]}`}
+                  className="inline-block h-1.5 w-1.5 rounded-full bg-current opacity-70"
                   aria-hidden="true"
                 />
                 {tag}

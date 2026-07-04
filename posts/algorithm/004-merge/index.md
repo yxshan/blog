@@ -8,7 +8,7 @@ tags:
 difficulty: 简单
 leetcode: https://www.nowcoder.com/practice/d8b6b4358f774294a89de2a6ac4d9337?tpId=295&tqId=23267&sourceUrl=%2Fexam%2Foj%3FquestionJobId%3D166%26subTabName%3Donline_coding_page
 updated: 2026-07-04
-draft: true
+draft: false
 ---
 # 合并两个排序的链表
 

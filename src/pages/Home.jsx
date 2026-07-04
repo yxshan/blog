@@ -108,7 +108,7 @@ export default function Home() {
           <VirtualList
             items={filteredPosts}
             renderItem={renderItem}
-            estimateSize={260}
+            estimateSize={230}
           />
         </div>
       ) : (
