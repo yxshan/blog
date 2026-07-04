@@ -57,12 +57,12 @@ export default function Home() {
     const basePosts = results !== null ? results : allPosts;
 
     // 第二步：标签筛选
-    //   有已选标签时，仅保留包含至少一个已选标签的文章
+    //   有已选标签时，仅保留包含所有已选标签的文章（AND 逻辑）
     //   无已选标签时，跳过此步
     if (selectedTags.length === 0) return basePosts;
 
     return basePosts.filter((post) =>
-      post.tags.some((tag) => selectedTags.includes(tag)),
+      selectedTags.every((tag) => post.tags.includes(tag)),
     );
   }, [allPosts, results, selectedTags]);
 
