@@ -5,11 +5,15 @@
   </url>
 
   <url>
-    <loc>https://yxshan.github.io/blog/#/posts/algorithm/reverse-linked-list</loc>
-    <lastmod>2026-07-03</lastmod>
+    <loc>https://yxshan.github.io/blog/#/posts/algorithm/reverse-list</loc>
+    <lastmod>2026-07-01</lastmod>
   </url>
   <url>
-    <loc>https://yxshan.github.io/blog/#/posts/algorithm/two-sum</loc>
+    <loc>https://yxshan.github.io/blog/#/posts/algorithm/reverse-between</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://yxshan.github.io/blog/#/posts/algorithm/reverse-k-group</loc>
     <lastmod>2026-07-01</lastmod>
   </url>
 </urlset>
