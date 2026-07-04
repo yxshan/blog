@@ -39,14 +39,7 @@ export default function TagFilter({ selectedTags, onToggleTag }) {
           >
             {/* 颜色圆点 */}
             <span
-              className={`inline-block h-2 w-2 rounded-full ${isSelected ? text : "bg-gray-300"}`}
-              style={
-                isSelected
-                  ? {}
-                  : {
-                      backgroundColor: "currentColor",
-                    }
-              }
+              className={`inline-block h-2 w-2 rounded-full bg-current ${isSelected ? text : "text-gray-400"}`}
             />
             <span>{name}</span>
             <span className="text-xs opacity-60">({count})</span>
