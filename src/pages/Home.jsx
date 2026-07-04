@@ -105,7 +105,11 @@ export default function Home() {
       {/* 文章列表（虚拟滚动）或空状态 */}
       {filteredPosts.length > 0 ? (
         <div className="flex-1">
-          <VirtualList items={filteredPosts} renderItem={renderItem} />
+          <VirtualList
+            items={filteredPosts}
+            renderItem={renderItem}
+            estimateSize={260}
+          />
         </div>
       ) : (
         <div className="flex flex-1 items-center justify-center">

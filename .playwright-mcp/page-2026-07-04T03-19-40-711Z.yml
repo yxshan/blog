@@ -1,0 +1,69 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "yxshan's Blog" [ref=e6] [cursor=pointer]:
+        - /url: /blog
+      - generic [ref=e7]:
+        - link "搜索" [ref=e8] [cursor=pointer]:
+          - /url: /blog?focus=1
+          - img [ref=e9]
+        - button "切换到暗色模式" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+  - link "跳到正文" [ref=e14] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e15]:
+    - generic [ref=e16]:
+      - generic [ref=e18]:
+        - img
+        - textbox "搜索文章标题或摘要..." [ref=e19]
+      - generic [ref=e21]:
+        - button "链表 (3)" [ref=e22] [cursor=pointer]:
+          - generic [ref=e24]: 链表
+          - generic [ref=e25]: (3)
+        - button "反转 (3)" [ref=e26] [cursor=pointer]:
+          - generic [ref=e28]: 反转
+          - generic [ref=e29]: (3)
+        - button "中等 (2)" [ref=e30] [cursor=pointer]:
+          - generic [ref=e32]: 中等
+          - generic [ref=e33]: (2)
+        - button "区间 (2)" [ref=e34] [cursor=pointer]:
+          - generic [ref=e36]: 区间
+          - generic [ref=e37]: (2)
+        - button "简单 (1)" [ref=e38] [cursor=pointer]:
+          - generic [ref=e40]: 简单
+          - generic [ref=e41]: (1)
+      - paragraph [ref=e42]: 共 3 篇文章
+      - generic [ref=e45]:
+        - 'link "反转链表 2026-07-01 BM1 反转链表 #简单 #链表 #反转 给定一个单链表的头结点pHead(该头节点是有值的，比如在下图，它的val是1)，长度为n，反转该链表后，返回新链表的表头。 数据范围： 0≤n≤1000 要求：空间复杂度 O(1)，时间复杂度 O(n) 。 核心思想：遍历原链表，逐个改变指针方向 用 pr 简单 链表 反转" [ref=e48] [cursor=pointer]':
+          - /url: /blog/posts/algorithm/reverse-list
+          - heading "反转链表" [level=2] [ref=e49]
+          - paragraph [ref=e50]: 2026-07-01
+          - paragraph [ref=e51]: "BM1 反转链表 #简单 #链表 #反转 给定一个单链表的头结点pHead(该头节点是有值的，比如在下图，它的val是1)，长度为n，反转该链表后，返回新链表的表头。 数据范围： 0≤n≤1000 要求：空间复杂度 O(1)，时间复杂度 O(n) 。 核心思想：遍历原链表，逐个改变指针方向 用 pr"
+          - generic [ref=e52]:
+            - generic [ref=e53]: 简单
+            - generic [ref=e55]: 链表
+            - generic [ref=e57]: 反转
+        - 'link "链表内指定区间反转 2026-07-01 BM2 链表内指定区间反转 #中等 #链表 #反转 #区间 将一个节点数为 size 链表 m 位置到 n 位置之间的区间反转，要求时间复杂度 O(n)，空间复杂度 O(1)。 例如： 给出的链表为 1→2→3→4→5→NULL, m=2,n=4 返回 1→4→3→2→5→NULL 数据 中等 链表 反转 区间" [ref=e61] [cursor=pointer]':
+          - /url: /blog/posts/algorithm/reverse-between
+          - heading "链表内指定区间反转" [level=2] [ref=e62]
+          - paragraph [ref=e63]: 2026-07-01
+          - paragraph [ref=e64]: "BM2 链表内指定区间反转 #中等 #链表 #反转 #区间 将一个节点数为 size 链表 m 位置到 n 位置之间的区间反转，要求时间复杂度 O(n)，空间复杂度 O(1)。 例如： 给出的链表为 1→2→3→4→5→NULL, m=2,n=4 返回 1→4→3→2→5→NULL 数据"
+          - generic [ref=e65]:
+            - generic [ref=e66]: 中等
+            - generic [ref=e68]: 链表
+            - generic [ref=e70]: 反转
+            - generic [ref=e72]: 区间
+        - 'link "链表中的节点每k个一组翻转 2026-07-01 BM3 链表中的节点每k个一组翻转 #中等 #链表 #反转 #区间 将给出的链表中的节点每 k 个一组翻转，返回翻转后的链表 如果链表中的节点数不是 k 的倍数，将最后剩下的节点保持原样 你不能更改节点中的值，只能更改节点本身。 数据范围： 0≤n≤2000， 1≤k≤2000，链表中每 中等 链表 反转 区间" [ref=e76] [cursor=pointer]':
+          - /url: /blog/posts/algorithm/reverse-k-group
+          - heading "链表中的节点每k个一组翻转" [level=2] [ref=e77]
+          - paragraph [ref=e78]: 2026-07-01
+          - paragraph [ref=e79]: "BM3 链表中的节点每k个一组翻转 #中等 #链表 #反转 #区间 将给出的链表中的节点每 k 个一组翻转，返回翻转后的链表 如果链表中的节点数不是 k 的倍数，将最后剩下的节点保持原样 你不能更改节点中的值，只能更改节点本身。 数据范围： 0≤n≤2000， 1≤k≤2000，链表中每"
+          - generic [ref=e80]:
+            - generic [ref=e81]: 中等
+            - generic [ref=e83]: 链表
+            - generic [ref=e85]: 反转
+            - generic [ref=e87]: 区间
+  - contentinfo [ref=e89]:
+    - generic [ref=e90]:
+      - paragraph [ref=e91]: © 2026 yxshan's Blog
+      - paragraph [ref=e92]: Built with React + Vite
