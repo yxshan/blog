@@ -7,7 +7,7 @@ import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
  * - query: 当前搜索词
  * - onQueryChange: 搜索词变更回调
  */
-export default function SearchBar({ query, onQueryChange }) {
+export default function SearchBar({ query, onQueryChange, autoFocus }) {
   return (
     <div className="relative">
       {/* 左侧放大镜图标 */}
@@ -15,6 +15,9 @@ export default function SearchBar({ query, onQueryChange }) {
 
       <input
         type="text"
+        ref={(el) => {
+          if (autoFocus && el) el.focus();
+        }}
         value={query}
         onChange={(e) => onQueryChange(e.target.value)}
         placeholder="搜索文章标题或摘要..."

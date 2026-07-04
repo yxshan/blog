@@ -29,14 +29,14 @@ function Header() {
 
         {/* 右侧：操作按钮区 */}
         <div className="flex items-center gap-2">
-          {/* 搜索按钮（占位，后续实现打开/关闭搜索面板） */}
-          <button
-            type="button"
+          {/* 搜索按钮：点击跳转到首页并自动聚焦搜索框 */}
+          <Link
+            to="/?focus=1"
             className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
             aria-label="搜索"
           >
             <MagnifyingGlassIcon className="h-5 w-5" />
-          </button>
+          </Link>
 
           {/* 暗色模式切换 */}
           <button

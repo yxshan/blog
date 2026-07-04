@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useSearchParams } from "react-router";
 import SearchBar from "../features/search/SearchBar";
 import TagFilter from "../features/tags/TagFilter";
 import VirtualList from "../shared/VirtualList";
@@ -22,8 +23,9 @@ import { getAllPosts } from "../features/posts/api";
 export default function Home() {
   // ============================================================
   // 搜索状态 — useSearch 内部管理 query 与 results
-  // results 为 null 表示未搜索；非 null 时为匹配文章数组
   // ============================================================
+  const [searchParams] = useSearchParams();
+  const autoFocus = searchParams.get("focus") === "1";
   const { query, setQuery, results } = useSearch();
 
   // ============================================================
@@ -77,7 +79,11 @@ export default function Home() {
     <div className="mx-auto flex h-full max-w-4xl flex-col px-4">
       {/* 搜索栏 */}
       <div className="mb-6">
-        <SearchBar query={query} onQueryChange={setQuery} />
+        <SearchBar
+          query={query}
+          onQueryChange={setQuery}
+          autoFocus={autoFocus}
+        />
       </div>
 
       {/* 标签筛选按钮组 */}
