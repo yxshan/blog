@@ -5,10 +5,10 @@ tags:
   - 简单
   - 线性表
   - 反转
-difficulty:
+difficulty: 简单
 leetcode:
 updated: 2026-07-06
-draft:
+draft: false
 ---
 # 元素逆置
 
