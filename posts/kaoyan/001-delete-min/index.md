@@ -4,6 +4,7 @@ date: 2026-07-06
 tags:
   - 简单
   - 线性表
+  - 顺序表
   - 删除
 difficulty: 简单
 leetcode:
@@ -14,7 +15,7 @@ draft: false
 
 讲解视频：[删除最小值](https://www.bilibili.com/video/BV1vwM3zFEhj/?p=3&spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=5c0bcfe1efdcec850abdf100b7a15a09)
 
-#简单 #线性表 #删除
+#简单 #线性表 #顺序表 #删除
 ## 题目信息
 
 > 从顺序表中删除具有最小值的元素（假设唯一）并由函数返回被删元素的值。空出的位置由最后一个元素填补。若顺序表为空，则显示出错信息并退出运行。

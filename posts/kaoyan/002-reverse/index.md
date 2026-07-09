@@ -4,6 +4,7 @@ date: 2026-07-06
 tags:
   - 简单
   - 线性表
+  - 顺序表
   - 反转
 difficulty: 简单
 leetcode:
@@ -14,7 +15,7 @@ draft: false
 
 讲解视频：[元素逆置](https://www.bilibili.com/video/BV1vwM3zFEhj?spm_id_from=333.788.videopod.sections&vd_source=5c0bcfe1efdcec850abdf100b7a15a09&p=4)
 
-#简单 #线性表 #反转 
+#简单 #线性表 #顺序表 #反转 
 
 ## 题目信息
 
