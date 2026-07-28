@@ -19,7 +19,7 @@ draft: false
 
 ## 题目信息
 
-![[010-converse 1.png]]
+![题目信息](./010-converse.png)
 
 ## 算法思路
 
