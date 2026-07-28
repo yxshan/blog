@@ -163,7 +163,7 @@ export default function Post() {
               </div>
             )}
           </header>
-          <MarkdownRenderer content={post.content} />
+          <MarkdownRenderer content={post.content} imageMap={post.imageMap} />
           {lastUpdated && (
             <p className="mt-8 text-sm text-gray-400 dark:text-gray-500">
               最后更新于{daysAgo > 0 ? ` ${daysAgo} 天前` : "今天"}

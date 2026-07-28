@@ -129,7 +129,27 @@ function enhanceHeadings(container) {
   });
 }
 
-export default function MarkdownRenderer({ content }) {
+/**
+ * 解析图片相对路径为 Vite 构建后的实际 URL
+ *
+ * Markdown 中引用的 `./xxx.png` 在构建后路径会变化（含哈希），
+ * 通过 imageMap 将相对路径替换为实际 URL。
+ *
+ * @param {HTMLElement} container - 渲染后的文章 DOM 容器
+ * @param {Record<string, string>} imageMap - { "./010-converse.png": "/assets/xxx-abc123.png" }
+ */
+function enhanceImages(container, imageMap) {
+  if (!imageMap || Object.keys(imageMap).length === 0) return;
+  const imgs = container.querySelectorAll("img");
+  imgs.forEach((img) => {
+    const src = img.getAttribute("src") || "";
+    if (imageMap[src]) {
+      img.setAttribute("src", imageMap[src]);
+    }
+  });
+}
+
+export default function MarkdownRenderer({ content, imageMap }) {
   const containerRef = useRef(null);
   let html = marked.parse(content);
 
@@ -144,8 +164,9 @@ export default function MarkdownRenderer({ content }) {
       enhanceAllCodeBlocks(containerRef.current);
       enhanceLinks(containerRef.current);
       enhanceHeadings(containerRef.current);
+      enhanceImages(containerRef.current, imageMap);
     }
-  }, [content]);
+  }, [content, imageMap]);
 
   return (
     <div

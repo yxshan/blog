@@ -13,6 +13,20 @@ const postModules = import.meta.glob("/posts/**/index.md", {
 console.log("[posts] 已扫描到文章:", Object.keys(postModules).length, "篇");
 
 // ============================================================
+// 全局导入：文章目录中的图片文件
+// 匹配 /posts/** 下的常见图片格式，以 URL 形式（?url）导入
+// ============================================================
+const imageModules = import.meta.glob(
+  "/posts/**/*.{png,jpg,jpeg,gif,svg,webp}",
+  {
+    query: "?url",
+    import: "default",
+    eager: true,
+  },
+);
+console.log("[posts] 已扫描到图片:", Object.keys(imageModules).length, "张");
+
+// ============================================================
 // 工具函数
 // ============================================================
 
@@ -45,6 +59,28 @@ function deriveSlug(filePath) {
  */
 function deriveCategory(slug) {
   return slug.split("/")[0];
+}
+
+/**
+ * 解析文章目录中的图片引用路径
+ *
+ * Vite 通过 import.meta.glob 导入图片后会生成带哈希的 URL，
+ * 而 Markdown 中使用的是相对路径（如 "./xxx.png"）。
+ * 此函数构建从相对路径到实际 URL 的映射，供渲染时替换。
+ *
+ * @param {string} postDir - 文章目录路径，如 "/posts/kaoyan/010-converse/"
+ * @returns {Record<string, string>} { "./010-converse.png": "/assets/xxx-abc123.png" }
+ */
+function buildImageMap(postDir) {
+  if (Object.keys(imageModules).length === 0) return {};
+  const map = {};
+  for (const [filePath, url] of Object.entries(imageModules)) {
+    if (filePath.startsWith(postDir)) {
+      const fileName = filePath.slice(postDir.length);
+      map["./" + fileName] = url;
+    }
+  }
+  return map;
 }
 
 /**
@@ -104,6 +140,7 @@ function processPosts() {
         body = raw;
       }
       const slug = deriveSlug(filePath);
+      const postDir = filePath.replace(/\/index\.md$/, "/");
       console.log("[posts]", filePath, "→ slug:", slug);
 
       return {
@@ -123,6 +160,7 @@ function processPosts() {
         // 正文
         excerpt: extractExcerpt(body),
         content: body, // 完整 Markdown 内容，供 react-markdown 渲染
+        imageMap: buildImageMap(postDir), // 文章目录内图片的相对路径 → 实际 URL 映射
       };
     })
     // 生产环境下过滤草稿文章
