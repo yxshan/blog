@@ -15,6 +15,7 @@ import BackToTop from "../features/posts/BackToTop";
 import { getReadingTime } from "../features/posts/ReadingTime";
 import { getTagColor } from "../features/tags/tagColors";
 import { daysSince, formatDate } from "../features/posts/date";
+import Comments from "../features/posts/Comments";
 
 const DIFFICULTY_CONFIG = {
   easy: {
@@ -242,6 +243,7 @@ export default function Post() {
               </section>
             )}
           </footer>
+          <Comments slug={post.slug} />
         </article>
         <aside className="hidden w-64 flex-shrink-0 lg:block">
           <div className="sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto">

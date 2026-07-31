@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build && cp dist/index.html dist/404.html",
     "preview": "vite preview",
-    "generate:index": "node scripts/generate-index.mjs",
+    "generate:index": "node scripts/generate-index.mjs && node scripts/generate-search-index.mjs",
     "validate": "npm run generate:index && node scripts/validate-posts.mjs",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

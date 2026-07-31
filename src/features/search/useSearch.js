@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import Fuse from "fuse.js";
-import { getAllPosts } from "../posts/api";
+import searchIndexData from "../../generated/search-index.json";
 
 /**
  * 搜索 hook — 基于 Fuse.js 的客户端全文搜索
@@ -13,14 +13,22 @@ export default function useSearch() {
   const [query, setQueryValue] = useState("");
   const [results, setResults] = useState(null);
 
-  // 获取所有文章数据
-  const posts = useMemo(() => getAllPosts(), []);
+  // 获取全文搜索索引
+  const posts = useMemo(
+    () =>
+      searchIndexData.posts.map((post) => ({
+        ...post,
+        date: post.date ? new Date(post.date) : null,
+        updated: post.updated ? new Date(post.updated) : null,
+      })),
+    [],
+  );
 
   // 创建 Fuse 实例，仅在 posts 变化时重建
   const fuse = useMemo(
     () =>
       new Fuse(posts, {
-        keys: ["title", "excerpt"],
+        keys: ["title", "excerpt", "content"],
         threshold: 0.3,
       }),
     [posts],

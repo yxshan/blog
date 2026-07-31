@@ -10,6 +10,8 @@ Source lives in `src/` and is organized by feature:
 - `posts/<category>/NNN-slug/index.md` contains Markdown articles; category and slug drive routing and sorting.
 - `scripts/generate-sitemap.mjs` generates `sitemap.xml` during the build.
 - `scripts/generate-static-pages.mjs` creates per-post entry pages under `dist/posts/<slug>/index.html`.
+- `scripts/generate-rss.mjs` generates `feed.xml` and `robots.txt`.
+- `scripts/generate-search-index.mjs` builds the full-text search index.
 - `dist/` is generated output and is git-ignored; GitHub Pages deploys it via `.github/workflows/deploy.yml`.
 
 ## Build, Test, and Development Commands
@@ -26,6 +28,8 @@ npm run preview  # serve the production build locally
 
 The dev server watches `posts/**/*.md` and regenerates the post index automatically.
 Before pushing, run `npm run validate`, `npm run lint`, `npm test`, and `npm run build`.
+
+giscus comments are disabled until `.env` contains `VITE_GISCUS_REPO_ID` and `VITE_GISCUS_CATEGORY_ID`; copy `.env.example` to `.env` and fill in the values from the giscus app.
 
 ## Coding Style & Naming Conventions
 

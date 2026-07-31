@@ -33,6 +33,7 @@ export default function Home() {
   // 标签筛选状态 — 由 TagFilter 组件驱动的已选标签数组
   // ============================================================
   const selectedTags = searchParams.getAll("tag");
+  const selectedCategory = searchParams.get("category");
 
   // ============================================================
   // 获取全部文章（仅在组件挂载时计算一次）
@@ -57,17 +58,25 @@ export default function Home() {
     // 第一步：确定搜索基准
     //   results !== null → 用户正在搜索，以搜索结果为基准
     //   results === null → 搜索词为空，以全部文章为基准
-    const basePosts = results !== null ? results : allPosts;
+    let basePosts = results !== null ? results : allPosts;
 
     // 第二步：标签筛选
     //   有已选标签时，仅保留包含所有已选标签的文章（AND 逻辑）
-    //   无已选标签时，跳过此步
-    if (selectedTags.length === 0) return basePosts;
+    if (selectedTags.length > 0) {
+      basePosts = basePosts.filter((post) =>
+        selectedTags.every((tag) => post.tags.includes(tag)),
+      );
+    }
 
-    return basePosts.filter((post) =>
-      selectedTags.every((tag) => post.tags.includes(tag)),
-    );
-  }, [allPosts, results, selectedTags]);
+    // 第三步：分类筛选
+    if (selectedCategory) {
+      basePosts = basePosts.filter(
+        (post) => post.category === selectedCategory,
+      );
+    }
+
+    return basePosts;
+  }, [allPosts, results, selectedTags, selectedCategory]);
 
   // ============================================================
   // 单篇文章的渲染函数，传递给 VirtualList
