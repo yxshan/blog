@@ -10,10 +10,11 @@ import { getAllPosts } from "../posts/api";
  * - 输入防抖 300ms，避免高频重建索引
  */
 export default function useSearch() {
-  const [query, setQuery] = useState("");
+  const [query, setQueryValue] = useState("");
+  const [results, setResults] = useState(null);
 
   // 获取所有文章数据
-  const posts = getAllPosts();
+  const posts = useMemo(() => getAllPosts(), []);
 
   // 创建 Fuse 实例，仅在 posts 变化时重建
   const fuse = useMemo(
@@ -25,14 +26,13 @@ export default function useSearch() {
     [posts],
   );
 
-  // 防抖后的搜索结果
-  const [results, setResults] = useState(null);
+  const setQuery = (next) => {
+    if (!next.trim()) setResults(null);
+    setQueryValue(next);
+  };
 
   useEffect(() => {
-    if (!query.trim()) {
-      setResults(null);
-      return;
-    }
+    if (!query.trim()) return;
 
     // 300ms 防抖
     const timer = setTimeout(() => {

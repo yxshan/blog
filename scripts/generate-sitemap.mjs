@@ -1,21 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-
-/**
- * 从文件名中提取 slug
- * 示例：posts/algorithm/001-two-sum/index.md → algorithm/two-sum
- */
-function deriveSlug(filePath) {
-  let slug = filePath
-    .replace(/^posts[\\/]/, "")
-    .replace(/[\\/]index\.md$/, "");
-  slug = slug
-    .split(/[\\/]/)
-    .map((s) => s.replace(/^\d+-/, ""))
-    .join("/");
-  return slug;
-}
+import { deriveSlug } from "../src/features/posts/path-utils.js";
 
 /**
  * 递归扫描指定目录，找到所有 index.md 文件
@@ -57,23 +43,21 @@ export function generateSitemap(outputDir) {
     if (!data.date) continue;
 
     const slug = deriveSlug(filePath);
-    const dateStr = data.date instanceof Date
-      ? data.date.toISOString().split("T")[0]
-      : String(data.date).split("T")[0];
+    const dateStr =
+      data.date instanceof Date
+        ? data.date.toISOString().split("T")[0]
+        : String(data.date).split("T")[0];
 
     urls.push({ slug, date: dateStr });
   }
 
   urls.sort((a, b) => b.date.localeCompare(a.date));
 
-  const urlEntries = [
-    `  <url>\n    <loc>${BASE_URL}/</loc>\n  </url>`,
-    "",
-  ];
+  const urlEntries = [`  <url>\n    <loc>${BASE_URL}/</loc>\n  </url>`, ""];
 
   for (const { slug, date } of urls) {
     urlEntries.push(
-      `  <url>\n    <loc>${BASE_URL}/#/posts/${slug}</loc>\n    <lastmod>${date}</lastmod>\n  </url>`,
+      `  <url>\n    <loc>${buildSitemapUrl(slug)}</loc>\n    <lastmod>${date}</lastmod>\n  </url>`,
     );
   }
 
@@ -91,4 +75,9 @@ export function generateSitemap(outputDir) {
   const outputPath = path.join(outputDir, "sitemap.xml");
   fs.writeFileSync(outputPath, xml, "utf-8");
   console.log(`[sitemap] 已生成: ${outputPath}（${urls.length} 篇文章）`);
+}
+
+export function buildSitemapUrl(slug) {
+  const BASE_URL = "https://yxshan.github.io/blog";
+  return `${BASE_URL}/posts/${encodeURI(slug)}`;
 }

@@ -14,7 +14,7 @@ import { useTags } from "./useTags";
  *
  * @param {{ selectedTags: string[], onToggleTag: (tag: string) => void }} props
  */
-export default function TagFilter({ selectedTags, onToggleTag }) {
+export default function TagFilter({ selectedTags, onToggleTag, onClear }) {
   const tags = useTags();
 
   return (
@@ -50,7 +50,7 @@ export default function TagFilter({ selectedTags, onToggleTag }) {
       {/* 当有标签被选中时，显示"清除全部"按钮 */}
       {selectedTags.length > 0 && (
         <button
-          onClick={() => selectedTags.forEach((tag) => onToggleTag(tag))}
+          onClick={onClear}
           className="inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm font-medium text-gray-400 ring-1 ring-inset ring-gray-200 hover:text-gray-600 hover:ring-gray-400 transition-colors duration-150"
           title="清除全部筛选"
         >

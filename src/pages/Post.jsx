@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router";
 import { Helmet } from "react-helmet-async";
 import {
@@ -7,13 +7,14 @@ import {
   ChevronRightIcon,
 } from "@heroicons/react/24/outline";
 
-import { getPostBySlug, getAllPosts } from "../features/posts/api";
+import { getAllPosts, loadPostContent } from "../features/posts/api";
 import MarkdownRenderer from "../features/posts/MarkdownRenderer";
 import TOC from "../features/posts/TOC";
 import ReadingProgress from "../features/posts/ReadingProgress";
 import BackToTop from "../features/posts/BackToTop";
 import { getReadingTime } from "../features/posts/ReadingTime";
 import { getTagColor } from "../features/tags/tagColors";
+import { daysSince, formatDate } from "../features/posts/date";
 
 const DIFFICULTY_CONFIG = {
   easy: {
@@ -33,21 +34,31 @@ const DIFFICULTY_CONFIG = {
   },
 };
 
-function formatDate(date) {
-  if (!date) return "";
-  return date.toISOString().split("T")[0];
-}
-
-function daysSince(date) {
-  if (!date) return 0;
-  return Math.floor((new Date().getTime() - date.getTime()) / 86400000);
-}
-
 export default function Post() {
   const params = useParams();
   const slug = params["*"];
-  const post = getPostBySlug(slug);
+  const [post, setPost] = useState(null);
+  const [notFound, setNotFound] = useState(false);
   const allPosts = useMemo(() => getAllPosts(), []);
+
+  useEffect(() => {
+    let cancelled = false;
+    setPost(null);
+    setNotFound(false);
+
+    loadPostContent(slug).then((loaded) => {
+      if (cancelled) return;
+      if (!loaded) {
+        setNotFound(true);
+        return;
+      }
+      setPost(loaded);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [slug]);
 
   const readingTime = useMemo(
     () => (post ? getReadingTime(post.content) : null),
@@ -86,7 +97,15 @@ export default function Post() {
   const lastUpdated = post?.updated || post?.date;
   const daysAgo = lastUpdated ? daysSince(lastUpdated) : 0;
 
-  if (!post) {
+  if (!post && !notFound) {
+    return (
+      <div className="mx-auto max-w-4xl px-4 py-16 text-center text-gray-500 dark:text-gray-400">
+        加载中...
+      </div>
+    );
+  }
+
+  if (notFound || !post) {
     return (
       <div className="mx-auto max-w-4xl px-4 py-16 text-center">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
@@ -226,7 +245,7 @@ export default function Post() {
         </article>
         <aside className="hidden w-64 flex-shrink-0 lg:block">
           <div className="sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto">
-            <TOC slug={post.slug} />
+            <TOC slug={post.slug} revision={post.content.length} />
           </div>
         </aside>
       </div>

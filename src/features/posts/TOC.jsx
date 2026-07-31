@@ -61,10 +61,11 @@ function buildHeadingTree(flatHeadings) {
 /**
  * TOC 组件
  *
- * @param {{ slug: string }} props
+ * @param {{ slug: string, revision?: number }} props
  *   slug — 文章标识，用作 useEffect 依赖，文章切换时重新提取标题
+ *   revision — 正文变更标记，异步加载完成后触发重新提取
  */
-export default function TOC({ slug }) {
+export default function TOC({ slug, revision = 0 }) {
   // 嵌套标题树
   const [tree, setTree] = useState([]);
   // 当前活跃（视口中）的标题 id
@@ -117,7 +118,7 @@ export default function TOC({ slug }) {
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, [slug]);
+  }, [slug, revision]);
 
   // ============================================================
   // 点击标题 → 平滑滚动

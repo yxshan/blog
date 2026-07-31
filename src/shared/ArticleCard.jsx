@@ -1,33 +1,6 @@
 import { Link } from "react-router";
-
-/**
- * 占位版标签颜色映射
- *
- * 在 src/features/tags/tagColors.js 创建后，应替换为：
- *   import { getTagColor } from "../features/tags/tagColors"
- *
- * 当前为硬编码预设，覆盖中英文标签名：
- *   简单 / easy   → 绿色
- *   中等 / medium → 黄色
- *   困难 / hard   → 红色
- *   未知标签      → 灰色
- */
-function getTagColor(tag) {
-  const colorMap = {
-    简单: "text-green-700 bg-green-100 dark:text-green-300 dark:bg-green-900/40",
-    easy: "text-green-700 bg-green-100 dark:text-green-300 dark:bg-green-900/40",
-    中等: "text-yellow-700 bg-yellow-100 dark:text-yellow-300 dark:bg-yellow-900/40",
-    medium:
-      "text-yellow-700 bg-yellow-100 dark:text-yellow-300 dark:bg-yellow-900/40",
-    困难: "text-red-700 bg-red-100 dark:text-red-300 dark:bg-red-900/40",
-    hard: "text-red-700 bg-red-100 dark:text-red-300 dark:bg-red-900/40",
-  };
-
-  return (
-    colorMap[tag] ||
-    "text-gray-600 bg-gray-100 dark:text-gray-400 dark:bg-gray-800"
-  );
-}
+import { getTagColor } from "../features/tags/tagColors";
+import { formatDate } from "../features/posts/date";
 
 /**
  * 难度映射：中文显示名 + 对应的 Tailwind 颜色类
@@ -68,7 +41,7 @@ function ArticleCard({ post }) {
   const { slug, title, date, tags, excerpt, difficulty } = post;
 
   // 格式化日期：YYYY-MM-DD
-  const formattedDate = date ? date.toISOString().split("T")[0] : "";
+  const formattedDate = formatDate(date);
 
   // 难度配置（不存在时返回 null，跳过渲染）
   const diffConfig = difficulty ? DIFFICULTY_CONFIG[difficulty] : null;

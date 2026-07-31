@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { marked } from "marked";
-import hljs from "highlight.js";
-import { ClipboardIcon } from "@heroicons/react/24/outline";
+import hljs from "highlight.js/lib/common";
 import markedKatex from "marked-katex-extension";
+import DOMPurify from "dompurify";
 import "highlight.js/styles/github.css";
 
 // 配置 marked：GFM + 代码高亮
@@ -23,23 +23,26 @@ marked.use(markedKatex({ throwOnError: false, nonStandard: true }));
 /**
  * 给单个代码块添加顶栏（语言标签 + 复制按钮）
  */
-function enhanceCodeBlock(block, lang) {
-  // 避免重复增强
-  if (block.parentElement?.classList.contains("code-block-wrapper")) return;
+export function enhanceCodeBlock(block, lang) {
+  // 避免重复增强（StrictMode 下 effect 执行两次，包装器内部的 pre 也要跳过）
+  if (block.closest(".code-block-wrapper")) return;
 
   const wrapper = document.createElement("div");
-  wrapper.className =
-    "code-block-wrapper my-6 overflow-hidden rounded-lg border border-gray-200 shadow-sm dark:border-gray-700";
+  wrapper.className = "code-block-wrapper";
 
   // 顶栏
   const header = document.createElement("div");
-  header.className =
-    "flex items-center justify-between rounded-t-lg border-b border-gray-200 bg-gray-50 px-4 py-2 text-xs text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400";
-  header.innerHTML = `<span>${lang || "text"}</span><button class="copy-btn inline-flex items-center gap-1 rounded px-2 py-1 hover:bg-gray-200 dark:hover:bg-gray-700"><svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>复制</span></button>`;
+  header.className = "code-block-header";
+  const langLabel = document.createElement("span");
+  langLabel.textContent = lang || "text";
+  const copyBtn = document.createElement("button");
+  copyBtn.className = "copy-btn code-copy-btn";
+  copyBtn.innerHTML = `<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>复制</span>`;
+  header.append(langLabel, copyBtn);
 
   // 内容区
   const body = document.createElement("div");
-  body.className = "overflow-x-auto bg-[#f6f8fa] dark:bg-[#0d1117]";
+  body.className = "code-block-body";
   body.appendChild(block.cloneNode(true));
 
   const codeEl = body.querySelector("code");
@@ -47,7 +50,7 @@ function enhanceCodeBlock(block, lang) {
     codeEl.classList.add("hljs");
     const lines = codeEl.innerHTML.split("\n");
     codeEl.innerHTML = lines
-      .map((line, i) => `<span class="hljs-line">${line || " "}</span>`)
+      .map((line) => `<span class="hljs-line">${line || " "}</span>`)
       .join("\n");
   }
 
@@ -57,7 +60,6 @@ function enhanceCodeBlock(block, lang) {
   block.parentElement.replaceChild(wrapper, block);
 
   // 复制按钮事件
-  const copyBtn = header.querySelector(".copy-btn");
   const codeText = wrapper.querySelector("code")?.textContent || "";
   copyBtn.addEventListener("click", () => {
     navigator.clipboard.writeText(codeText).then(() => {
@@ -149,14 +151,65 @@ function enhanceImages(container, imageMap) {
   });
 }
 
+/**
+ * 将正文中的 #标签 包装成徽章，跳过代码、链接和标题区域
+ */
+function enhanceHashTags(container) {
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const parent = node.parentElement;
+      if (
+        parent &&
+        parent.closest("pre, code, a, h1, h2, h3, h4, h5, h6, .hash-tag")
+      ) {
+        return NodeFilter.FILTER_REJECT;
+      }
+      return NodeFilter.FILTER_ACCEPT;
+    },
+  });
+
+  const textNodes = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+  for (const node of textNodes) {
+    const original = node.nodeValue || "";
+    if (!original.includes("#")) continue;
+
+    const regex = /(^|[^\w\u4e00-\u9fff])#([\u4e00-\u9fff\w]+)/g;
+    const fragment = document.createDocumentFragment();
+    let lastIndex = 0;
+    let changed = false;
+    let match;
+
+    while ((match = regex.exec(original)) !== null) {
+      const prefix = match[1];
+      const tag = match[2];
+      fragment.append(
+        document.createTextNode(
+          original.slice(lastIndex, match.index + prefix.length),
+        ),
+      );
+
+      const span = document.createElement("span");
+      span.className = "hash-tag";
+      span.textContent = `#${tag}`;
+      fragment.appendChild(span);
+
+      lastIndex = match.index + prefix.length + tag.length + 1;
+      changed = true;
+    }
+
+    if (!changed) continue;
+    fragment.append(document.createTextNode(original.slice(lastIndex)));
+    node.parentNode.replaceChild(fragment, node);
+  }
+}
+
 export default function MarkdownRenderer({ content, imageMap }) {
   const containerRef = useRef(null);
-  let html = marked.parse(content);
-
-  // 将 #文字 替换为标签样式（不处理标题中的 #）
-  html = html.replace(
-    /(?<!<[^>]*)(?<!["\w])#([\u4e00-\u9fff\w]+)/g,
-    '<span class="hash-tag">#$1</span>',
+  const html = useMemo(
+    () => DOMPurify.sanitize(marked.parse(content)),
+    [content],
   );
 
   useEffect(() => {
@@ -165,6 +218,7 @@ export default function MarkdownRenderer({ content, imageMap }) {
       enhanceLinks(containerRef.current);
       enhanceHeadings(containerRef.current);
       enhanceImages(containerRef.current, imageMap);
+      enhanceHashTags(containerRef.current);
     }
   }, [content, imageMap]);
 

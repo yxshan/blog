@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { useSearchParams } from "react-router";
 import SearchBar from "../features/search/SearchBar";
 import TagFilter from "../features/tags/TagFilter";
@@ -24,14 +24,14 @@ export default function Home() {
   // ============================================================
   // 搜索状态 — useSearch 内部管理 query 与 results
   // ============================================================
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const autoFocus = searchParams.get("focus") === "1";
   const { query, setQuery, results } = useSearch();
 
   // ============================================================
   // 标签筛选状态 — 由 TagFilter 组件驱动的已选标签数组
   // ============================================================
-  const [selectedTags, setSelectedTags] = useState([]);
+  const selectedTags = searchParams.getAll("tag");
 
   // ============================================================
   // 获取全部文章（仅在组件挂载时计算一次）
@@ -42,9 +42,18 @@ export default function Home() {
   // 标签切换处理：已选则移除，未选则添加
   // ============================================================
   const handleToggleTag = (tag) => {
-    setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
-    );
+    const next = new URLSearchParams(searchParams);
+    const tags = next.getAll("tag").filter((t) => t !== tag);
+    next.delete("tag");
+    tags.forEach((t) => next.append("tag", t));
+    if (!tags.includes(tag)) next.append("tag", tag);
+    setSearchParams(next, { replace: true });
+  };
+
+  const clearTags = () => {
+    const next = new URLSearchParams(searchParams);
+    next.delete("tag");
+    setSearchParams(next, { replace: true });
   };
 
   // ============================================================
@@ -88,7 +97,11 @@ export default function Home() {
 
       {/* 标签筛选按钮组 */}
       <div className="mb-6">
-        <TagFilter selectedTags={selectedTags} onToggleTag={handleToggleTag} />
+        <TagFilter
+          selectedTags={selectedTags}
+          onToggleTag={handleToggleTag}
+          onClear={clearTags}
+        />
       </div>
 
       {/* 结果计数提示 */}

@@ -1,0 +1,10 @@
+dist/
+node_modules/
+src/generated/
+.playwright-mcp/
+.omo/
+posts/
+package-lock.json
+*.png
+模版.md
+需求文档.md
