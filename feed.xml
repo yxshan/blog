@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>yxshan's Blog</title>
+    <link>https://yxshan.github.io/blog/</link>
+    <description>算法题解、数据结构与考研笔记</description>
+    <atom:link href="https://yxshan.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2010真题</title>
+      <link>https://yxshan.github.io/blog/posts/kaoyan/converse</link>
+      <guid>https://yxshan.github.io/blog/posts/kaoyan/converse</guid>
+      <pubDate>Tue, 28 Jul 2026 00:00:00 GMT</pubDate>
+      <description>讲解视频：2010真题 #中等 #线性表 #顺序表 #反转  !题目信息 可将问题视为把数组$ab$转换为数组$ba$（$a$代表数组的前$p$个元素，$b$代表数组中余下的$n-p$个元素），先把$a$逆置得到$a^{-1}b$，再将$b$逆置得到$a^{-1}b^{-1}$，最后将整个$a^{-</description>
+    </item>
+    <item>
+      <title>表位置互换</title>
+      <link>https://yxshan.github.io/blog/posts/kaoyan/exchange</link>
+      <guid>https://yxshan.github.io/blog/posts/kaoyan/exchange</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description>讲解视频：表位置互换 #简单 #线性表 #顺序表 #反转  已知在一维数组A\[m+n\]中依次存放两个线性表$(a_1,a_2,a_3,...,a_m)$和$(b_1,b_2,b_3,...,b_n)$。编写一个函数，将数组中两个顺序表的位置互换，即将$(b_1,b_2,b_3,...,b_n)$</description>
+    </item>
+    <item>
+      <title>查找-交换-插入</title>
+      <link>https://yxshan.github.io/blog/posts/kaoyan/search-exchange-insert</link>
+      <guid>https://yxshan.github.io/blog/posts/kaoyan/search-exchange-insert</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description>讲解视频：查找-交换-插入 #中等 #线性表 #顺序表 #查找 #插入  线性表中的元素递增有序且按顺序存储于计算机中，要求设计一个算法完成用最少时间在表中查找数值为x的元素，若找到，则将其与后继元素交换位置，若找不到，则将其插入表中并使表中元素仍然递增有序。 用最少时间在表中查找数值为x的元素，使</description>
+    </item>
+    <item>
+      <title>找公共元素</title>
+      <link>https://yxshan.github.io/blog/posts/kaoyan/samekey</link>
+      <guid>https://yxshan.github.io/blog/posts/kaoyan/samekey</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description>讲解视频：找公共元素 #中等 #线性表 #顺序表 #公共元素 给定三个序列A，B，C，长度均为n，且均为无重复元素的递增元素，请设计一个时间尽可能高效的算法，逐行输出同时存在于这三个序列中的所有元素。 使用三个指针从小到大遍历数组，当三个指针指向的元素相等时，输出并向前推进指针，否则仅移动小于最大元</description>
+    </item>
+    <item>
+      <title>删除重复值</title>
+      <link>https://yxshan.github.io/blog/posts/kaoyan/delete-same</link>
+      <guid>https://yxshan.github.io/blog/posts/kaoyan/delete-same</guid>
+      <pubDate>Thu, 16 Jul 2026 00:00:00 GMT</pubDate>
+      <description>详解视频：删除重复值 #简单 #线性表 #顺序表 #删除  从有序顺序表中删除所有其值重复的元素，使表中所有元素的值均不相同。 由于是有序顺序表，值相同的元素一定在连续的位置上，用类似于直接插入排序的思想，初始时将第一个元素视为非重复元素的有序表。之后依次判断后面的元素是否为前面非重复有序表的最后一</description>
+    </item>
+    <item>
+      <title>表合并</title>
+      <link>https://yxshan.github.io/blog/posts/kaoyan/merge</link>
+      <guid>https://yxshan.github.io/blog/posts/kaoyan/merge</guid>
+      <pubDate>Thu, 16 Jul 2026 00:00:00 GMT</pubDate>
+      <description>讲解视频：表合并 #简单 #线性表 #顺序表 #合并  将两个有序顺序表合并为一个新的有序顺序表，并由函数返回结果顺序表。
+首先，按顺序不断取下两个顺序表表头较小的节点存入新的顺序表中
+然后，看哪个表还有剩余，将剩下的部分加到新的顺序表后面
+时间复杂度：O(A.length + B.length)（</description>
+    </item>
+    <item>
+      <title>删除s-t的值</title>
+      <link>https://yxshan.github.io/blog/posts/kaoyan/delete-s-t</link>
+      <guid>https://yxshan.github.io/blog/posts/kaoyan/delete-s-t</guid>
+      <pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate>
+      <description>讲解视频：删除s-t的值 #简单 #线性表 #顺序表 #删除  从顺序表中删除其值在给定值s和t之间（包含s和t，要求$s&lt;t$）的所有元素，若s或t不合理或顺序表为空，则显示出错信息并退出运行。 从前向后扫描顺序表L，用k记录值在s和t之间的元素个数（初始时k=0）。
+对于当前扫描的元素，若其值不</description>
+    </item>
+    <item>
+      <title>删除所有x</title>
+      <link>https://yxshan.github.io/blog/posts/kaoyan/delete-x</link>
+      <guid>https://yxshan.github.io/blog/posts/kaoyan/delete-x</guid>
+      <pubDate>Tue, 07 Jul 2026 00:00:00 GMT</pubDate>
+      <description>讲解视频：删除所有x #简单 #线性表 #顺序表 #删除 对长度为n对顺序表L，编写一个时间复杂度为$O(n)$，空间复杂度为$O(1)$的算法，该算法删除顺序表中所有值为x的数据元素。 用k记录顺序表L中不等于x的元素个数（需要保存的元素个数），扫描时将不等于x的元素移动到下标k的位置，并更新k值</description>
+    </item>
+    <item>
+      <title>删除最小值</title>
+      <link>https://yxshan.github.io/blog/posts/kaoyan/delete-min</link>
+      <guid>https://yxshan.github.io/blog/posts/kaoyan/delete-min</guid>
+      <pubDate>Mon, 06 Jul 2026 00:00:00 GMT</pubDate>
+      <description>讲解视频：删除最小值 #简单 #线性表 #顺序表 #删除 从顺序表中删除具有最小值的元素（假设唯一）并由函数返回被删元素的值。空出的位置由最后一个元素填补。若顺序表为空，则显示出错信息并退出运行。
+检查顺序表是否为空  
+若为空，则输出错误信息，并终止程序运行（或返回特殊标识）。
+遍历顺序表，找到最</description>
+    </item>
+    <item>
+      <title>元素逆置</title>
+      <link>https://yxshan.github.io/blog/posts/kaoyan/reverse</link>
+      <guid>https://yxshan.github.io/blog/posts/kaoyan/reverse</guid>
+      <pubDate>Mon, 06 Jul 2026 00:00:00 GMT</pubDate>
+      <description>讲解视频：元素逆置 #简单 #线性表 #顺序表 #反转  设计一个高效算法，将顺序表L到所有元素逆置，要求算法的空间复杂度为$O(1)$
+双指针法（首尾交换）  
+设置两个指针（或下标），分别指向顺序表的第一个元素和最后一个元素。
+循环交换元素  
+交换两个指针所指的元素，然后左指针右移一位，右指针</description>
+    </item>
+    <item>
+      <title>反转链表</title>
+      <link>https://yxshan.github.io/blog/posts/algorithm/reverse-list</link>
+      <guid>https://yxshan.github.io/blog/posts/algorithm/reverse-list</guid>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 GMT</pubDate>
+      <description>BM1 反转链表 #简单 #链表 #反转 给定一个单链表的头结点pHead(该头节点是有值的，比如在下图，它的val是1)，长度为n，反转该链表后，返回新链表的表头。
+数据范围： 0≤n≤1000
+要求：空间复杂度 O(1)，时间复杂度 O(n) 。
+核心思想：遍历原链表，逐个改变指针方向
+用 pr</description>
+    </item>
+    <item>
+      <title>链表内指定区间反转</title>
+      <link>https://yxshan.github.io/blog/posts/algorithm/reverse-between</link>
+      <guid>https://yxshan.github.io/blog/posts/algorithm/reverse-between</guid>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 GMT</pubDate>
+      <description>BM2 链表内指定区间反转 #中等 #链表 #反转 #区间 将一个节点数为 size 链表 m 位置到 n 位置之间的区间反转，要求时间复杂度 O(n)，空间复杂度 O(1)。  
+例如：  
+给出的链表为 1→2→3→4→5→NULL, m=2,n=4  
+返回 1→4→3→2→5→NULL
+数据</description>
+    </item>
+    <item>
+      <title>链表中的节点每k个一组翻转</title>
+      <link>https://yxshan.github.io/blog/posts/algorithm/reverse-k-group</link>
+      <guid>https://yxshan.github.io/blog/posts/algorithm/reverse-k-group</guid>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 GMT</pubDate>
+      <description>BM3 链表中的节点每k个一组翻转 #中等 #链表 #反转  #区间 将给出的链表中的节点每 k 个一组翻转，返回翻转后的链表  
+如果链表中的节点数不是 k 的倍数，将最后剩下的节点保持原样  
+你不能更改节点中的值，只能更改节点本身。
+数据范围：  0≤n≤2000， 1≤k≤2000，链表中每</description>
+    </item>
+    <item>
+      <title>合并两个排序的链表</title>
+      <link>https://yxshan.github.io/blog/posts/algorithm/merge</link>
+      <guid>https://yxshan.github.io/blog/posts/algorithm/merge</guid>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 GMT</pubDate>
+      <description>BM4 合并两个排序的链表 #简单 #链表 #合并 输入两个递增的链表，单个链表的长度为n，合并这两个链表并使新链表中的节点仍然是递增排序的。  
+数据范围： 0≤n≤1000，−1000≤节点值≤1000
+要求：空间复杂度 $O(1)$，时间复杂度 $O(n)$
+首先处理特殊情况，如果其中一个链表</description>
+    </item>
+  </channel>
+</rss>
