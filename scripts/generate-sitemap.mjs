@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import matter from "gray-matter";
 import { deriveSlug } from "../src/features/posts/path-utils.js";
 
@@ -80,4 +81,11 @@ export function generateSitemap(outputDir) {
 export function buildSitemapUrl(slug) {
   const BASE_URL = "https://yxshan.github.io/blog";
   return `${BASE_URL}/posts/${encodeURI(slug)}`;
+}
+
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
+  generateSitemap("dist");
 }

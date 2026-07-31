@@ -1,6 +1,6 @@
 # yxshan's Blog
 
-基于 React 19 + Vite 6 + TailwindCSS 3 的静态算法题解博客，自动部署到 GitHub Pages。
+基于 Astro 7 + React 19 islands + TailwindCSS 3 的静态算法题解博客，自动部署到 GitHub Pages。
 
 ## 快速开始
 
@@ -8,7 +8,7 @@
 git clone git@github.com:yxshan/blog.git
 cd blog
 npm install
-npm run dev        # 本地开发 → http://localhost:5173/blog/
+npm run dev        # 本地开发 → http://localhost:4321/blog
 npm run validate   # 校验文章元数据和图片引用
 npm test           # 运行单元测试
 npm run build      # 生产构建 → dist/
@@ -140,43 +140,37 @@ cp .env.example .env
 
 | 层级      | 选型                                                  |
 | --------- | ----------------------------------------------------- |
-| 框架      | React 19 + React Router v7                            |
-| 构建      | Vite 6                                                |
+| 框架      | Astro 7 + React 19 islands                            |
+| 构建      | Astro static build                                    |
 | 样式      | TailwindCSS 3 + 自定义 prose 排版                     |
 | 内容解析  | `front-matter`（元数据）+ `marked`（Markdown → HTML） |
 | 代码高亮  | `highlight.js` + CSS 行号                             |
 | 数学公式  | `marked-katex-extension` + KaTeX                      |
 | 搜索      | Fuse.js 客户端模糊搜索                                |
-| 虚拟滚动  | `@tanstack/react-virtual`（200+ 文章流畅）            |
-| SEO       | `react-helmet-async` + `sitemap.xml` + JSON-LD        |
+| SEO       | 静态 HTML + `sitemap.xml` + Open Graph                |
 | 测试/规范 | Vitest + ESLint + Prettier + 文章内容校验             |
-| 部署      | GitHub Actions → GitHub Pages（BrowserRouter）        |
+| 部署      | GitHub Actions → GitHub Pages（Astro static）         |
 
 ## 📁 项目结构
 
 ```
 src/
-├── App.jsx                        # 路由 + 页面跳转自动回顶
-├── main.jsx                       # 入口
 ├── index.css                      # 全局样式（排版、暗色主题、打印）
-├── features/
-│   ├── posts/
-│   │   ├── api.js                 # 元数据索引 + 正文按需加载
-│   │   ├── categories.js          # 分类自动提取
-│   │   ├── MarkdownRenderer.jsx   # Markdown → HTML + 代码增强
-│   │   ├── TOC.jsx                # 右侧目录导航（sticky + scroll-spy）
-│   │   ├── ReadingProgress.jsx    # 顶部阅读进度条
-│   │   ├── BackToTop.jsx          # 返回顶部按钮
-│   │   └── ReadingTime.js         # 阅读时长估算
-│   ├── theme/                     # 暗色模式（Provider + Hook）
-│   ├── tags/                      # 标签筛选 + 颜色映射
-│   └── search/                    # Fuse.js 搜索
 ├── pages/
-│   ├── Home.jsx                   # 首页（列表 + 搜索 + 虚拟滚动）
-│   ├── Post.jsx                   # 文章详情页
-│   └── NotFound.jsx               # 404 页面
-├── shared/                        # 通用组件（Header、Footer、ArticleCard 等）
-└── layouts/                       # 布局组件
+│   ├── index.astro                # 首页（React 搜索岛 + 静态列表）
+│   ├── posts/[...slug].astro      # 文章静态页
+│   └── 404.astro                  # 404 页面
+├── components/
+│   ├── Header.astro               # 顶部导航 + 移动端菜单
+│   ├── Footer.astro               # 底部 + RSS 入口
+│   └── home/                      # 首页 React 组件
+├── layouts/
+│   └── BaseLayout.astro           # 全局布局与 meta
+├── lib/
+│   ├── posts.js                   # 文章元数据与正文读取
+│   └── markdown.js                # Markdown → 静态 HTML
+├── scripts/                       # 代码块增强、TOC
+└── features/                      # 搜索、标签、评论、日期等 React 组件
 ```
 
 ## ⚠️ 注意事项
@@ -185,5 +179,4 @@ src/
 2. **文件编码**：UTF-8，中文内容不要用 GBK
 3. **图片引用**：如需配图，放在文章同目录下，用 `![](./image.png)` 引用；或使用外部图床
 4. **草稿模式**：`draft: true` 的文章在开发环境可见，上线后自动隐藏
-5. **扩展性**：首页只加载元数据索引，文章正文按 slug 动态加载；构建会为每篇文章生成静态入口页，并随 `posts/` 变更自动重建索引
-6. **不要修改 `public/`**：静态资源放项目根目录，不要放 `/public/`（Vite 限制）
+5. **扩展性**：每篇文章构建为完整静态 HTML；首页搜索使用构建期全文索引

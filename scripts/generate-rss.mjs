@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 function escapeXml(value) {
   return String(value)
@@ -62,4 +63,12 @@ export function generateRobots(outputDir = "dist") {
   ].join("\n");
   fs.writeFileSync(outputPath, `${content}\n`, "utf-8");
   console.log(`[robots] 已生成: ${outputPath}`);
+}
+
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
+  generateRss("dist");
+  generateRobots("dist");
 }

@@ -42,6 +42,7 @@ export default [
       "dist/**",
       "node_modules/**",
       "src/generated/**",
+      "**/*.astro",
       ".playwright-mcp/**",
       "*.png",
     ],

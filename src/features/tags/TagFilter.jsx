@@ -4,7 +4,6 @@
 
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { getTagColor } from "./tagColors";
-import { useTags } from "./useTags";
 
 /**
  * 标签筛选按钮组
@@ -14,9 +13,12 @@ import { useTags } from "./useTags";
  *
  * @param {{ selectedTags: string[], onToggleTag: (tag: string) => void }} props
  */
-export default function TagFilter({ selectedTags, onToggleTag, onClear }) {
-  const tags = useTags();
-
+export default function TagFilter({
+  selectedTags,
+  onToggleTag,
+  onClear,
+  tags = [],
+}) {
   return (
     <div className="flex flex-wrap items-center gap-2">
       {tags.map(({ name, count }) => {
