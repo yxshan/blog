@@ -1,0 +1,255 @@
+{
+  "posts": [
+    {
+      "slug": "kaoyan/converse",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/010-converse/index.md",
+      "title": "2010真题",
+      "date": "2026-07-28",
+      "updated": "2026-07-28",
+      "tags": [
+        "中等",
+        "线性表",
+        "顺序表",
+        "反转"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "讲解视频：2010真题 #中等 #线性表 #顺序表 #反转  !题目信息 可将问题视为把数组$ab$转换为数组$ba$（$a$代表数组的前$p$个元素，$b$代表数组中余下的$n-p$个元素），先把$a$逆置得到$a^{-1}b$，再将$b$逆置得到$a^{-1}b^{-1}$，最后将整个$a^{-"
+    },
+    {
+      "slug": "kaoyan/exchange",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/007-exchange/index.md",
+      "title": "表位置互换",
+      "date": "2026-07-23",
+      "updated": "2026-07-23",
+      "tags": [
+        "简单",
+        "线性表",
+        "顺序表",
+        "反转"
+      ],
+      "difficulty": "easy",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "讲解视频：表位置互换 #简单 #线性表 #顺序表 #反转  已知在一维数组A\\[m+n\\]中依次存放两个线性表$(a_1,a_2,a_3,...,a_m)$和$(b_1,b_2,b_3,...,b_n)$。编写一个函数，将数组中两个顺序表的位置互换，即将$(b_1,b_2,b_3,...,b_n)$"
+    },
+    {
+      "slug": "kaoyan/search-exchange-insert",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/008-search-exchange-insert/index.md",
+      "title": "查找-交换-插入",
+      "date": "2026-07-23",
+      "updated": "2026-07-23",
+      "tags": [
+        "中等",
+        "线性表",
+        "顺序表",
+        "查找",
+        "插入"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "讲解视频：查找-交换-插入 #中等 #线性表 #顺序表 #查找 #插入  线性表中的元素递增有序且按顺序存储于计算机中，要求设计一个算法完成用最少时间在表中查找数值为x的元素，若找到，则将其与后继元素交换位置，若找不到，则将其插入表中并使表中元素仍然递增有序。 用最少时间在表中查找数值为x的元素，使"
+    },
+    {
+      "slug": "kaoyan/samekey",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/009-samekey/index.md",
+      "title": "找公共元素",
+      "date": "2026-07-23",
+      "updated": "2026-07-23",
+      "tags": [
+        "中等",
+        "线性表",
+        "顺序表",
+        "公共元素"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "讲解视频：找公共元素 #中等 #线性表 #顺序表 #公共元素 给定三个序列A，B，C，长度均为n，且均为无重复元素的递增元素，请设计一个时间尽可能高效的算法，逐行输出同时存在于这三个序列中的所有元素。 使用三个指针从小到大遍历数组，当三个指针指向的元素相等时，输出并向前推进指针，否则仅移动小于最大元"
+    },
+    {
+      "slug": "kaoyan/delete-same",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/005-delete-same/index.md",
+      "title": "删除重复值",
+      "date": "2026-07-16",
+      "updated": "2026-07-16",
+      "tags": [
+        "简单",
+        "线性表",
+        "顺序表",
+        "删除"
+      ],
+      "difficulty": "easy",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "详解视频：删除重复值 #简单 #线性表 #顺序表 #删除  从有序顺序表中删除所有其值重复的元素，使表中所有元素的值均不相同。 由于是有序顺序表，值相同的元素一定在连续的位置上，用类似于直接插入排序的思想，初始时将第一个元素视为非重复元素的有序表。之后依次判断后面的元素是否为前面非重复有序表的最后一"
+    },
+    {
+      "slug": "kaoyan/merge",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/006-merge/index.md",
+      "title": "表合并",
+      "date": "2026-07-16",
+      "updated": "2026-07-16",
+      "tags": [
+        "简单",
+        "线性表",
+        "顺序表",
+        "合并"
+      ],
+      "difficulty": "easy",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "讲解视频：表合并 #简单 #线性表 #顺序表 #合并  将两个有序顺序表合并为一个新的有序顺序表，并由函数返回结果顺序表。\n首先，按顺序不断取下两个顺序表表头较小的节点存入新的顺序表中\n然后，看哪个表还有剩余，将剩下的部分加到新的顺序表后面\n时间复杂度：O(A.length + B.length)（"
+    },
+    {
+      "slug": "kaoyan/delete-s-t",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/004-delete-s-t/index.md",
+      "title": "删除s-t的值",
+      "date": "2026-07-09",
+      "updated": "2026-07-09",
+      "tags": [
+        "简单",
+        "线性表",
+        "顺序表",
+        "删除"
+      ],
+      "difficulty": "easy",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "讲解视频：删除s-t的值 #简单 #线性表 #顺序表 #删除  从顺序表中删除其值在给定值s和t之间（包含s和t，要求$s<t$）的所有元素，若s或t不合理或顺序表为空，则显示出错信息并退出运行。 从前向后扫描顺序表L，用k记录值在s和t之间的元素个数（初始时k=0）。\n对于当前扫描的元素，若其值不"
+    },
+    {
+      "slug": "kaoyan/delete-x",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/003-delete-x/index.md",
+      "title": "删除所有x",
+      "date": "2026-07-07",
+      "updated": "2026-07-07",
+      "tags": [
+        "简单",
+        "线性表",
+        "顺序表",
+        "删除"
+      ],
+      "difficulty": "easy",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "讲解视频：删除所有x #简单 #线性表 #顺序表 #删除 对长度为n对顺序表L，编写一个时间复杂度为$O(n)$，空间复杂度为$O(1)$的算法，该算法删除顺序表中所有值为x的数据元素。 用k记录顺序表L中不等于x的元素个数（需要保存的元素个数），扫描时将不等于x的元素移动到下标k的位置，并更新k值"
+    },
+    {
+      "slug": "kaoyan/delete-min",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/001-delete-min/index.md",
+      "title": "删除最小值",
+      "date": "2026-07-06",
+      "updated": "2026-07-06",
+      "tags": [
+        "简单",
+        "线性表",
+        "顺序表",
+        "删除"
+      ],
+      "difficulty": "easy",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "讲解视频：删除最小值 #简单 #线性表 #顺序表 #删除 从顺序表中删除具有最小值的元素（假设唯一）并由函数返回被删元素的值。空出的位置由最后一个元素填补。若顺序表为空，则显示出错信息并退出运行。\n检查顺序表是否为空  \n若为空，则输出错误信息，并终止程序运行（或返回特殊标识）。\n遍历顺序表，找到最"
+    },
+    {
+      "slug": "kaoyan/reverse",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/002-reverse/index.md",
+      "title": "元素逆置",
+      "date": "2026-07-06",
+      "updated": "2026-07-06",
+      "tags": [
+        "简单",
+        "线性表",
+        "顺序表",
+        "反转"
+      ],
+      "difficulty": "easy",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "讲解视频：元素逆置 #简单 #线性表 #顺序表 #反转  设计一个高效算法，将顺序表L到所有元素逆置，要求算法的空间复杂度为$O(1)$\n双指针法（首尾交换）  \n设置两个指针（或下标），分别指向顺序表的第一个元素和最后一个元素。\n循环交换元素  \n交换两个指针所指的元素，然后左指针右移一位，右指针"
+    },
+    {
+      "slug": "algorithm/reverse-list",
+      "category": "algorithm",
+      "modulePath": "/posts/algorithm/001-reverse-list/index.md",
+      "title": "反转链表",
+      "date": "2026-07-01",
+      "updated": "2026-07-03",
+      "tags": [
+        "简单",
+        "链表",
+        "反转"
+      ],
+      "difficulty": "easy",
+      "leetcode": "https://www.nowcoder.com/practice/75e878df47f24fdc9dc3e400ec6058ca?tpId=295&tqId=23286&sourceUrl=%2Fexam%2Foj%3FquestionJobId%3D166%26subTabName%3Donline_coding_page",
+      "draft": false,
+      "excerpt": "BM1 反转链表 #简单 #链表 #反转 给定一个单链表的头结点pHead(该头节点是有值的，比如在下图，它的val是1)，长度为n，反转该链表后，返回新链表的表头。\n数据范围： 0≤n≤1000\n要求：空间复杂度 O(1)，时间复杂度 O(n) 。\n核心思想：遍历原链表，逐个改变指针方向\n用 pr"
+    },
+    {
+      "slug": "algorithm/reverse-between",
+      "category": "algorithm",
+      "modulePath": "/posts/algorithm/002-reverse-between/index.md",
+      "title": "链表内指定区间反转",
+      "date": "2026-07-01",
+      "updated": "2026-07-04",
+      "tags": [
+        "中等",
+        "链表",
+        "反转",
+        "区间"
+      ],
+      "difficulty": "medium",
+      "leetcode": "https://www.nowcoder.com/practice/b58434e200a648c589ca2063f1faf58c?tpId=295&tqId=654&sourceUrl=%2Fexam%2Foj%3FquestionJobId%3D166%26subTabName%3Donline_coding_page",
+      "draft": false,
+      "excerpt": "BM2 链表内指定区间反转 #中等 #链表 #反转 #区间 将一个节点数为 size 链表 m 位置到 n 位置之间的区间反转，要求时间复杂度 O(n)，空间复杂度 O(1)。  \n例如：  \n给出的链表为 1→2→3→4→5→NULL, m=2,n=4  \n返回 1→4→3→2→5→NULL\n数据"
+    },
+    {
+      "slug": "algorithm/reverse-k-group",
+      "category": "algorithm",
+      "modulePath": "/posts/algorithm/003-reverse-k-group/index.md",
+      "title": "链表中的节点每k个一组翻转",
+      "date": "2026-07-01",
+      "updated": "2026-07-04",
+      "tags": [
+        "中等",
+        "链表",
+        "反转",
+        "区间"
+      ],
+      "difficulty": "easy",
+      "leetcode": "https://www.nowcoder.com/practice/b49c3dc907814e9bbfa8437c251b028e?tpId=295&tqId=722&sourceUrl=%2Fexam%2Foj%3FquestionJobId%3D166%26subTabName%3Donline_coding_page",
+      "draft": false,
+      "excerpt": "BM3 链表中的节点每k个一组翻转 #中等 #链表 #反转  #区间 将给出的链表中的节点每 k 个一组翻转，返回翻转后的链表  \n如果链表中的节点数不是 k 的倍数，将最后剩下的节点保持原样  \n你不能更改节点中的值，只能更改节点本身。\n数据范围：  0≤n≤2000， 1≤k≤2000，链表中每"
+    },
+    {
+      "slug": "algorithm/merge",
+      "category": "algorithm",
+      "modulePath": "/posts/algorithm/004-merge/index.md",
+      "title": "合并两个排序的链表",
+      "date": "2026-07-01",
+      "updated": "2026-07-04",
+      "tags": [
+        "简单",
+        "链表",
+        "合并"
+      ],
+      "difficulty": "easy",
+      "leetcode": "https://www.nowcoder.com/practice/d8b6b4358f774294a89de2a6ac4d9337?tpId=295&tqId=23267&sourceUrl=%2Fexam%2Foj%3FquestionJobId%3D166%26subTabName%3Donline_coding_page",
+      "draft": false,
+      "excerpt": "BM4 合并两个排序的链表 #简单 #链表 #合并 输入两个递增的链表，单个链表的长度为n，合并这两个链表并使新链表中的节点仍然是递增排序的。  \n数据范围： 0≤n≤1000，−1000≤节点值≤1000\n要求：空间复杂度 $O(1)$，时间复杂度 $O(n)$\n首先处理特殊情况，如果其中一个链表"
+    }
+  ]
+}

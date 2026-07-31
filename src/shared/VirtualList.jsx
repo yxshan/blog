@@ -27,6 +27,8 @@ export default function VirtualList({
     getScrollElement: () => scrollRef.current,
     estimateSize: () => estimateSize,
     overscan,
+    getItemKey: (index) => items[index]?.slug ?? index,
+    measureElement: (element) => element.getBoundingClientRect().height,
     useFlushSync: false, // React 19 兼容：避免与自动批处理冲突
   });
 
@@ -44,6 +46,8 @@ export default function VirtualList({
           return (
             <div
               key={virtualItem.key}
+              data-index={virtualItem.index}
+              ref={virtualizer.measureElement}
               className="absolute left-0 top-0 w-full"
               style={{ transform: `translateY(${virtualItem.start}px)` }}
             >

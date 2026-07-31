@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef } from "react";
 import { marked } from "marked";
-import hljs from "highlight.js";
-import { ClipboardIcon } from "@heroicons/react/24/outline";
+import hljs from "highlight.js/lib/common";
 import markedKatex from "marked-katex-extension";
+import DOMPurify from "dompurify";
 import "highlight.js/styles/github.css";
 
 // 配置 marked：GFM + 代码高亮
@@ -47,7 +47,7 @@ function enhanceCodeBlock(block, lang) {
     codeEl.classList.add("hljs");
     const lines = codeEl.innerHTML.split("\n");
     codeEl.innerHTML = lines
-      .map((line, i) => `<span class="hljs-line">${line || " "}</span>`)
+      .map((line) => `<span class="hljs-line">${line || " "}</span>`)
       .join("\n");
   }
 
@@ -149,15 +149,63 @@ function enhanceImages(container, imageMap) {
   });
 }
 
+/**
+ * 将正文中的 #标签 包装成徽章，跳过代码、链接和标题区域
+ */
+function enhanceHashTags(container) {
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const parent = node.parentElement;
+      if (
+        parent &&
+        parent.closest("pre, code, a, h1, h2, h3, h4, h5, h6, .hash-tag")
+      ) {
+        return NodeFilter.FILTER_REJECT;
+      }
+      return NodeFilter.FILTER_ACCEPT;
+    },
+  });
+
+  const textNodes = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+  for (const node of textNodes) {
+    const original = node.nodeValue || "";
+    if (!original.includes("#")) continue;
+
+    const regex = /(^|[^\w\u4e00-\u9fff])#([\u4e00-\u9fff\w]+)/g;
+    const fragment = document.createDocumentFragment();
+    let lastIndex = 0;
+    let changed = false;
+    let match;
+
+    while ((match = regex.exec(original)) !== null) {
+      const prefix = match[1];
+      const tag = match[2];
+      fragment.append(
+        document.createTextNode(
+          original.slice(lastIndex, match.index + prefix.length),
+        ),
+      );
+
+      const span = document.createElement("span");
+      span.className = "hash-tag";
+      span.textContent = `#${tag}`;
+      fragment.appendChild(span);
+
+      lastIndex = match.index + prefix.length + tag.length + 1;
+      changed = true;
+    }
+
+    if (!changed) continue;
+    fragment.append(document.createTextNode(original.slice(lastIndex)));
+    node.parentNode.replaceChild(fragment, node);
+  }
+}
+
 export default function MarkdownRenderer({ content, imageMap }) {
   const containerRef = useRef(null);
-  let html = marked.parse(content);
-
-  // 将 #文字 替换为标签样式（不处理标题中的 #）
-  html = html.replace(
-    /(?<!<[^>]*)(?<!["\w])#([\u4e00-\u9fff\w]+)/g,
-    '<span class="hash-tag">#$1</span>',
-  );
+  const html = DOMPurify.sanitize(marked.parse(content));
 
   useEffect(() => {
     if (containerRef.current) {
@@ -165,6 +213,7 @@ export default function MarkdownRenderer({ content, imageMap }) {
       enhanceLinks(containerRef.current);
       enhanceHeadings(containerRef.current);
       enhanceImages(containerRef.current, imageMap);
+      enhanceHashTags(containerRef.current);
     }
   }, [content, imageMap]);
 
