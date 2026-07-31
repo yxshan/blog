@@ -14,6 +14,7 @@ import ReadingProgress from "../features/posts/ReadingProgress";
 import BackToTop from "../features/posts/BackToTop";
 import { getReadingTime } from "../features/posts/ReadingTime";
 import { getTagColor } from "../features/tags/tagColors";
+import { daysSince, formatDate } from "../features/posts/date";
 
 const DIFFICULTY_CONFIG = {
   easy: {
@@ -32,16 +33,6 @@ const DIFFICULTY_CONFIG = {
       "border-red-300 text-red-700 bg-red-50 dark:border-red-600 dark:text-red-300 dark:bg-red-900/30",
   },
 };
-
-function formatDate(date) {
-  if (!date) return "";
-  return date.toISOString().split("T")[0];
-}
-
-function daysSince(date) {
-  if (!date) return 0;
-  return Math.floor((new Date().getTime() - date.getTime()) / 86400000);
-}
 
 export default function Post() {
   const params = useParams();

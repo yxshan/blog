@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { marked } from "marked";
 import hljs from "highlight.js/lib/common";
 import markedKatex from "marked-katex-extension";
@@ -23,7 +23,7 @@ marked.use(markedKatex({ throwOnError: false, nonStandard: true }));
 /**
  * 给单个代码块添加顶栏（语言标签 + 复制按钮）
  */
-function enhanceCodeBlock(block, lang) {
+export function enhanceCodeBlock(block, lang) {
   // 避免重复增强（StrictMode 下 effect 执行两次，包装器内部的 pre 也要跳过）
   if (block.closest(".code-block-wrapper")) return;
 
@@ -33,7 +33,12 @@ function enhanceCodeBlock(block, lang) {
   // 顶栏
   const header = document.createElement("div");
   header.className = "code-block-header";
-  header.innerHTML = `<span>${lang || "text"}</span><button class="copy-btn code-copy-btn"><svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>复制</span></button>`;
+  const langLabel = document.createElement("span");
+  langLabel.textContent = lang || "text";
+  const copyBtn = document.createElement("button");
+  copyBtn.className = "copy-btn code-copy-btn";
+  copyBtn.innerHTML = `<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>复制</span>`;
+  header.append(langLabel, copyBtn);
 
   // 内容区
   const body = document.createElement("div");
@@ -55,7 +60,6 @@ function enhanceCodeBlock(block, lang) {
   block.parentElement.replaceChild(wrapper, block);
 
   // 复制按钮事件
-  const copyBtn = header.querySelector(".copy-btn");
   const codeText = wrapper.querySelector("code")?.textContent || "";
   copyBtn.addEventListener("click", () => {
     navigator.clipboard.writeText(codeText).then(() => {
@@ -203,7 +207,10 @@ function enhanceHashTags(container) {
 
 export default function MarkdownRenderer({ content, imageMap }) {
   const containerRef = useRef(null);
-  const html = DOMPurify.sanitize(marked.parse(content));
+  const html = useMemo(
+    () => DOMPurify.sanitize(marked.parse(content)),
+    [content],
+  );
 
   useEffect(() => {
     if (containerRef.current) {

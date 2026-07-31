@@ -4,16 +4,7 @@ import { pathToFileURL } from "node:url";
 import matter from "gray-matter";
 import { extractExcerpt } from "../src/features/posts/excerpt.js";
 import { normalizeDifficulty } from "../src/features/posts/difficulty.js";
-
-function deriveSlug(filePath) {
-  const slug = filePath
-    .replace(/^posts[\\/]/, "")
-    .replace(/[\\/]index\.md$/, "");
-  return slug
-    .split(/[\\/]/)
-    .map((segment) => segment.replace(/^\d+-/, ""))
-    .join("/");
-}
+import { deriveSlug } from "../src/features/posts/path-utils.js";
 
 function findMarkdownFiles(dir, baseDir) {
   const results = [];

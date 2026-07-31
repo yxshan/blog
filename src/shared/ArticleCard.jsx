@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { getTagColor } from "../features/tags/tagColors";
+import { formatDate } from "../features/posts/date";
 
 /**
  * 难度映射：中文显示名 + 对应的 Tailwind 颜色类
@@ -40,7 +41,7 @@ function ArticleCard({ post }) {
   const { slug, title, date, tags, excerpt, difficulty } = post;
 
   // 格式化日期：YYYY-MM-DD
-  const formattedDate = date ? date.toISOString().split("T")[0] : "";
+  const formattedDate = formatDate(date);
 
   // 难度配置（不存在时返回 null，跳过渲染）
   const diffConfig = difficulty ? DIFFICULTY_CONFIG[difficulty] : null;

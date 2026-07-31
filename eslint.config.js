@@ -73,7 +73,7 @@ export default [
       "react-hooks/incompatible-library": "off",
       "react-refresh/only-export-components": [
         "warn",
-        { allowConstantExport: true },
+        { allowConstantExport: true, allowExportNames: ["enhanceCodeBlock"] },
       ],
     },
   },

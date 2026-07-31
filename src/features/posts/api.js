@@ -1,6 +1,7 @@
 import fm from "front-matter";
 import postIndexData from "../../generated/posts-index.json";
 import { normalizeDifficulty } from "./difficulty.js";
+import { toDate } from "./date.js";
 
 // 元数据来自构建期生成的索引，正文和图片按 slug 动态加载。
 const postLoaders = import.meta.glob("/posts/**/index.md", {
@@ -21,10 +22,6 @@ const imageLoaders = import.meta.glob(
 let postsCache = null;
 let postsBySlugCache = null;
 const contentCache = new Map();
-
-function toDate(value) {
-  return value ? new Date(value) : null;
-}
 
 function normalizeIndexPost(meta) {
   return {

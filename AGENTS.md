@@ -9,6 +9,7 @@ Source lives in `src/` and is organized by feature:
 - `src/generated/posts-index.json` is the build-time post index consumed by the data layer.
 - `posts/<category>/NNN-slug/index.md` contains Markdown articles; category and slug drive routing and sorting.
 - `scripts/generate-sitemap.mjs` generates `sitemap.xml` during the build.
+- `scripts/generate-static-pages.mjs` creates per-post entry pages under `dist/posts/<slug>/index.html`.
 - `dist/` is generated output and is git-ignored; GitHub Pages deploys it via `.github/workflows/deploy.yml`.
 
 ## Build, Test, and Development Commands
@@ -23,6 +24,7 @@ npm run build    # production build into dist/; also copies index.html to 404.ht
 npm run preview  # serve the production build locally
 ```
 
+The dev server watches `posts/**/*.md` and regenerates the post index automatically.
 Before pushing, run `npm run validate`, `npm run lint`, `npm test`, and `npm run build`.
 
 ## Coding Style & Naming Conventions
@@ -31,7 +33,7 @@ Use 2-space indentation, double quotes, and semicolons, matching existing JSX. N
 
 ## Testing Guidelines
 
-Unit tests live next to the modules they cover and run with Vitest. Use `npm test` to run them, `npm run validate` to check posts, and `npm run dev` for manual browser checks. Use `draft: true` while a post is incomplete; drafts render locally but are hidden in production.
+Unit and DOM regression tests live next to the modules they cover and run with Vitest. Use `npm test` to run them, `npm run validate` to check posts, and `npm run dev` for manual browser checks. Use `draft: true` while a post is incomplete; drafts render locally but are hidden in production.
 
 ## Commit & Pull Request Guidelines
 

@@ -3,18 +3,9 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import matter from "gray-matter";
 import { DIFFICULTY_MAP } from "../src/features/posts/difficulty.js";
+import { deriveSlug } from "../src/features/posts/path-utils.js";
 
 const ALLOWED_DIFFICULTY = Object.keys(DIFFICULTY_MAP);
-
-function deriveSlug(filePath) {
-  const slug = filePath
-    .replace(/^posts[\\/]/, "")
-    .replace(/[\\/]index\.md$/, "");
-  return slug
-    .split(/[\\/]/)
-    .map((segment) => segment.replace(/^\d+-/, ""))
-    .join("/");
-}
 
 function findMarkdownFiles(dir, baseDir) {
   const results = [];
@@ -34,7 +25,11 @@ function validatePost(filePath, errors) {
   const raw = fs.readFileSync(path.resolve(filePath), "utf-8");
   const { data, content } = matter(raw);
 
-  if (!/^posts\/[^/]+\/\d{3}-[^/]+\/index\.md$/.test(filePath)) {
+  if (
+    !/^posts\/[^/\s]+\/\d{3}-[a-z0-9]+(?:-[a-z0-9]+)*\/index\.md$/.test(
+      filePath,
+    )
+  ) {
     errors.push(`${filePath}: 路径必须符合 posts/<分类>/NNN-slug/index.md`);
   }
   if (!data.title) errors.push(`${filePath}: 缺少必填字段 title`);
@@ -51,6 +46,9 @@ function validatePost(filePath, errors) {
   const date = data.date ? new Date(data.date) : null;
   if (date && Number.isNaN(date.getTime())) {
     errors.push(`${filePath}: date 不是合法日期`);
+  }
+  if (data.updated && Number.isNaN(new Date(data.updated).getTime())) {
+    errors.push(`${filePath}: updated 不是合法日期`);
   }
 
   const dir = path.dirname(path.resolve(filePath));
@@ -78,6 +76,26 @@ export function validatePosts() {
       errors.push(`slug 重复: ${slug}`);
     }
     seenSlugs.add(slug);
+  }
+
+  const indexPath = path.resolve("src/generated/posts-index.json");
+  if (!fs.existsSync(indexPath)) {
+    errors.push(
+      "src/generated/posts-index.json 不存在，请先运行 npm run generate:index",
+    );
+  } else {
+    const index = JSON.parse(fs.readFileSync(indexPath, "utf-8"));
+    const indexSlugs = new Set(index.posts.map((post) => post.slug));
+    for (const slug of seenSlugs) {
+      if (!indexSlugs.has(slug)) {
+        errors.push(`posts-index.json 缺少文章: ${slug}`);
+      }
+    }
+    for (const slug of indexSlugs) {
+      if (!seenSlugs.has(slug)) {
+        errors.push(`posts-index.json 包含不存在的文章: ${slug}`);
+      }
+    }
   }
 
   if (errors.length > 0) {

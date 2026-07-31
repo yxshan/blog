@@ -1,19 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-
-/**
- * 从文件名中提取 slug
- * 示例：posts/algorithm/001-two-sum/index.md → algorithm/two-sum
- */
-function deriveSlug(filePath) {
-  let slug = filePath.replace(/^posts[\\/]/, "").replace(/[\\/]index\.md$/, "");
-  slug = slug
-    .split(/[\\/]/)
-    .map((s) => s.replace(/^\d+-/, ""))
-    .join("/");
-  return slug;
-}
+import { deriveSlug } from "../src/features/posts/path-utils.js";
 
 /**
  * 递归扫描指定目录，找到所有 index.md 文件
