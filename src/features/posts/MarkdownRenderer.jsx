@@ -24,8 +24,8 @@ marked.use(markedKatex({ throwOnError: false, nonStandard: true }));
  * 给单个代码块添加顶栏（语言标签 + 复制按钮）
  */
 function enhanceCodeBlock(block, lang) {
-  // 避免重复增强
-  if (block.parentElement?.classList.contains("code-block-wrapper")) return;
+  // 避免重复增强（StrictMode 下 effect 执行两次，包装器内部的 pre 也要跳过）
+  if (block.closest(".code-block-wrapper")) return;
 
   const wrapper = document.createElement("div");
   wrapper.className =
