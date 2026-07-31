@@ -28,18 +28,16 @@ function enhanceCodeBlock(block, lang) {
   if (block.closest(".code-block-wrapper")) return;
 
   const wrapper = document.createElement("div");
-  wrapper.className =
-    "code-block-wrapper my-6 overflow-hidden rounded-lg border border-gray-200 shadow-sm dark:border-gray-700";
+  wrapper.className = "code-block-wrapper";
 
   // 顶栏
   const header = document.createElement("div");
-  header.className =
-    "flex items-center justify-between rounded-t-lg border-b border-gray-200 bg-gray-50 px-4 py-2 text-xs text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400";
-  header.innerHTML = `<span>${lang || "text"}</span><button class="copy-btn inline-flex items-center gap-1 rounded px-2 py-1 hover:bg-gray-200 dark:hover:bg-gray-700"><svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>复制</span></button>`;
+  header.className = "code-block-header";
+  header.innerHTML = `<span>${lang || "text"}</span><button class="copy-btn code-copy-btn"><svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>复制</span></button>`;
 
   // 内容区
   const body = document.createElement("div");
-  body.className = "overflow-x-auto bg-[#f6f8fa] dark:bg-[#0d1117]";
+  body.className = "code-block-body";
   body.appendChild(block.cloneNode(true));
 
   const codeEl = body.querySelector("code");
