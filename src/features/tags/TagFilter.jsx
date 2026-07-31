@@ -26,7 +26,10 @@ export default function TagFilter({ selectedTags, onToggleTag, onClear }) {
         return (
           <button
             key={name}
+            type="button"
             onClick={() => onToggleTag(name)}
+            aria-pressed={isSelected}
+            title={isSelected ? `取消筛选 ${name}` : `筛选 ${name}`}
             className={`
               inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-medium
               transition-colors duration-150

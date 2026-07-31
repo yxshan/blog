@@ -6,6 +6,7 @@ import VirtualList from "../shared/VirtualList";
 import { ArticleCard } from "../shared/ArticleCard";
 import useSearch from "../features/search/useSearch";
 import { getAllPosts } from "../features/posts/api";
+import { clearTagParams, toggleTagParam } from "../features/tags/tagParams";
 
 /**
  * 首页 — 搜索、标签筛选与虚拟滚动文章列表的组合页面
@@ -42,18 +43,11 @@ export default function Home() {
   // 标签切换处理：已选则移除，未选则添加
   // ============================================================
   const handleToggleTag = (tag) => {
-    const next = new URLSearchParams(searchParams);
-    const tags = next.getAll("tag").filter((t) => t !== tag);
-    next.delete("tag");
-    tags.forEach((t) => next.append("tag", t));
-    if (!tags.includes(tag)) next.append("tag", tag);
-    setSearchParams(next, { replace: true });
+    setSearchParams((prev) => toggleTagParam(prev, tag), { replace: true });
   };
 
   const clearTags = () => {
-    const next = new URLSearchParams(searchParams);
-    next.delete("tag");
-    setSearchParams(next, { replace: true });
+    setSearchParams((prev) => clearTagParams(prev), { replace: true });
   };
 
   // ============================================================
