@@ -126,6 +126,16 @@ git push
 
 推送后 GitHub Actions 自动构建并部署到 `yxshan.github.io/blog`，约 1-2 分钟生效。
 
+## 💬 评论配置
+
+评论使用 giscus，未配置时不会渲染：
+
+```bash
+cp .env.example .env
+```
+
+然后在 `.env` 中填写 `VITE_GISCUS_REPO_ID`、`VITE_GISCUS_CATEGORY_ID` 等 giscus 配置项。
+
 ## 🏗 技术栈
 
 | 层级      | 选型                                                  |

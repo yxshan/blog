@@ -4,7 +4,14 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { generateSitemap } from "./scripts/generate-sitemap.mjs";
 import { generatePostIndex } from "./scripts/generate-index.mjs";
+import { generateSearchIndex } from "./scripts/generate-search-index.mjs";
 import { generateStaticPages } from "./scripts/generate-static-pages.mjs";
+import { generateRss, generateRobots } from "./scripts/generate-rss.mjs";
+
+function regenerateIndexes() {
+  generatePostIndex();
+  generateSearchIndex();
+}
 
 export default defineConfig({
   base: "/blog/",
@@ -13,7 +20,7 @@ export default defineConfig({
     {
       name: "post-index",
       buildStart() {
-        generatePostIndex();
+        regenerateIndexes();
       },
       configureServer(server) {
         let debounceTimer;
@@ -25,7 +32,7 @@ export default defineConfig({
               if (filename && filename.toString().endsWith(".md")) {
                 clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(() => {
-                  generatePostIndex();
+                  regenerateIndexes();
                   server.ws.send({ type: "full-reload" });
                 }, 150);
               }
@@ -48,6 +55,8 @@ export default defineConfig({
       name: "static-pages",
       closeBundle() {
         generateStaticPages("dist");
+        generateRss("dist");
+        generateRobots("dist");
       },
     },
   ],

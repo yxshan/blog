@@ -9,6 +9,12 @@ function Footer() {
         <p className="text-sm text-gray-500 dark:text-gray-400">
           &copy; 2026 yxshan&apos;s Blog
         </p>
+        <a
+          href={`${import.meta.env.BASE_URL}feed.xml`}
+          className="mt-1 inline-block text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+        >
+          RSS 订阅
+        </a>
         <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">
           Built with React + Vite
         </p>

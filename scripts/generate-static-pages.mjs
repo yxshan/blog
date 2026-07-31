@@ -28,12 +28,20 @@ export function generateStaticPages(outputDir = "dist") {
       `<title>${title} — yxshan&apos;s Blog</title>`,
       `<meta name="description" content="${description}" />`,
       `<link rel="canonical" href="${canonical}" />`,
+      `<meta property="og:title" content="${title}" />`,
+      `<meta property="og:description" content="${description}" />`,
+      `<meta property="og:type" content="article" />`,
+      `<meta property="og:url" content="${canonical}" />`,
+      `<meta property="og:site_name" content="yxshan&apos;s Blog" />`,
+      `<meta name="twitter:card" content="summary" />`,
     ].join("\n    ");
 
     const html = template
       .replace(/<title>.*?<\/title>/s, "")
       .replace(/<meta\s+name="description"[^>]*>/i, "")
       .replace(/<link\s+rel="canonical"[^>]*>/i, "")
+      .replace(/<meta\s+property="og:[^"]*"[^>]*>/gi, "")
+      .replace(/<meta\s+name="twitter:[^"]*"[^>]*>/gi, "")
       .replace("</head>", `    ${meta}\n  </head>`);
 
     fs.writeFileSync(path.join(pageDir, "index.html"), html, "utf-8");
