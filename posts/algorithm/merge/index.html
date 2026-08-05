@@ -1,40 +1,257 @@
-<!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <link rel="icon" type="image/x-icon" href="/blog/favicon.ico" />
-    <script type="module" crossorigin src="/blog/assets/index-Blfgwslf.js"></script>
-    <link rel="modulepreload" crossorigin href="/blog/assets/react-vendor-kaEWK_tI.js">
-    <link rel="modulepreload" crossorigin href="/blog/assets/content-vendor-9XQUAgpt.js">
-    <link rel="stylesheet" crossorigin href="/blog/assets/content-vendor-BqAWnQCj.css">
-    <link rel="stylesheet" crossorigin href="/blog/assets/index-Bct_mBBp.css">
-      <title>合并两个排序的链表 — yxshan&apos;s Blog</title>
-    <meta name="description" content="BM4 合并两个排序的链表 #简单 #链表 #合并 输入两个递增的链表，单个链表的长度为n，合并这两个链表并使新链表中的节点仍然是递增排序的。  
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>合并两个排序的链表 — yxshan&#39;s Blog</title><meta name="description" content="BM4 合并两个排序的链表 #简单 #链表 #合并 输入两个递增的链表，单个链表的长度为n，合并这两个链表并使新链表中的节点仍然是递增排序的。  
 数据范围： 0≤n≤1000，−1000≤节点值≤1000
 要求：空间复杂度 $O(1)$，时间复杂度 $O(n)$
-首先处理特殊情况，如果其中一个链表" />
-    <link rel="canonical" href="https://yxshan.github.io/blog/posts/algorithm/merge" />
-    <meta property="og:title" content="合并两个排序的链表" />
-    <meta property="og:description" content="BM4 合并两个排序的链表 #简单 #链表 #合并 输入两个递增的链表，单个链表的长度为n，合并这两个链表并使新链表中的节点仍然是递增排序的。  
+首先处理特殊情况，如果其中一个链表"><link rel="canonical" href="https://yxshan.github.io/blog/posts/algorithm/merge/"><link rel="icon" type="image/x-icon" href="/blog/favicon.ico"><meta property="og:title" content="合并两个排序的链表 — yxshan's Blog"><meta property="og:description" content="BM4 合并两个排序的链表 #简单 #链表 #合并 输入两个递增的链表，单个链表的长度为n，合并这两个链表并使新链表中的节点仍然是递增排序的。  
 数据范围： 0≤n≤1000，−1000≤节点值≤1000
 要求：空间复杂度 $O(1)$，时间复杂度 $O(n)$
-首先处理特殊情况，如果其中一个链表" />
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content="https://yxshan.github.io/blog/posts/algorithm/merge" />
-    <meta property="og:site_name" content="yxshan&apos;s Blog" />
-    <meta name="twitter:card" content="summary" />
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
-</html>
+首先处理特殊情况，如果其中一个链表"><meta property="og:type" content="website"><meta property="og:url" content="https://yxshan.github.io/blog/posts/algorithm/merge/"><meta property="og:site_name" content="yxshan's Blog"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/blog/_astro/BaseLayout.CSlM8klh.css"></head><body class="min-h-screen bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100"><header class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-700 dark:bg-gray-900/80"><div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4"><a href="/blog/" class="text-xl font-bold text-gray-900 no-underline hover:text-gray-700 dark:text-white dark:hover:text-gray-300">yxshan&apos;s Blog</a><div class="flex items-center gap-2"><a href="/blog/?focus=1" class="rounded-lg p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white" aria-label="搜索"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z"></path></svg></a><button type="button" data-theme-toggle class="rounded-lg p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white" aria-label="切换到暗色模式"><svg data-theme-icon="light" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg><svg data-theme-icon="dark" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg></button><button type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" class="rounded-lg p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white md:hidden" aria-label="打开菜单"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"></path></svg></button></div></div></header><div id="mobile-menu" data-mobile-menu class="fixed inset-0 z-50 hidden md:hidden"><button type="button" data-menu-close aria-label="关闭菜单" class="absolute inset-0 h-full w-full bg-black/40"></button><nav class="absolute right-0 top-0 h-full w-80 overflow-y-auto border-l border-gray-200 bg-white p-5 shadow-2xl dark:border-gray-800 dark:bg-gray-900"><div class="mb-6 flex items-center justify-between"><span class="text-lg font-bold">导航</span><button type="button" data-menu-close class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800" aria-label="关闭菜单"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path></svg></button></div><a href="/blog/" class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800">首页</a><a href="/blog/?focus=1" class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800">搜索</a><h3 class="mt-6 mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-gray-400">分类</h3><div class="space-y-1"><a href="/blog/?category=kaoyan" class="flex items-center justify-between rounded-lg px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"><span>kaoyan</span><span class="text-xs text-gray-400">10</span></a><a href="/blog/?category=algorithm" class="flex items-center justify-between rounded-lg px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"><span>algorithm</span><span class="text-xs text-gray-400">4</span></a></div><h3 class="mt-6 mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-gray-400">热门标签</h3><div class="flex flex-wrap gap-2 px-3"><a href="/blog/?tag=%E7%BA%BF%E6%80%A7%E8%A1%A8" class="rounded-full border border-gray-200 px-3 py-1 text-xs hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800">线性表</a><a href="/blog/?tag=%E9%A1%BA%E5%BA%8F%E8%A1%A8" class="rounded-full border border-gray-200 px-3 py-1 text-xs hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800">顺序表</a><a href="/blog/?tag=%E7%AE%80%E5%8D%95" class="rounded-full border border-gray-200 px-3 py-1 text-xs hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800">简单</a><a href="/blog/?tag=%E5%8F%8D%E8%BD%AC" class="rounded-full border border-gray-200 px-3 py-1 text-xs hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800">反转</a><a href="/blog/?tag=%E4%B8%AD%E7%AD%89" class="rounded-full border border-gray-200 px-3 py-1 text-xs hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800">中等</a><a href="/blog/?tag=%E5%88%A0%E9%99%A4" class="rounded-full border border-gray-200 px-3 py-1 text-xs hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800">删除</a><a href="/blog/?tag=%E9%93%BE%E8%A1%A8" class="rounded-full border border-gray-200 px-3 py-1 text-xs hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800">链表</a><a href="/blog/?tag=%E5%90%88%E5%B9%B6" class="rounded-full border border-gray-200 px-3 py-1 text-xs hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800">合并</a></div></nav></div><script type="module">var e=document.querySelector(`[data-mobile-menu]`),t=document.querySelectorAll(`[data-menu-toggle]`),n=document.querySelectorAll(`[data-menu-close]`);function r(n){e&&(e.classList.toggle(`hidden`,!n),t.forEach(e=>e.setAttribute(`aria-expanded`,String(n))))}t.forEach(e=>e.addEventListener(`click`,()=>r(!0))),n.forEach(e=>e.addEventListener(`click`,()=>r(!1))),e?.querySelectorAll(`a`).forEach(e=>e.addEventListener(`click`,()=>r(!1)));</script><main id="main-content" class="flex-1"><div class="mx-auto max-w-6xl px-4 py-8 lg:flex lg:gap-8"><article class="min-w-0 flex-1"><header class="mb-8 border-b border-gray-200 pb-6 dark:border-gray-700"><h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">合并两个排序的链表</h1><div class="mt-3 flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400"><time datetime="2026-07-01">2026-07-01</time></div><div class="mt-4 flex flex-wrap gap-2"><a href="/blog/?tag=%E7%AE%80%E5%8D%95" class="rounded-full px-3 py-1 text-xs font-medium bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300">简单</a><a href="/blog/?tag=%E9%93%BE%E8%A1%A8" class="rounded-full px-3 py-1 text-xs font-medium bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300">链表</a><a href="/blog/?tag=%E5%90%88%E5%B9%B6" class="rounded-full px-3 py-1 text-xs font-medium bg-pink-100 dark:bg-pink-900/40 text-pink-700 dark:text-pink-300">合并</a></div></header><div class="prose prose-gray max-w-none dark:prose-invert prose-headings:scroll-mt-20 prose-a:text-blue-600 dark:prose-a:text-blue-400"><h1>合并两个排序的链表</h1>
+<p><a href="https://www.nowcoder.com/practice/d8b6b4358f774294a89de2a6ac4d9337?tpId=295&amp;tqId=23267&amp;sourceUrl=%2Fexam%2Foj%3FquestionJobId%3D166%26subTabName%3Donline_coding_page">BM4 合并两个排序的链表</a></p>
+<p>#简单 #链表 #合并</p>
+<h2>题目信息</h2>
+<blockquote>
+<p>输入两个递增的链表，单个链表的长度为n，合并这两个链表并使新链表中的节点仍然是递增排序的。<br />数据范围： 0≤n≤1000，−1000≤节点值≤1000
+要求：空间复杂度 <span class="katex"><span class="katex-mathml">O(1)O(1)</span><span class="katex-html"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord mathnormal" style="margin-right:0.0278em">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>，时间复杂度 <span class="katex"><span class="katex-mathml">O(n)O(n)</span><span class="katex-html"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord mathnormal" style="margin-right:0.0278em">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></p>
+</blockquote>
+<h2>解题思路</h2>
+<ol>
+<li>首先处理特殊情况，如果其中一个链表为空，则直接返回另一个链表，因为不需要合并操作。</li>
+<li>创建一个虚拟头节点<code>dummy</code>，在栈上分配内存并初始化其<code>next</code>指针为<code>NULL</code>，同时定义一个尾指针<code>tail</code>指向`dummy，用于追踪合并后链表的最后一个节点。</li>
+<li>使用<code>while</code>循环同时遍历两个链表，循环条件为两个链表当前节点都不为空，这样能确保在比较节点值时不会访问空指针。</li>
+<li>在循环体内比较两个链表当前节点的值，将值较小的节点连接到<code>tail</code>的<code>next</code>指针后面，然后将该链表的指针后移一位，最后将tail指针移动到新连接的节点上，保持tail始终指向合并链表的尾节点。</li>
+<li>当其中一个链表遍历完后退出循环，此时另一个链表可能还有剩余节点，直接将<code>tail</code>的<code>next</code>指针指向非空的剩余链表头部，因为剩余部分本身就是有序的，无需再逐个比较。</li>
+<li>最后返回<code>dummy.next</code>，即合并后链表的真正头节点，虚拟头节点<code>dummy</code>在栈上分配，函数返回后自动释放，不影响返回的链表结构。</li>
+</ol>
+<h2>代码实现</h2>
+<pre><code class="language-c">struct ListNode* Merge(struct ListNode* pHead1, struct ListNode* pHead2) {
+    // 处理特殊情况
+    if (pHead1 == NULL) return pHead2;
+    if (pHead2 == NULL) return pHead1;
+    
+    // 创建虚拟头节点（分配内存！）
+    struct ListNode dummy;
+    dummy.next = NULL;
+    struct ListNode* tail = &amp;dummy;  // tail指向当前合并链表的尾节点
+    
+    // 比较两个链表，合并
+    while (pHead1 != NULL &amp;&amp; pHead2 != NULL) {
+        if (pHead1-&gt;val &lt;= pHead2-&gt;val) {
+            tail-&gt;next = pHead1;
+            pHead1 = pHead1-&gt;next;
+        } else {
+            tail-&gt;next = pHead2;
+            pHead2 = pHead2-&gt;next;
+        }
+        tail = tail-&gt;next;  // tail后移
+    }
+    
+    // 连接剩余部分
+    if (pHead1 != NULL) {
+        tail-&gt;next = pHead1;
+    } else {
+        tail-&gt;next = pHead2;
+    }
+    
+    return dummy.next;
+}
+</code></pre>
+<p>时间复杂度： <span class="katex"><span class="katex-mathml">O(n)O(n)</span><span class="katex-html"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord mathnormal" style="margin-right:0.0278em">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>
+空间复杂度： <span class="katex"><span class="katex-mathml">O(1)O(1)</span><span class="katex-html"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord mathnormal" style="margin-right:0.0278em">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></p>
+<h2>易错点</h2>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>易错点</th>
+<th>正确做法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>未处理空链表情况，直接访问节点值导致崩溃</td>
+<td>函数开头先判断：if (pHead1 == NULL) return pHead2; if (pHead2 == NULL) return pHead1;</td>
+</tr>
+<tr>
+<td>2</td>
+<td>声明虚拟头节点指针后未分配内存就直接使用（如struct ListNode* head; head-&gt;val = 0;）</td>
+<td>在栈上创建虚拟头节点：struct ListNode dummy; dummy.next = NULL; struct ListNode* tail = &amp;dummy;</td>
+</tr>
+<tr>
+<td>3</td>
+<td>循环条件使用||而不是 &amp;&amp;，导致某个链表为空时仍访问其节点值</td>
+<td>使用 while (pHead1 != NULL &amp;&amp; pHead2 != NULL)，确保两个节点都不为空时才比较</td>
+</tr>
+<tr>
+<td>4</td>
+<td>比较节点值后只移动了链表指针，忘记将tail指针后移</td>
+<td>每次连接节点后执行 tail = tail-&gt;next; 保持tail指向合并链表的尾节点</td>
+</tr>
+<tr>
+<td>5</td>
+<td>循环退出后直接返回，忘记连接剩余的链表节点</td>
+<td>循环结束后判断哪个链表非空，执行 tail-&gt;next = (pHead1 != NULL) ? pHead1 : pHead2;</td>
+</tr>
+<tr>
+<td>6</td>
+<td>返回时返回虚拟头节点本身（如 return &amp;dummy;）而非真正的头节点</td>
+<td>返回 dummy.next，即合并后链表的第一个有效节点</td>
+</tr>
+<tr>
+<td>7</td>
+<td>使用malloc创建虚拟头节点但忘记释放，导致内存泄漏</td>
+<td>使用栈上分配（struct ListNode dummy;）无需手动释放，避免内存管理问题</td>
+</tr>
+<tr>
+<td>8</td>
+<td>当两个链表节点值相等时，未考虑合并的稳定性</td>
+<td>使用 &lt;= 判断，当值相等时优先取pHead1的节点，保证合并前后相同值节点的相对顺序不变</td>
+</tr>
+<tr>
+<td>9</td>
+<td>修改了原链表的头指针，导致后续无法正确遍历或释放</td>
+<td>使用临时指针（如p1、p2）遍历原链表，保留原链表头节点指针用于后续可能的释放操作</td>
+</tr>
+</tbody></table>
+<h2>总结</h2>
+<h3>两者的本质区别</h3>
+<pre><code class="language-c">// struct ListNode 是类型名（结构体类型）
+struct ListNode {
+    int val;
+    struct ListNode* next;
+};
+
+// struct ListNode* 是指针类型（指向结构体的指针）
+struct ListNode* ptr;  // ptr是一个指针变量
+</code></pre>
+<p><strong>简单来说</strong>：</p>
+<ul>
+<li><code>struct ListNode</code> → 结构体本身（数据实体）</li>
+<li><code>struct ListNode*</code> → 指向结构体的指针（地址）</li>
+</ul>
+<h3>直观对比</h3>
+<pre><code class="language-c">// 1. 声明变量
+struct ListNode node1;        // 分配内存，存储一个节点
+struct ListNode* node2;       // 分配4/8字节内存，存储地址
+
+// 2. 访问成员
+node1.val = 10;               // 用 . 访问
+node2-&gt;val = 10;              // 用 -&gt; 访问（指针）
+(*node2).val = 10;            // 等价写法
+
+// 3. 内存大小
+sizeof(struct ListNode)       // 一般是8字节（4字节val + 4字节指针）
+sizeof(struct ListNode*)      // 4字节（32位）或8字节（64位）
+</code></pre>
+<h3>创建新节点的4种方法</h3>
+<h4>方法1：栈上创建（自动分配）</h4>
+<pre><code class="language-c">struct ListNode node;         // 声明结构体变量
+node.val = 5;
+node.next = NULL;
+
+// 如果函数返回，这个节点会被销毁！
+// 适合临时使用，不能返回给调用者
+</code></pre>
+<h4>方法2：堆上创建（手动分配）⭐ 最常用</h4>
+<pre><code class="language-c">// 标准写法
+struct ListNode* node = (struct ListNode*)malloc(sizeof(struct ListNode));
+if (node == NULL) {
+    // 处理分配失败
+    return NULL;
+}
+node-&gt;val = 5;
+node-&gt;next = NULL;
+</code></pre>
+<h4>方法3：使用typedef简化（推荐）</h4>
+<pre><code class="language-c">// 定义时使用typedef
+typedef struct ListNode {
+    int val;
+    struct ListNode* next;
+} ListNode;  // 现在ListNode就是类型名了
+
+// 创建节点
+ListNode* node = (ListNode*)malloc(sizeof(ListNode));
+node-&gt;val = 5;
+node-&gt;next = NULL;
+</code></pre>
+<h4>方法4：创建辅助函数</h4>
+<pre><code class="language-c">// 创建新节点的辅助函数
+struct ListNode* createNode(int val) {
+    struct ListNode* node = (struct ListNode*)malloc(sizeof(struct ListNode));
+    if (node == NULL) {
+        return NULL;
+    }
+    node-&gt;val = val;
+    node-&gt;next = NULL;
+    return node;
+}
+
+// 使用
+struct ListNode* node = createNode(5);
+</code></pre>
+<h3>栈 vs 堆</h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>栈上创建</th>
+<th>堆上创建</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>语法</td>
+<td><code>struct ListNode node;</code></td>
+<td><code>malloc(sizeof(...))</code></td>
+</tr>
+<tr>
+<td>生命周期</td>
+<td>函数结束时自动释放</td>
+<td>需要手动<code>free()</code></td>
+</tr>
+<tr>
+<td>速度</td>
+<td>快</td>
+<td>慢</td>
+</tr>
+<tr>
+<td>大小限制</td>
+<td>较小（通常几MB）</td>
+<td>较大（可用内存）</td>
+</tr>
+<tr>
+<td>返回给调用者</td>
+<td>❌ 不可以</td>
+<td>✅ 可以</td>
+</tr>
+</tbody></table>
+</div><footer class="mt-12 border-t border-gray-200 pt-8 dark:border-gray-700"><nav class="flex items-center justify-between gap-4"><a href="/blog/posts/algorithm/reverse-k-group" class="max-w-[45%] text-sm text-gray-600 hover:text-indigo-600 dark:text-gray-400">上一篇：链表中的节点每k个一组翻转</a><span></span></nav></footer><style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var a=(s,i,o)=>{let r=async()=>{await(await s())()},t=typeof i.value=="object"?i.value:void 0,c={rootMargin:t==null?void 0:t.rootMargin},n=new IntersectionObserver(e=>{for(let l of e)if(l.isIntersecting){n.disconnect(),r();break}},c);for(let e of o.children)n.observe(e)};(self.Astro||(self.Astro={})).visible=a;window.dispatchEvent(new Event("astro:visible"));})();</script><script>(()=>{var g=Object.defineProperty;var w=(a,s,c)=>s in a?g(a,s,{enumerable:!0,configurable:!0,writable:!0,value:c}):a[s]=c;var l=(a,s,c)=>w(a,typeof s!="symbol"?s+"":s,c);var E=new Set(["__proto__","constructor","prototype"]);{let a={0:t=>y(t),1:t=>c(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(c(t)),5:t=>new Set(c(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>Number.POSITIVE_INFINITY*t},s=t=>{let[p,e]=t;return p in a?a[p](e):void 0},c=t=>t.map(s),y=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([p,e])=>[p,s(e)]));class f extends HTMLElement{constructor(){super(...arguments);l(this,"Component");l(this,"hydrator");l(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let r=this.querySelectorAll("astro-slot"),n={},d=this.querySelectorAll("template[data-astro-template]");for(let o of d){let i=o.closest(this.tagName);i!=null&&i.isSameNode(this)&&(n[o.getAttribute("data-astro-template")||"default"]=o.innerHTML,o.remove())}for(let o of r){let i=o.closest(this.tagName);i!=null&&i.isSameNode(this)&&(n[o.getAttribute("name")||"default"]=o.innerHTML)}let u;try{u=this.hasAttribute("props")?y(JSON.parse(this.getAttribute("props"))):{}}catch(o){let i=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(i+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${i}`,this.getAttribute("props"),o),o}let h;await this.hydrator(this)(this.Component,u,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});l(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),r.disconnect(),this.childrenConnectedCallback()},r=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});r.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}getRetryImportUrl(e){let r=new URL(e,document.baseURI);return r.searchParams.set("astro-retry",Date.now().toString()),r.toString()}async importWithRetry(e){try{return await import(e)}catch(r){return await new Promise(n=>setTimeout(n,1e3)),import(this.getRetryImportUrl(e))}}handleHydrationError(e){let r=this.getAttribute("component-url"),n=new CustomEvent("astro:hydration-error",{cancelable:!0,bubbles:!0,composed:!0,detail:{error:e,componentUrl:r}});this.dispatchEvent(n)&&console.error(`[astro-island] Error hydrating ${r}`,e)}async start(){let e=JSON.parse(this.getAttribute("opts")),r=this.getAttribute("client");if(Astro[r]===void 0){window.addEventListener(`astro:${r}`,()=>this.start(),{once:!0});return}try{await Astro[r](async()=>{let n=this.getAttribute("renderer-url");try{let[d,{default:u}]=await Promise.all([this.importWithRetry(this.getAttribute("component-url")),n?this.importWithRetry(n):Promise.resolve({default:()=>()=>{}})]),h=this.getAttribute("component-export")||"default";if(h.includes(".")){this.Component=d;for(let m of h.split(".")){if(E.has(m)||!this.Component||typeof this.Component!="object"&&typeof this.Component!="function"||!Object.hasOwn(this.Component,m))throw new Error(`Invalid component export path: ${h}`);this.Component=this.Component[m]}}else{if(E.has(h))throw new Error(`Invalid component export path: ${h}`);this.Component=d[h]}return this.hydrator=u,this.hydrate}catch(d){return this.handleHydrationError(d),()=>{}}},e,this)}catch(n){this.handleHydrationError(n)}}attributeChangedCallback(){this.hydrate()}}l(f,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",f)}})();</script><astro-island uid="17ipbB" prefix="r1" component-url="/blog/_astro/Comments.DgcLGDzA.js" component-export="default" renderer-url="/blog/_astro/client.DHx5KAXh.js" props="{&quot;slug&quot;:[0,&quot;algorithm/merge&quot;]}" ssr client="visible" opts="{&quot;name&quot;:&quot;Comments&quot;,&quot;value&quot;:true}"></astro-island></article><aside class="hidden w-64 flex-shrink-0 lg:block"><div class="sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto"><nav id="toc" aria-label="文章目录"></nav></div></aside></div><script type="module" src="/blog/_astro/_...slug_.astro_astro_type_script_index_0_lang.cd0md0Mi.js"></script></main><footer class="border-t border-gray-200 bg-white py-8 dark:border-gray-700 dark:bg-gray-900"><div class="mx-auto max-w-6xl px-4 text-center"><p class="text-sm text-gray-500 dark:text-gray-400">&copy; 2026 yxshan&apos;s Blog</p><a href="/blog/feed.xml" class="mt-1 inline-block text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">RSS 订阅</a><p class="mt-1 text-xs text-gray-400 dark:text-gray-500">Built with Astro</p></div></footer><script>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        const isDark = stored ? stored === "dark" : prefersDark;
+        const button = document.querySelector("[data-theme-toggle]");
+
+        function sync() {
+          const dark = document.documentElement.classList.contains("dark");
+          document.documentElement.classList.toggle("dark", dark);
+          document.querySelectorAll("[data-theme-icon]").forEach((icon) => {
+            const isDarkIcon = icon.dataset.themeIcon === "dark";
+            icon.classList.toggle("hidden", isDarkIcon !== dark);
+          });
+          button?.setAttribute(
+            "aria-label",
+            dark ? "切换到亮色模式" : "切换到暗色模式",
+          );
+        }
+
+        document.documentElement.classList.toggle("dark", isDark);
+        sync();
+
+        button?.addEventListener("click", () => {
+          const next = !document.documentElement.classList.contains("dark");
+          localStorage.setItem("theme", next ? "dark" : "light");
+          document.documentElement.classList.toggle("dark", next);
+          sync();
+        });
+      })();
+    </script></body></html>
