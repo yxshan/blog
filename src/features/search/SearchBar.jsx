@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 /**
@@ -8,16 +9,20 @@ import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
  * - onQueryChange: 搜索词变更回调
  */
 export default function SearchBar({ query, onQueryChange, autoFocus }) {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (autoFocus) inputRef.current?.focus();
+  }, [autoFocus]);
+
   return (
     <div className="relative">
       {/* 左侧放大镜图标 */}
       <MagnifyingGlassIcon className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
 
       <input
+        ref={inputRef}
         type="text"
-        ref={(el) => {
-          if (autoFocus && el) el.focus();
-        }}
         value={query}
         onChange={(e) => onQueryChange(e.target.value)}
         placeholder="搜索文章标题或摘要..."

@@ -19,6 +19,7 @@ export default function HomeApp() {
   const [results, setResults] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [focusRequested, setFocusRequested] = useState(false);
 
   const posts = useMemo(() => searchIndexData.posts.map(toPost), []);
   const fuse = useMemo(
@@ -34,6 +35,7 @@ export default function HomeApp() {
     const params = new URLSearchParams(window.location.search);
     setSelectedTags(params.getAll("tag"));
     setSelectedCategory(params.get("category"));
+    setFocusRequested(params.get("focus") === "1");
   }, []);
 
   useEffect(() => {
@@ -106,7 +108,11 @@ export default function HomeApp() {
   return (
     <div className="mx-auto flex h-full max-w-4xl flex-col px-4">
       <div className="mb-6">
-        <SearchBar query={query} onQueryChange={setQuery} autoFocus={false} />
+        <SearchBar
+          query={query}
+          onQueryChange={setQuery}
+          autoFocus={focusRequested}
+        />
       </div>
 
       <div className="mb-6">
