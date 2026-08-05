@@ -1,7 +1,7 @@
 /** @vitest-environment happy-dom */
 
 import { describe, expect, it } from "vitest";
-import { enhanceCodeBlock } from "./MarkdownRenderer.jsx";
+import { enhanceCodeBlock } from "./post-enhancements.js";
 
 function createCodeBlock() {
   const pre = document.createElement("pre");
@@ -12,7 +12,7 @@ function createCodeBlock() {
   return pre;
 }
 
-describe("MarkdownRenderer", () => {
+describe("post-enhancements", () => {
   it("does not wrap an already wrapped code block again", () => {
     document.body.innerHTML = "";
     document.body.appendChild(createCodeBlock());
