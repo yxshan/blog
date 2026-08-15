@@ -15,8 +15,10 @@ npm run typecheck    # TypeScript strict 检查
 npm run validate     # 生成索引并校验文章
 npm run lint         # ESLint
 npm test             # Vitest 单元和 DOM 回归测试
+npm run test:coverage # 测试并执行覆盖率门禁
 npm run build        # Astro 生产构建、RSS 和 sitemap
 npm run test:e2e     # 静态产物 smoke test
+npm run security:audit # 阻断 High/Critical 依赖漏洞
 npm run preview      # 本地预览 dist/
 npm run format:check # 检查 Prettier 格式
 ```
@@ -35,9 +37,10 @@ npm run format:check # 检查 Prettier 格式
 npm run typecheck
 npm run validate
 npm run lint
-npm test
+npm run test:coverage
 npm run build
 npm run test:e2e
+npm run security:audit
 npm run format:check
 ```
 

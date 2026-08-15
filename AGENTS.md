@@ -28,12 +28,14 @@ npm run typecheck # run strict TypeScript checks
 npm run validate # validate post frontmatter, paths, and image references
 npm run lint     # run ESLint
 npm test         # run Vitest unit tests
+npm run test:coverage # run tests with coverage thresholds
 npm run build    # production build into dist/; also copies index.html to 404.html
+npm run security:audit # fail on high/critical dependency vulnerabilities
 npm run preview  # serve the production build locally
 ```
 
 Astro pages are generated at build time; `npm run build` regenerates the post and search indexes before rendering.
-Before pushing, run `npm run typecheck`, `npm run validate`, `npm run lint`, `npm test`, `npm run build`, and `npm run test:e2e`.
+Before pushing, run `npm run typecheck`, `npm run validate`, `npm run lint`, `npm run test:coverage`, `npm run build`, `npm run test:e2e`, and `npm run security:audit`.
 
 giscus comments are disabled until `.env` contains `VITE_GISCUS_REPO_ID` and `VITE_GISCUS_CATEGORY_ID`; copy `.env.example` to `.env` and fill in the values from the giscus app.
 

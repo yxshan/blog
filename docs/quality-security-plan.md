@@ -35,13 +35,26 @@
 - GitHub Actions CI 和部署工作流。
 - React `ErrorBoundary` 与可注入 `ErrorReporter` 接口。
 
+### 实施状态
+
+| 能力                                  | 状态                                                        |
+| ------------------------------------- | ----------------------------------------------------------- |
+| High/Critical 依赖漏洞清理            | 已完成，当前 `npm audit` 为 0                               |
+| Vitest V8 覆盖率门禁                  | 已完成，阈值为 lines/functions/statements 70%、branches 60% |
+| CI 依赖安全审计                       | 已完成，High/Critical 阻断                                  |
+| Dependabot npm 与 GitHub Actions 更新 | 版本更新已配置；安全更新需在 GitHub 设置中启用              |
+| CodeQL JavaScript/TypeScript 扫描     | 已配置代码与 Actions 扫描，推送后生效                       |
+| Gitleaks Git 历史密钥扫描             | 已配置最小权限工作流，推送后生效                            |
+| GitHub 分支保护必需检查               | 待仓库管理员在 GitHub 设置中启用                            |
+| 模块边界、Knip、Playwright            | 待 Phase 2                                                  |
+| GlitchTip 错误上报                    | 待 Phase 3                                                  |
+
 当前缺口：
 
-- 尚无测试覆盖率门槛。
-- 尚无 SAST、密钥扫描和架构依赖自动检查。
+- Dependabot 告警和安全更新需要在 GitHub 仓库设置中启用；仓库配置只负责版本更新。
 - `test:e2e` 目前是静态产物检查，不是真实浏览器自动化。
+- 尚无架构依赖自动检查。
 - 尚无线上错误收集实现。
-- 依赖漏洞只能手动运行 `npm audit` 后发现。
 
 ## 4. 推荐工具组合
 
@@ -171,6 +184,13 @@ Source map 应在发布流程中上传到监控服务，但不应作为公开部
 - 将检查设为 `main` 分支必需状态。
 
 验收：PR 无法在类型错误、测试失败、High/Critical 漏洞或密钥泄露时合并。
+
+仓库内配置不能代替 GitHub 平台设置。代码推送后，由仓库管理员完成：
+
+1. 打开 **Settings → Advanced Security**，确认 Dependency graph 已启用。
+2. 启用 **Dependabot alerts**。
+3. 启用 **Dependabot security updates**。
+4. 打开 **Settings → Rules / Branches**，为主分支要求 CI、CodeQL 和 Gitleaks 检查通过后才能合并。
 
 ### Phase 2：架构与浏览器回归
 

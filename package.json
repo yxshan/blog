@@ -7,6 +7,7 @@
     "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
     "build": "npm run generate:index && ASTRO_TELEMETRY_DISABLED=1 astro build && tsx scripts/generate-sitemap.ts && tsx scripts/generate-rss.ts",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "security:audit": "npm audit --audit-level=high",
     "generate:index": "tsx scripts/generate-index.ts && tsx scripts/generate-search-index.ts",
     "validate": "npm run generate:index && tsx scripts/validate-posts.ts",
     "lint": "eslint .",
@@ -14,6 +15,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "test:e2e": "tsx scripts/smoke-test.ts",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
@@ -38,6 +40,7 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@types/sanitize-html": "^2.16.1",
+    "@vitest/coverage-v8": "^4.1.10",
     "autoprefixer": "^10.4.0",
     "eslint": "^10.8.0",
     "eslint-config-prettier": "^10.1.8",

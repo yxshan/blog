@@ -41,6 +41,7 @@ export default [
   {
     ignores: [
       "dist/**",
+      "coverage/**",
       "node_modules/**",
       "src/generated/**",
       "**/*.astro",
