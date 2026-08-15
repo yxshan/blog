@@ -62,47 +62,45 @@ B = (2, 4, 6, 8, 20)
 </tbody></table>
 <p>最终返回 <span class="katex"><span class="katex-mathml">min⁡(11,20)=11\min(11,20)=11</span><span class="katex-html"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mop">min</span><span class="mopen">(</span><span class="mord">11</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em"></span><span class="mord">20</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">11</span></span></span></span>。</p>
 <h2>代码实现</h2>
-<pre><code class="language-cpp">#include &lt;algorithm&gt;
-#include &lt;stdexcept&gt;
-#include &lt;vector&gt;
-
-int lowerMedian(const std::vector&lt;int&gt;&amp; A, const std::vector&lt;int&gt;&amp; B) {
-    if (A.empty() || A.size() != B.size()) {
-        throw std::invalid_argument("A and B must be non-empty and equally sized");
-    }
-
-    int s1 = 0;
-    int d1 = static_cast&lt;int&gt;(A.size()) - 1;
-    int s2 = 0;
-    int d2 = static_cast&lt;int&gt;(B.size()) - 1;
+<p>题目已保证两个序列等长且长度 <span class="katex"><span class="katex-mathml">n≥1n\geq 1</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">1</span></span></span></span>，因此答题时直接把这些条件作为算法的前置条件，无需加入异常处理。</p>
+<pre><code class="language-c">int M_Search(int A[], int B[], int n) {
+    int s1 = 0, d1 = n - 1, m1;
+    int s2 = 0, d2 = n - 1, m2;
 
     while (s1 != d1) {
-        // 使用靠左的元素作为偶数长度区间的中点。
-        const int m1 = s1 + (d1 - s1) / 2;
-        const int m2 = s2 + (d2 - s2) / 2;
+        m1 = (s1 + d1) / 2;
+        m2 = (s2 + d2) / 2;
 
-        if (A[m1] == B[m2]) {
+        if (A[m1] == B[m2])
             return A[m1];
-        }
-
-        // remainingOdd 表示本轮候选区间的长度是否为奇数。
-        const bool remainingOdd = (d1 - s1 + 1) % 2 == 1;
 
         if (A[m1] &lt; B[m2]) {
-            // 舍弃 A 的较小部分和 B 的较大部分，并保持两段等长。
-            s1 = remainingOdd ? m1 : m1 + 1;
-            d2 = m2;
+            if ((s1 + d1) % 2 == 0) {
+                // 元素个数为奇数，两个中点均保留
+                s1 = m1;
+                d2 = m2;
+            } else {
+                // 元素个数为偶数，舍弃 A 的中点
+                s1 = m1 + 1;
+                d2 = m2;
+            }
         } else {
-            // 与上一种情况对称地缩小候选区间。
-            d1 = m1;
-            s2 = remainingOdd ? m2 : m2 + 1;
+            if ((s2 + d2) % 2 == 0) {
+                // 元素个数为奇数，两个中点均保留
+                d1 = m1;
+                s2 = m2;
+            } else {
+                // 元素个数为偶数，舍弃 B 的中点
+                d1 = m1;
+                s2 = m2 + 1;
+            }
         }
     }
 
-    // 两个候选区间均只剩一个元素，下中位数是二者较小值。
-    return std::min(A[s1], B[s2]);
+    return A[s1] &lt; B[s2] ? A[s1] : B[s2];
 }
 </code></pre>
+<p>其中，候选区间的元素个数为 <span class="katex"><span class="katex-mathml">d1−s1+1d_1-s_1+1</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">1</span></span></span></span>。当 <span class="katex"><span class="katex-mathml">(s1+d1)(s_1+d_1)</span><span class="katex-html"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> 为偶数时，区间长度为奇数；反之，区间长度为偶数。序列 <span class="katex"><span class="katex-mathml">AA</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.6833em"></span><span class="mord mathnormal">A</span></span></span></span> 和 <span class="katex"><span class="katex-mathml">BB</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.6833em"></span><span class="mord mathnormal" style="margin-right:0.0502em">B</span></span></span></span> 的候选区间始终等长，因此判断任意一个区间即可。</p>
 <h2>正确性说明</h2>
 <p>算法维护如下不变式：两个候选区间始终等长，并且原问题的中位数等于两个候选区间合并后的中位数。</p>
 <p>当两个中点不相等时，较小中点一侧的低值元素不可能越过目标秩，较大中点一侧的高值元素也不可能成为目标。算法从低端和高端排除相同数量的元素，因此目标元素在剩余集合中的相对秩不变。</p>
