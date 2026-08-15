@@ -77,48 +77,48 @@ B = (2, 4, 6, 8, 20)
 
 ## 代码实现
 
-```cpp
-#include <algorithm>
-#include <stdexcept>
-#include <vector>
+题目已保证两个序列等长且长度 $n\geq 1$，因此答题时直接把这些条件作为算法的前置条件，无需加入异常处理。
 
-int lowerMedian(const std::vector<int>& A, const std::vector<int>& B) {
-    if (A.empty() || A.size() != B.size()) {
-        throw std::invalid_argument("A and B must be non-empty and equally sized");
-    }
-
-    int s1 = 0;
-    int d1 = static_cast<int>(A.size()) - 1;
-    int s2 = 0;
-    int d2 = static_cast<int>(B.size()) - 1;
+```c
+int M_Search(int A[], int B[], int n) {
+    int s1 = 0, d1 = n - 1, m1;
+    int s2 = 0, d2 = n - 1, m2;
 
     while (s1 != d1) {
-        // 使用靠左的元素作为偶数长度区间的中点。
-        const int m1 = s1 + (d1 - s1) / 2;
-        const int m2 = s2 + (d2 - s2) / 2;
+        m1 = (s1 + d1) / 2;
+        m2 = (s2 + d2) / 2;
 
-        if (A[m1] == B[m2]) {
+        if (A[m1] == B[m2])
             return A[m1];
-        }
-
-        // remainingOdd 表示本轮候选区间的长度是否为奇数。
-        const bool remainingOdd = (d1 - s1 + 1) % 2 == 1;
 
         if (A[m1] < B[m2]) {
-            // 舍弃 A 的较小部分和 B 的较大部分，并保持两段等长。
-            s1 = remainingOdd ? m1 : m1 + 1;
-            d2 = m2;
+            if ((s1 + d1) % 2 == 0) {
+                // 元素个数为奇数，两个中点均保留
+                s1 = m1;
+                d2 = m2;
+            } else {
+                // 元素个数为偶数，舍弃 A 的中点
+                s1 = m1 + 1;
+                d2 = m2;
+            }
         } else {
-            // 与上一种情况对称地缩小候选区间。
-            d1 = m1;
-            s2 = remainingOdd ? m2 : m2 + 1;
+            if ((s2 + d2) % 2 == 0) {
+                // 元素个数为奇数，两个中点均保留
+                d1 = m1;
+                s2 = m2;
+            } else {
+                // 元素个数为偶数，舍弃 B 的中点
+                d1 = m1;
+                s2 = m2 + 1;
+            }
         }
     }
 
-    // 两个候选区间均只剩一个元素，下中位数是二者较小值。
-    return std::min(A[s1], B[s2]);
+    return A[s1] < B[s2] ? A[s1] : B[s2];
 }
 ```
+
+其中，候选区间的元素个数为 $d_1-s_1+1$。当 $(s_1+d_1)$ 为偶数时，区间长度为奇数；反之，区间长度为偶数。序列 $A$ 和 $B$ 的候选区间始终等长，因此判断任意一个区间即可。
 
 ## 正确性说明
 
