@@ -169,8 +169,27 @@ src/
 ├── lib/
 │   ├── posts.js                   # 文章元数据与正文读取
 │   └── markdown.js                # Markdown → 静态 HTML
-├── scripts/                       # 代码块增强、TOC
+├── core/                          # 领域契约、文章目录、站点 URL 与配置
+├── integrations/                  # Giscus 等可选外部能力适配器
+├── scripts/                       # 索引、RSS、sitemap 与内容校验
 └── features/                      # 搜索、标签、评论、日期等 React 组件
+```
+
+## 🧩 模块化约定
+
+页面和布局只负责组合模块，不直接读取生成索引或第三方 SDK。文章统一经过
+`ContentSource → PostCatalog → 输出适配器` 管线；搜索、标签筛选和 URL 状态分别位于
+`src/features/search/` 与 `src/features/home/`。新增外部能力应放入
+`src/integrations/`，未配置时必须保持 no-op，不影响静态页面构建。
+
+验证命令：
+
+```bash
+npm run validate
+npm run lint
+npm test
+npm run build
+npm run test:e2e
 ```
 
 ## ⚠️ 注意事项

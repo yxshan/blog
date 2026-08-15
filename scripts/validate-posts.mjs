@@ -1,29 +1,16 @@
 import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import matter from "gray-matter";
-import { DIFFICULTY_MAP } from "../src/features/posts/difficulty.js";
-import { deriveSlug } from "../src/features/posts/path-utils.js";
+import { DIFFICULTY_MAP, deriveSlug } from "../src/core/content/normalize.js";
+import {
+  findMarkdownFiles,
+  parsePostFile,
+} from "../src/core/content/source.mjs";
 
 const ALLOWED_DIFFICULTY = Object.keys(DIFFICULTY_MAP);
 
-function findMarkdownFiles(dir, baseDir) {
-  const results = [];
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  for (const entry of entries) {
-    const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      results.push(...findMarkdownFiles(fullPath, baseDir));
-    } else if (entry.name === "index.md") {
-      results.push(path.relative(baseDir, fullPath));
-    }
-  }
-  return results;
-}
-
 function validatePost(filePath, errors) {
-  const raw = fs.readFileSync(path.resolve(filePath), "utf-8");
-  const { data, content } = matter(raw);
+  const { data, content } = parsePostFile(filePath);
 
   if (
     !/^posts\/[^/\s]+\/\d{3}-[a-z0-9]+(?:-[a-z0-9]+)*\/index\.md$/.test(
@@ -66,7 +53,7 @@ function validatePost(filePath, errors) {
 
 export function validatePosts() {
   const postsDir = path.resolve("posts");
-  const mdFiles = findMarkdownFiles(postsDir, ".");
+  const mdFiles = findMarkdownFiles(postsDir);
   const errors = [];
   const seenSlugs = new Set();
 

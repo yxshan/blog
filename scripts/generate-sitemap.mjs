@@ -1,25 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import matter from "gray-matter";
-import { deriveSlug } from "../src/features/posts/path-utils.js";
+import { loadPostSources } from "../src/core/content/source.mjs";
+import { publishedPosts } from "../src/core/content/normalize.js";
+import { siteConfig } from "../src/core/config/siteConfig.js";
 
-/**
- * 递归扫描指定目录，找到所有 index.md 文件
- */
-function findMarkdownFiles(dir, baseDir) {
-  const results = [];
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  for (const entry of entries) {
-    const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      results.push(...findMarkdownFiles(fullPath, baseDir));
-    } else if (entry.name === "index.md") {
-      results.push(path.relative(baseDir, fullPath));
-    }
-  }
-  return results;
-}
+const SITE_URL = `${siteConfig.siteUrl}${siteConfig.basePath}`;
 
 /**
  * 从所有 Markdown 文件中提取元数据，生成 sitemap.xml
@@ -29,32 +15,17 @@ function findMarkdownFiles(dir, baseDir) {
  * @param {string} outputDir - 输出目录（如 "dist"）
  */
 export function generateSitemap(outputDir) {
-  const postsDir = path.resolve("posts");
-  const mdFiles = findMarkdownFiles(postsDir, ".");
-  const BASE_URL = "https://yxshan.github.io/blog";
-
   /** @type {Array<{slug: string, date: string}>} */
   const urls = [];
 
-  for (const filePath of mdFiles) {
-    const raw = fs.readFileSync(path.resolve(filePath), "utf-8");
-    const { data } = matter(raw);
-
-    if (data.draft === true) continue;
-    if (!data.date) continue;
-
-    const slug = deriveSlug(filePath);
-    const dateStr =
-      data.date instanceof Date
-        ? data.date.toISOString().split("T")[0]
-        : String(data.date).split("T")[0];
-
-    urls.push({ slug, date: dateStr });
+  for (const post of publishedPosts(loadPostSources())) {
+    if (!post.date) continue;
+    urls.push({ slug: post.slug, date: post.date });
   }
 
   urls.sort((a, b) => b.date.localeCompare(a.date));
 
-  const urlEntries = [`  <url>\n    <loc>${BASE_URL}/</loc>\n  </url>`, ""];
+  const urlEntries = [`  <url>\n    <loc>${SITE_URL}/</loc>\n  </url>`, ""];
 
   for (const { slug, date } of urls) {
     urlEntries.push(
@@ -79,8 +50,7 @@ export function generateSitemap(outputDir) {
 }
 
 export function buildSitemapUrl(slug) {
-  const BASE_URL = "https://yxshan.github.io/blog";
-  return `${BASE_URL}/posts/${encodeURI(slug)}`;
+  return `${SITE_URL}/posts/${encodeURI(slug)}`;
 }
 
 if (

@@ -1,41 +1,30 @@
 import { useEffect, useMemo, useState } from "react";
-import Fuse from "fuse.js";
-import searchIndexData from "../../generated/search-index.json";
+import { postCatalog } from "../../core/content/catalog";
 import SearchBar from "../../features/search/SearchBar";
 import TagFilter from "../../features/tags/TagFilter";
-import { clearTagParams, toggleTagParam } from "../../features/tags/tagParams";
-import StaticArticleCard from "./StaticArticleCard";
-
-function toPost(meta) {
-  return {
-    ...meta,
-    date: meta.date ? new Date(meta.date) : null,
-    updated: meta.updated ? new Date(meta.updated) : null,
-  };
-}
+import { createPostSearcher } from "../../features/search/postSearch";
+import {
+  clearTags,
+  readQueryState,
+  serializeQueryState,
+  toggleTag,
+  updateQueryState,
+} from "../../features/home/queryState";
+import { collectTags, filterPosts } from "../../features/home/postFilter";
+import PostList from "./PostList";
 
 export default function HomeApp() {
-  const [query, setQuery] = useState("");
+  const [queryState, setQueryState] = useState(() => readQueryState(""));
+  const [query, setQuery] = useState(queryState.text);
   const [results, setResults] = useState(null);
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [focusRequested, setFocusRequested] = useState(false);
 
-  const posts = useMemo(() => searchIndexData.posts.map(toPost), []);
-  const fuse = useMemo(
-    () =>
-      new Fuse(posts, {
-        keys: ["title", "excerpt", "content"],
-        threshold: 0.3,
-      }),
-    [posts],
-  );
+  const posts = useMemo(() => postCatalog.listPublished(), []);
+  const searcher = useMemo(() => createPostSearcher(posts), [posts]);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    setSelectedTags(params.getAll("tag"));
-    setSelectedCategory(params.get("category"));
-    setFocusRequested(params.get("focus") === "1");
+    const next = readQueryState(window.location.search);
+    setQueryState(next);
+    setQuery(next.text);
   }, []);
 
   useEffect(() => {
@@ -44,65 +33,47 @@ export default function HomeApp() {
       return;
     }
     const timer = setTimeout(() => {
-      setResults(fuse.search(query.trim()).map((item) => item.item));
+      setResults(searcher.search(query));
     }, 300);
     return () => clearTimeout(timer);
-  }, [query, fuse]);
+  }, [query, searcher]);
 
-  const tags = useMemo(() => {
-    const counts = new Map();
-    for (const post of posts) {
-      for (const tag of post.tags) {
-        counts.set(tag, (counts.get(tag) || 0) + 1);
-      }
-    }
-    return [...counts.entries()]
-      .sort((a, b) => b[1] - a[1])
-      .map(([name, count]) => ({ name, count }));
-  }, [posts]);
+  const tags = useMemo(() => collectTags(posts), [posts]);
 
-  const filteredPosts = useMemo(() => {
-    let base = results !== null ? results : posts;
-    if (selectedTags.length > 0) {
-      base = base.filter((post) =>
-        selectedTags.every((tag) => post.tags.includes(tag)),
-      );
-    }
-    if (selectedCategory) {
-      base = base.filter((post) => post.category === selectedCategory);
-    }
-    return base;
-  }, [posts, results, selectedTags, selectedCategory]);
+  const filteredPosts = useMemo(
+    () =>
+      filterPosts(results !== null ? results : posts, {
+        tags: queryState.tags,
+        category: queryState.category,
+      }),
+    [posts, queryState.category, queryState.tags, results],
+  );
 
-  function syncParams(mutator) {
-    const params = new URLSearchParams(window.location.search);
-    const next = mutator(params) || params;
-    const search = next.toString();
+  function syncParams(next) {
+    const search = serializeQueryState(next);
     window.history.replaceState(
       null,
       "",
       `${window.location.pathname}${search ? `?${search}` : ""}`,
     );
-    setSelectedTags(next.getAll("tag"));
-    setSelectedCategory(next.get("category"));
+    setQueryState(readQueryState(`?${search}`));
   }
 
   const handleToggleTag = (tag) => {
-    syncParams((params) => toggleTagParam(params, tag));
+    syncParams(toggleTag(window.location.search, tag));
   };
 
-  const clearTags = () => {
-    syncParams(clearTagParams);
+  const handleClearTags = () => {
+    syncParams(clearTags(window.location.search));
   };
 
   const handleCategory = (category) => {
-    syncParams((params) => {
-      if (category) {
-        params.set("category", category);
-      } else {
-        params.delete("category");
-      }
-    });
+    syncParams(updateQueryState(window.location.search, { category }));
+  };
+
+  const handleQueryChange = (value) => {
+    setQuery(value);
+    syncParams(updateQueryState(window.location.search, { q: value }));
   };
 
   return (
@@ -110,27 +81,27 @@ export default function HomeApp() {
       <div className="mb-6">
         <SearchBar
           query={query}
-          onQueryChange={setQuery}
-          autoFocus={focusRequested}
+          onQueryChange={handleQueryChange}
+          autoFocus={queryState.focus}
         />
       </div>
 
       <div className="mb-6">
         <TagFilter
-          selectedTags={selectedTags}
+          selectedTags={queryState.tags}
           onToggleTag={handleToggleTag}
-          onClear={clearTags}
+          onClear={handleClearTags}
           tags={tags}
         />
       </div>
 
-      {selectedCategory && (
+      {queryState.category && (
         <button
           type="button"
           onClick={() => handleCategory(null)}
           className="mb-4 inline-flex items-center gap-1 self-start rounded-full px-3 py-1 text-xs text-gray-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
         >
-          分类：{selectedCategory} ×
+          分类：{queryState.category} ×
         </button>
       )}
 
@@ -140,15 +111,7 @@ export default function HomeApp() {
           : `共 ${filteredPosts.length} 篇文章`}
       </p>
 
-      {filteredPosts.length > 0 ? (
-        <div className="space-y-4">
-          {filteredPosts.map((post) => (
-            <StaticArticleCard key={post.slug} post={post} />
-          ))}
-        </div>
-      ) : (
-        <p className="py-16 text-center text-gray-400">没有找到匹配的文章</p>
-      )}
+      <PostList posts={filteredPosts} />
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import matter from "gray-matter";
+import { loadPostSources } from "../src/core/content/source.mjs";
+import { sortPosts } from "../src/core/content/normalize.js";
 
 export function extractSearchText(content) {
   return content
@@ -21,15 +22,11 @@ export function extractSearchText(content) {
 }
 
 export function generateSearchIndex() {
-  const indexData = JSON.parse(
-    fs.readFileSync(path.resolve("src/generated/posts-index.json"), "utf-8"),
-  );
-  const posts = indexData.posts.map((post) => {
-    const raw = fs.readFileSync(path.resolve(`.${post.modulePath}`), "utf-8");
-    const { content } = matter(raw);
+  const posts = sortPosts(loadPostSources()).map((post) => {
+    const { content, ...meta } = post;
     return {
-      ...post,
-      content: extractSearchText(content),
+      ...meta,
+      searchText: extractSearchText(content),
     };
   });
 

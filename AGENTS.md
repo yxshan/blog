@@ -14,7 +14,7 @@ Source lives in `src/` and follows an Astro static-site layout:
 - `src/generated/posts-index.json` and `src/generated/search-index.json` are build-time indexes.
 - `posts/<category>/NNN-slug/index.md` contains Markdown articles; category and slug drive routing and sorting.
 - `scripts/generate-sitemap.mjs` generates `sitemap.xml` during the build.
-- `scripts/generate-static-pages.mjs` creates per-post entry pages under `dist/posts/<slug>/index.html`.
+- Astro generates per-post entry pages directly under `dist/posts/<slug>/index.html`.
 - `scripts/generate-rss.mjs` generates `feed.xml` and `robots.txt`.
 - `scripts/generate-search-index.mjs` builds the full-text search index.
 - `dist/` is generated output and is git-ignored; GitHub Pages deploys it via `.github/workflows/deploy.yml`.

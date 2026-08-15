@@ -1,7 +1,5 @@
 ---
-const base = import.meta.env.BASE_URL.endsWith("/")
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`;
+import { sitePath } from "../core/navigation/siteUrl";
 ---
 
 <footer class="border-t border-gray-200 bg-white py-8 dark:border-gray-700 dark:bg-gray-900">
@@ -10,7 +8,7 @@ const base = import.meta.env.BASE_URL.endsWith("/")
       &copy; 2026 yxshan&apos;s Blog
     </p>
     <a
-      href={`${base}feed.xml`}
+      href={sitePath("feed.xml")}
       class="mt-1 inline-block text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
     >
       RSS 订阅

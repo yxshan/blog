@@ -1,15 +1,12 @@
 import { getTagColor } from "../../features/tags/tagColors";
 import { formatDate } from "../../features/posts/date";
+import { postPath } from "../../core/navigation/siteUrl";
 
 const difficultyLabels = {
   easy: "简单",
   medium: "中等",
   hard: "困难",
 };
-
-const base = import.meta.env.BASE_URL.endsWith("/")
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`;
 
 export default function StaticArticleCard({ post }) {
   const { slug, title, date, tags, excerpt, difficulty } = post;
@@ -25,7 +22,7 @@ export default function StaticArticleCard({ post }) {
 
   return (
     <a
-      href={`${base}posts/${slug}`}
+      href={postPath(slug)}
       className="group relative block rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-200 hover:border-gray-300 hover:shadow-md dark:border-gray-700 dark:bg-gray-900 dark:hover:border-gray-500"
     >
       {colorClass && (

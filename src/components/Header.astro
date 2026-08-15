@@ -1,9 +1,7 @@
 ---
 import { getAllPosts } from "../lib/posts";
+import { homePath } from "../core/navigation/siteUrl";
 
-const base = import.meta.env.BASE_URL.endsWith("/")
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`;
 const posts = getAllPosts();
 
 const categoryMap = new Map();
@@ -30,7 +28,7 @@ const tags = [...tagMap.entries()]
 <header class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-700 dark:bg-gray-900/80">
   <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
     <a
-      href={base}
+      href={homePath()}
       class="text-xl font-bold text-gray-900 no-underline hover:text-gray-700 dark:text-white dark:hover:text-gray-300"
     >
       yxshan&apos;s Blog
@@ -38,7 +36,7 @@ const tags = [...tagMap.entries()]
 
     <div class="flex items-center gap-2">
       <a
-        href={`${base}?focus=1`}
+        href={homePath("focus=1")}
         class="rounded-lg p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
         aria-label="搜索"
       >
@@ -154,13 +152,13 @@ const tags = [...tagMap.entries()]
     </div>
 
     <a
-      href={base}
+      href={homePath()}
       class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800"
     >
       首页
     </a>
     <a
-      href={`${base}?focus=1`}
+      href={homePath("focus=1")}
       class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800"
     >
       搜索
@@ -172,7 +170,7 @@ const tags = [...tagMap.entries()]
     <div class="space-y-1">
       {categories.map((category) => (
         <a
-          href={`${base}?category=${encodeURIComponent(category.name)}`}
+          href={homePath(`category=${encodeURIComponent(category.name)}`)}
           class="flex items-center justify-between rounded-lg px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           <span>{category.name}</span>
@@ -187,7 +185,7 @@ const tags = [...tagMap.entries()]
     <div class="flex flex-wrap gap-2 px-3">
       {tags.map((tag) => (
         <a
-          href={`${base}?tag=${encodeURIComponent(tag)}`}
+          href={homePath(`tag=${encodeURIComponent(tag)}`)}
           class="rounded-full border border-gray-200 px-3 py-1 text-xs hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800"
         >
           {tag}

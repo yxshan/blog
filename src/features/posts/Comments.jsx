@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { giscusAdapter } from "../../integrations/comments/giscusAdapter";
 
 /**
  * giscus 评论组件。
@@ -8,42 +9,12 @@ import { useEffect, useRef } from "react";
  */
 export default function Comments({ slug }) {
   const containerRef = useRef(null);
-  const repoId = import.meta.env.VITE_GISCUS_REPO_ID;
-  const categoryId = import.meta.env.VITE_GISCUS_CATEGORY_ID;
-
   useEffect(() => {
-    if (!repoId || !categoryId || !containerRef.current) return;
+    if (!giscusAdapter.isEnabled() || !containerRef.current) return undefined;
+    return giscusAdapter.mount(containerRef.current, { slug });
+  }, [slug]);
 
-    const container = containerRef.current;
-    container.innerHTML = "";
-
-    const script = document.createElement("script");
-    script.src = "https://giscus.app/client.js";
-    script.async = true;
-    script.crossOrigin = "anonymous";
-    script.setAttribute("data-repo", "yxshan/blog");
-    script.setAttribute("data-repo-id", repoId);
-    script.setAttribute(
-      "data-category",
-      import.meta.env.VITE_GISCUS_CATEGORY || "Announcements",
-    );
-    script.setAttribute("data-category-id", categoryId);
-    script.setAttribute("data-mapping", "pathname");
-    script.setAttribute("data-strict", "0");
-    script.setAttribute("data-reactions-enabled", "1");
-    script.setAttribute("data-emit-metadata", "0");
-    script.setAttribute("data-input-position", "bottom");
-    script.setAttribute("data-theme", "preferred_color_scheme");
-    script.setAttribute("data-lang", "zh-CN");
-    script.setAttribute("data-loading", "lazy");
-    container.appendChild(script);
-
-    return () => {
-      container.innerHTML = "";
-    };
-  }, [slug, repoId, categoryId]);
-
-  if (!repoId || !categoryId) return null;
+  if (!giscusAdapter.isEnabled()) return null;
 
   return (
     <section ref={containerRef} className="mt-12" aria-label="评论区" />
