@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "packageManager": "npm@10.9.4",
   "scripts": {
     "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
     "build": "npm run generate:index && ASTRO_TELEMETRY_DISABLED=1 astro build && tsx scripts/generate-sitemap.ts && tsx scripts/generate-rss.ts",
