@@ -35,7 +35,7 @@ npm run preview  # serve the production build locally
 ```
 
 Astro pages are generated at build time; `npm run build` regenerates the post and search indexes before rendering.
-Before pushing, run `npm run typecheck`, `npm run validate`, `npm run lint`, `npm run test:coverage`, `npm run build`, `npm run test:e2e`, and `npm run security:audit`.
+Before pushing, run `npm run typecheck`, `npm run validate`, `npm run lint`, `npm run quality:architecture`, `npm run quality:unused`, `npm run test:coverage`, `npm run build`, `npm run test:smoke`, `npm run test:e2e`, and `npm run security:audit`.
 
 giscus comments are disabled until `.env` contains `VITE_GISCUS_REPO_ID` and `VITE_GISCUS_CATEGORY_ID`; copy `.env.example` to `.env` and fill in the values from the giscus app.
 
@@ -45,7 +45,7 @@ Use 2-space indentation, double quotes, and semicolons, matching existing JSX. N
 
 ## Testing Guidelines
 
-Unit and DOM regression tests live next to the modules they cover and run with Vitest. Use `npm test` to run them, `npm run validate` to check posts, and `npm run dev` for manual browser checks. Use `draft: true` while a post is incomplete; drafts render locally but are hidden in production.
+Unit and DOM regression tests live next to the modules they cover and run with Vitest. Browser journeys live in `tests/e2e/` and run with Playwright against a production preview. Use `npm test` to run fast tests, `npm run validate` to check posts, and `npm run dev` for manual browser checks. Use `draft: true` while a post is incomplete; drafts render locally but are hidden in production.
 
 ## Commit & Pull Request Guidelines
 

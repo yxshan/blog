@@ -46,14 +46,12 @@
 | CodeQL JavaScript/TypeScript 扫描     | 已配置代码与 Actions 扫描，推送后生效                       |
 | Gitleaks Git 历史密钥扫描             | 已配置最小权限工作流，推送后生效                            |
 | GitHub 分支保护必需检查               | 待仓库管理员在 GitHub 设置中启用                            |
-| 模块边界、Knip、Playwright            | 待 Phase 2                                                  |
+| 模块边界、Knip、Playwright            | 已完成并接入 CI                                             |
 | GlitchTip 错误上报                    | 待 Phase 3                                                  |
 
 当前缺口：
 
 - Dependabot 告警和安全更新需要在 GitHub 仓库设置中启用；仓库配置只负责版本更新。
-- `test:e2e` 目前是静态产物检查，不是真实浏览器自动化。
-- 尚无架构依赖自动检查。
 - 尚无线上错误收集实现。
 
 ## 4. 推荐工具组合
@@ -129,7 +127,7 @@ statements: 70%
 禁止 integrations 反向成为领域规则来源
 ```
 
-使用 `Knip` 检测未使用文件、导出和依赖。Knip 结果先作为告警运行，稳定后再升级为阻断门禁，避免 Astro 动态入口产生误报。
+使用 `Knip` 检测未使用文件、导出和依赖。当前 Astro、脚本、E2E 和预留 no-op 适配器入口已经显式配置，扫描结果稳定，因此已升级为 CI 阻断门禁。
 
 ### 4.6 浏览器端到端测试
 
@@ -221,11 +219,13 @@ npm ci
 npm run typecheck
 npm run validate
 npm run lint
+npm run quality:architecture
+npm run quality:unused
 npm run test:coverage
 npm run build
+npm run test:smoke
 npm run test:e2e
 npm run security:audit
-dependency boundary check
 secret scan
 CodeQL analysis
 ```

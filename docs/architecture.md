@@ -47,6 +47,11 @@ framework and external adapters
 - 领域模块直接依赖 Giscus、Fuse.js 等第三方实现。
 - 外部 SDK 在页面组件内部直接初始化。
 
+这些规则由根目录的 `.dependency-cruiser.cjs` 表达，并通过
+`npm run quality:architecture` 检查循环依赖、越层引用、测试文件反向引用和不可解析导入。dependency-cruiser 负责 TypeScript 模块图，`scripts/validate-architecture.ts` 补充检查 Astro 文件的导入；生成 JSON 只能由 `src/core/content/` 内的目录实现读取。
+
+`npm run quality:unused` 使用 Knip 检测没有调用方的文件、导出和依赖。分析与订阅 no-op 适配器作为明确保留的扩展入口列入 Knip entry，而不是通过全局忽略隐藏。
+
 ## 核心领域模型
 
 领域契约位于 `src/core/contracts.ts`：

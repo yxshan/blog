@@ -34,14 +34,29 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Test
-        run: npm test
+      - name: Check module architecture
+        run: npm run quality:architecture
+
+      - name: Check unused code and dependencies
+        run: npm run quality:unused
+
+      - name: Test and coverage
+        run: npm run test:coverage
 
       - name: Build
         run: npm run build
 
       - name: Static smoke test
+        run: npm run test:smoke
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Browser end-to-end tests
         run: npm run test:e2e
+
+      - name: Dependency security audit
+        run: npm run security:audit
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4

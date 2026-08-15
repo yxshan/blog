@@ -15,7 +15,7 @@ export function sitePath(path = ""): string {
   return `${base}${path.replace(/^\/+/, "")}`;
 }
 
-export function siteUrl(path = ""): string {
+function siteUrl(path = ""): string {
   return new URL(sitePath(path), siteConfig.siteUrl).toString();
 }
 

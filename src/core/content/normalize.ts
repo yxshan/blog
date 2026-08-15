@@ -1,9 +1,4 @@
-import type {
-  Difficulty,
-  PostDocument,
-  PostMeta,
-  PostSort,
-} from "../contracts";
+import type { Difficulty, PostMeta, PostSort } from "../contracts";
 
 export const DIFFICULTY_MAP = {
   简单: "easy",
@@ -29,11 +24,11 @@ export function deriveSlug(filePath: string): string {
     .join("/");
 }
 
-export function deriveCategory(slug: string): string {
+function deriveCategory(slug: string): string {
   return slug.split("/")[0] ?? "";
 }
 
-export function toDateString(value: unknown): string | null {
+function toDateString(value: unknown): string | null {
   if (!value) return null;
   const date = value instanceof Date ? value : new Date(String(value));
   if (Number.isNaN(date.getTime())) return null;
@@ -92,5 +87,3 @@ export function publishedPosts<T extends { draft: boolean }>(
 ): T[] {
   return posts.filter((post) => !post.draft);
 }
-
-export type { PostDocument };

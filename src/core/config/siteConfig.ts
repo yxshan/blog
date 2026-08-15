@@ -11,7 +11,3 @@ export const siteConfig = Object.freeze({
     ),
   }),
 }) satisfies SiteConfig;
-
-export function getSiteConfig(): SiteConfig {
-  return siteConfig;
-}

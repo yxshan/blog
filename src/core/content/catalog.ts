@@ -172,10 +172,3 @@ export const postCatalog: PostCatalog = Object.freeze({
 export function getAllPosts(options?: CatalogOptions): RuntimePost[] {
   return postCatalog.listAll(options);
 }
-
-export function getPostBySlug(
-  slug: string,
-  options?: CatalogOptions,
-): RuntimePost | null {
-  return postCatalog.findBySlug(slug, options);
-}

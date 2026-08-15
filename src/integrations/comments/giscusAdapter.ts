@@ -6,7 +6,7 @@ interface GiscusConfig {
   category?: string;
 }
 
-export function createGiscusAdapter({
+function createGiscusAdapter({
   repoId,
   categoryId,
   category = "Announcements",

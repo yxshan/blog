@@ -14,10 +14,13 @@ npm run dev          # 启动 /blog/ 开发服务
 npm run typecheck    # TypeScript strict 检查
 npm run validate     # 生成索引并校验文章
 npm run lint         # ESLint
+npm run quality:architecture # dependency-cruiser 模块依赖门禁
+npm run quality:unused # Knip 无效文件、导出和依赖检查
 npm test             # Vitest 单元和 DOM 回归测试
 npm run test:coverage # 测试并执行覆盖率门禁
 npm run build        # Astro 生产构建、RSS 和 sitemap
-npm run test:e2e     # 静态产物 smoke test
+npm run test:smoke   # 静态产物和 URL smoke test
+npm run test:e2e     # Playwright Chromium 浏览器回归
 npm run security:audit # 阻断 High/Critical 依赖漏洞
 npm run preview      # 本地预览 dist/
 npm run format:check # 检查 Prettier 格式
@@ -37,8 +40,11 @@ npm run format:check # 检查 Prettier 格式
 npm run typecheck
 npm run validate
 npm run lint
+npm run quality:architecture
+npm run quality:unused
 npm run test:coverage
 npm run build
+npm run test:smoke
 npm run test:e2e
 npm run security:audit
 npm run format:check
@@ -49,8 +55,15 @@ npm run format:check
 - 单元测试：与被测 `.ts/.tsx` 文件相邻，覆盖日期、slug、筛选、URL 和标准化规则。
 - 集成测试：覆盖 Markdown → `PostDocument` → `PostCatalog` 和生成索引。
 - DOM 回归测试：使用 Vitest + happy-dom 检查 React 或浏览器增强逻辑。
-- smoke test：检查 14 篇静态文章、RSS、sitemap、标题、目录和 `/blog/` 路径。
-- 浏览器回归：搜索、清空、标签筛选、文章导航、主题和控制台错误。
+- smoke test：通过 `npm run test:smoke` 检查 14 篇静态文章、RSS、sitemap、标题、目录和 `/blog/` 路径。
+- 浏览器回归：通过 `npm run test:e2e` 在 Chromium 中检查搜索、清空、标签与分类筛选、URL 状态恢复、文章导航和主题。
+- 架构回归：dependency-cruiser 检查 TypeScript 模块图，配套脚本检查 Astro 文件不得直接读取生成索引。
+
+首次在本地运行浏览器回归前安装 Chromium：
+
+```bash
+npx playwright install chromium
+```
 
 ## 提交与发布
 

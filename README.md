@@ -17,8 +17,11 @@ npm run dev
 npm run typecheck
 npm run validate
 npm run lint
+npm run quality:architecture
+npm run quality:unused
 npm test
 npm run build
+npm run test:smoke
 npm run test:e2e
 ```
 
@@ -41,4 +44,4 @@ npm run test:e2e
 
 ## 发布
 
-推送到 `main` 后，GitHub Actions 会执行类型检查、文章校验、lint、测试、生产构建和静态 smoke test，随后部署 `dist/` 到 GitHub Pages。
+推送到 `main` 后，GitHub Actions 会执行类型检查、文章校验、lint、模块边界、无效代码、测试覆盖率、生产构建、静态 smoke test、Playwright 浏览器回归和安全审计，随后部署 `dist/` 到 GitHub Pages。

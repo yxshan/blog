@@ -2,8 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
-import { extractExcerpt } from "../../features/posts/excerpt";
 import type { PostDocument, PostSource } from "../contracts";
+import { extractExcerpt } from "./excerpt";
 import { normalizePost } from "./normalize";
 
 export const PROJECT_ROOT = path.resolve(
@@ -44,7 +44,7 @@ export function parsePostFile(filePath: string): PostSource {
   };
 }
 
-export function readPostSource(filePath: string): PostDocument {
+function readPostSource(filePath: string): PostDocument {
   const source = parsePostFile(filePath);
   return {
     ...normalizePost({

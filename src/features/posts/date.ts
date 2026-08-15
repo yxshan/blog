@@ -14,19 +14,3 @@ export function formatDate(date: Date | null | undefined): string {
   const day = String(date.getUTCDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 }
-
-export function daysSince(date: Date | null | undefined): number {
-  if (!date) return 0;
-  const now = new Date();
-  const today = Date.UTC(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate(),
-  );
-  const target = Date.UTC(
-    date.getUTCFullYear(),
-    date.getUTCMonth(),
-    date.getUTCDate(),
-  );
-  return Math.round((today - target) / 86400000);
-}

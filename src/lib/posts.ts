@@ -2,15 +2,11 @@ import fs from "node:fs";
 import fm from "front-matter";
 import type { RuntimePost } from "../core/contracts";
 import { resolveProjectPath } from "../core/content/source";
-import {
-  getAllPosts,
-  getPostBySlug,
-  postCatalog,
-} from "../core/content/catalog";
+import { getAllPosts } from "../core/content/catalog";
 
-export { getAllPosts, getPostBySlug, postCatalog };
+export { getAllPosts };
 
-export function readPostMarkdown(post: RuntimePost): string {
+function readPostMarkdown(post: RuntimePost): string {
   return fs.readFileSync(
     resolveProjectPath(post.modulePath.replace(/^\//, "")),
     "utf-8",

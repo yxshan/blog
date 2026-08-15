@@ -42,6 +42,8 @@ export default [
     ignores: [
       "dist/**",
       "coverage/**",
+      "playwright-report/**",
+      "test-results/**",
       "node_modules/**",
       "src/generated/**",
       "**/*.astro",

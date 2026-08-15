@@ -12,15 +12,6 @@ export interface HomeQueryState {
 type QueryValue = string | number | boolean | null | undefined;
 type QueryChanges = Record<string, QueryValue | QueryValue[]>;
 
-export const knownKeys = [
-  "tag",
-  "category",
-  "focus",
-  "q",
-  "sort",
-  "page",
-] as const;
-
 function parseSort(value: string | null): PostSort {
   return value === "relevance" || value === "date-asc" ? value : "date-desc";
 }
