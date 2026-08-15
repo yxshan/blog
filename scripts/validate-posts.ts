@@ -1,14 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { DIFFICULTY_MAP, deriveSlug } from "../src/core/content/normalize";
+import { deriveSlug } from "../src/core/content/normalize";
+import { findMarkdownImages } from "../src/core/content/markdownImages";
 import {
   findMarkdownFiles,
   parsePostFile,
   PROJECT_ROOT,
 } from "../src/core/content/source";
-
-const ALLOWED_DIFFICULTY = Object.keys(DIFFICULTY_MAP);
+import { findPostFrontmatterErrors } from "../src/core/content/validate";
 
 function validatePost(filePath: string, errors: string[]): string {
   const { frontmatter, content } = parsePostFile(filePath);
@@ -20,50 +20,16 @@ function validatePost(filePath: string, errors: string[]): string {
   ) {
     errors.push(`${filePath}: 路径必须符合 posts/<分类>/NNN-slug/index.md`);
   }
-  if (
-    typeof frontmatter.title !== "string" ||
-    frontmatter.title.trim().length === 0
-  ) {
-    errors.push(`${filePath}: title 必须是非空字符串`);
-  }
-  if (!frontmatter.date) errors.push(`${filePath}: 缺少必填字段 date`);
-  if (
-    !Array.isArray(frontmatter.tags) ||
-    frontmatter.tags.length === 0 ||
-    !frontmatter.tags.every(
-      (tag) => typeof tag === "string" && tag.trim().length > 0,
-    )
-  ) {
-    errors.push(`${filePath}: tags 必须是至少包含一个非空字符串的数组`);
-  }
-  if (
-    frontmatter.difficulty &&
-    (typeof frontmatter.difficulty !== "string" ||
-      !ALLOWED_DIFFICULTY.includes(frontmatter.difficulty))
-  ) {
-    errors.push(
-      `${filePath}: difficulty 必须是 ${ALLOWED_DIFFICULTY.join(" / ")}`,
-    );
-  }
-
-  const date = frontmatter.date ? new Date(String(frontmatter.date)) : null;
-  if (date && Number.isNaN(date.getTime())) {
-    errors.push(`${filePath}: date 不是合法日期`);
-  }
-  if (
-    frontmatter.updated &&
-    Number.isNaN(new Date(String(frontmatter.updated)).getTime())
-  ) {
-    errors.push(`${filePath}: updated 不是合法日期`);
+  for (const error of findPostFrontmatterErrors(frontmatter)) {
+    errors.push(`${filePath}: ${error}`);
   }
 
   const dir = path.dirname(path.join(PROJECT_ROOT, filePath));
-  const imagePattern = /!\[[^\]]*\]\((\.\/[^)]+)\)/g;
-  for (const match of content.matchAll(imagePattern)) {
-    const reference = match[1];
-    if (!reference) continue;
+  for (const image of findMarkdownImages(content)) {
+    if (!image.target.startsWith("./")) continue;
+    const reference = decodeURIComponent(image.target);
     if (!fs.existsSync(path.resolve(dir, reference))) {
-      errors.push(`${filePath}: 引用的图片不存在 ${reference}`);
+      errors.push(`${filePath}: 引用的图片不存在 ${image.target}`);
     }
   }
 

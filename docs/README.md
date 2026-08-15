@@ -9,6 +9,7 @@
 | [架构说明](architecture.md)                        | 理解模块边界、依赖方向和内容数据管线        |
 | [开发与验证流程](development.md)                   | 安装、开发、测试、构建、提交与发布          |
 | [文章编写规范](content-authoring.md)               | 新增文章、Frontmatter、图片和 Markdown 规则 |
+| [Obsidian 一键发布](obsidian-publishing.md)        | 从 Obsidian 校验、创建 PR 并自动合并文章    |
 | [代码质量与安全检测方案](quality-security-plan.md) | 后续质量门禁、安全扫描和错误监控建设计划    |
 | [错误监控与发布诊断](error-monitoring.md)          | GlitchTip、隐私过滤、source map 和告警配置  |
 | [高频错误处理记录模板](error-incident-template.md) | 高频生产错误的调查、修复和回归验证记录      |
