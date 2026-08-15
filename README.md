@@ -32,6 +32,7 @@ npm run test:e2e
 - [开发与验证流程](docs/development.md)
 - [文章编写规范](docs/content-authoring.md)
 - [代码质量与安全检测方案](docs/quality-security-plan.md)
+- [错误监控与发布诊断](docs/error-monitoring.md)
 - [文章模板](docs/content/article-template.md)
 
 ## 核心约定

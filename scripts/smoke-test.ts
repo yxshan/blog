@@ -12,6 +12,15 @@ const requiredFiles = [
   "posts/algorithm/reverse-list/index.html",
 ];
 const expectedPostCount = 14;
+const publicSourceMaps = fs
+  .readdirSync(distDir, { recursive: true, encoding: "utf-8" })
+  .filter((filePath) => filePath.endsWith(".map"));
+
+if (publicSourceMaps.length > 0) {
+  throw new Error(
+    `公开构建产物包含 source map: ${publicSourceMaps.join(", ")}`,
+  );
+}
 
 for (const relativePath of requiredFiles) {
   if (!fs.existsSync(path.join(distDir, relativePath))) {

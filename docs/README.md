@@ -10,6 +10,8 @@
 | [开发与验证流程](development.md)                   | 安装、开发、测试、构建、提交与发布          |
 | [文章编写规范](content-authoring.md)               | 新增文章、Frontmatter、图片和 Markdown 规则 |
 | [代码质量与安全检测方案](quality-security-plan.md) | 后续质量门禁、安全扫描和错误监控建设计划    |
+| [错误监控与发布诊断](error-monitoring.md)          | GlitchTip、隐私过滤、source map 和告警配置  |
+| [高频错误处理记录模板](error-incident-template.md) | 高频生产错误的调查、修复和回归验证记录      |
 | [文章模板](content/article-template.md)            | 新文章可复制的内容模板                      |
 
 ## 历史资料

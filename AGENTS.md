@@ -39,6 +39,8 @@ Before pushing, run `npm run typecheck`, `npm run validate`, `npm run lint`, `np
 
 giscus comments are disabled until `.env` contains `VITE_GISCUS_REPO_ID` and `VITE_GISCUS_CATEGORY_ID`; copy `.env.example` to `.env` and fill in the values from the giscus app.
 
+GlitchTip monitoring is disabled without `VITE_GLITCHTIP_DSN`. Client-safe monitoring values use repository variables; `GLITCHTIP_AUTH_TOKEN` is a GitHub Actions secret used only for private source map uploads. Never put that token in a `VITE_` variable.
+
 ## Coding Style & Naming Conventions
 
 Use 2-space indentation, double quotes, and semicolons, matching existing JSX. Name components in `PascalCase`, hooks and utility functions in `camelCase`, and feature folders in lowercase. Keep comments concise and scoped to non-obvious logic. ESLint and Prettier are configured; run `npm run lint` and `npm run format`.

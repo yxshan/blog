@@ -12,9 +12,21 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      VITE_GLITCHTIP_DSN: ${{ vars.GLITCHTIP_DSN }}
+      VITE_GLITCHTIP_ERROR_SAMPLE_RATE: ${{ vars.GLITCHTIP_ERROR_SAMPLE_RATE || '1' }}
+      VITE_APP_ENVIRONMENT: production
+      VITE_RELEASE: ${{ github.sha }}
+      ENABLE_PRIVATE_SOURCEMAPS: ${{ secrets.GLITCHTIP_AUTH_TOKEN != '' && vars.GLITCHTIP_URL != '' && vars.GLITCHTIP_ORG != '' && vars.GLITCHTIP_PROJECT != '' && vars.GLITCHTIP_DSN != '' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Validate GlitchTip configuration
+        if: vars.GLITCHTIP_DSN != '' && env.ENABLE_PRIVATE_SOURCEMAPS != 'true'
+        run: |
+          echo "GLITCHTIP_DSN requires URL, organization, project and auth token so source maps can be uploaded."
+          exit 1
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -45,6 +57,32 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Install GlitchTip CLI
+        if: env.ENABLE_PRIVATE_SOURCEMAPS == 'true'
+        run: cargo install glitchtip-cli --version 1.0.0 --locked
+
+      - name: Upload private source maps
+        if: env.ENABLE_PRIVATE_SOURCEMAPS == 'true'
+        env:
+          SENTRY_URL: ${{ vars.GLITCHTIP_URL }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.GLITCHTIP_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ vars.GLITCHTIP_ORG }}
+          SENTRY_PROJECT: ${{ vars.GLITCHTIP_PROJECT }}
+        run: |
+          glitchtip-cli sourcemaps inject ./dist
+          glitchtip-cli sourcemaps upload ./dist --release "$VITE_RELEASE" --org "$SENTRY_ORG" --project "$SENTRY_PROJECT"
+
+      - name: Remove private source maps
+        if: always() && env.ENABLE_PRIVATE_SOURCEMAPS == 'true'
+        run: find ./dist -type f -name '*.map' -delete
+
+      - name: Verify deployment contains no source maps
+        run: |
+          if find ./dist -type f -name '*.map' -print -quit | grep -q .; then
+            echo "Public deployment must not contain source maps."
+            exit 1
+          fi
 
       - name: Static smoke test
         run: npm run test:smoke

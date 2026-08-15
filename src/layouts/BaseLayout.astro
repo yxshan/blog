@@ -40,6 +40,11 @@ const canonical = Astro.site
     </main>
     <Footer />
 
+    <script>
+      import { errorMonitoring } from "../integrations/errors/glitchtipReporter";
+      void errorMonitoring.initialize();
+    </script>
+
     <script is:inline>
       (function () {
         const stored = localStorage.getItem("theme");

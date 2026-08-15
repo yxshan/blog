@@ -52,6 +52,8 @@ framework and external adapters
 
 `npm run quality:unused` 使用 Knip 检测没有调用方的文件、导出和依赖。分析与订阅 no-op 适配器作为明确保留的扩展入口列入 Knip entry，而不是通过全局忽略隐藏。
 
+错误监控由 `integrations/errors` 实现 `ErrorReporter`。SDK 使用动态导入，未配置 DSN 时不加载；全局初始化位于布局，React ErrorBoundary 只接收领域接口。发布版本、采样和隐私过滤集中在该适配器，调用方不接触 Sentry SDK。
+
 ## 核心领域模型
 
 领域契约位于 `src/core/contracts.ts`：

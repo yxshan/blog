@@ -14,6 +14,7 @@ export default defineConfig({
       include: [
         "src/core/**/*.ts",
         "src/features/**/*.{ts,tsx}",
+        "src/integrations/errors/**/*.ts",
         "src/lib/**/*.ts",
       ],
       exclude: ["**/*.test.{ts,tsx}"],

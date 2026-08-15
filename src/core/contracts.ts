@@ -62,6 +62,12 @@ export interface SiteConfig {
   basePath: string;
   locale: string;
   comments: { enabled: boolean };
+  errorMonitoring: {
+    dsn: string | null;
+    release: string | null;
+    environment: string;
+    sampleRate: number;
+  };
 }
 
 export interface CommentsAdapter {

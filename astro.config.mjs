@@ -7,4 +7,10 @@ export default defineConfig({
   output: "static",
   trailingSlash: "ignore",
   integrations: [react()],
+  vite: {
+    build: {
+      sourcemap:
+        process.env.ENABLE_PRIVATE_SOURCEMAPS === "true" ? "hidden" : false,
+    },
+  },
 });

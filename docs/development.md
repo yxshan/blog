@@ -88,6 +88,10 @@ PR 应说明改动、验证命令，并为 UI 改动提供截图。推送到 `ma
 VITE_GISCUS_REPO_ID
 VITE_GISCUS_CATEGORY_ID
 VITE_GISCUS_CATEGORY
+VITE_GLITCHTIP_DSN
+VITE_GLITCHTIP_ERROR_SAMPLE_RATE
+VITE_APP_ENVIRONMENT
+VITE_RELEASE
 ```
 
-所有 `VITE_` 变量都会面向浏览器构建，禁止放置私钥、管理 Token 或其他服务端秘密。
+所有 `VITE_` 变量都会面向浏览器构建，禁止放置私钥、管理 Token 或其他服务端秘密。GlitchTip Auth Token 只允许存放在 GitHub Secret；完整配置见[错误监控与发布诊断](error-monitoring.md)。
