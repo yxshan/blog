@@ -1,1 +1,0 @@
-import{r as e,t}from"./react.D0yTT2OJ.js";import{t as n}from"./jsx-runtime.ZmkblUQp.js";var r=e(t(),1);n();function i({slug:e}){return(0,r.useRef)(null),(0,r.useEffect)(()=>{},[e,void 0,void 0]),null}export{i as default};
