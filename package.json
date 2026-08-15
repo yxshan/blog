@@ -14,6 +14,7 @@
     "quality:architecture:deps": "depcruise --config .dependency-cruiser.cjs src scripts --output-type err",
     "quality:unused": "knip --no-config-hints",
     "generate:index": "tsx scripts/generate-index.ts && tsx scripts/generate-search-index.ts",
+    "post:publish": "tsx scripts/publish-obsidian-post.ts",
     "validate": "npm run generate:index && tsx scripts/validate-posts.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
