@@ -4,14 +4,12 @@ import "highlight.js/styles/github.css";
 import "katex/dist/katex.min.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { sitePath } from "../core/navigation/siteUrl";
 
 const {
   title = "yxshan's Blog",
   description = "算法题解、数据结构与考研笔记",
 } = Astro.props;
-const base = import.meta.env.BASE_URL.endsWith("/")
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`;
 const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site).href
   : Astro.url.href;
@@ -25,7 +23,7 @@ const canonical = Astro.site
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/x-icon" href={`${base}favicon.ico`} />
+    <link rel="icon" type="image/svg+xml" href={sitePath("favicon.svg")} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
@@ -41,6 +39,11 @@ const canonical = Astro.site
       <slot />
     </main>
     <Footer />
+
+    <script>
+      import { errorMonitoring } from "../integrations/errors/glitchtipReporter";
+      void errorMonitoring.initialize();
+    </script>
 
     <script is:inline>
       (function () {

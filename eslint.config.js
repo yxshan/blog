@@ -1,6 +1,7 @@
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import prettier from "eslint-config-prettier";
+import tseslint from "typescript-eslint";
 
 const browserGlobals = {
   AbortController: "readonly",
@@ -40,6 +41,9 @@ export default [
   {
     ignores: [
       "dist/**",
+      "coverage/**",
+      "playwright-report/**",
+      "test-results/**",
       "node_modules/**",
       "src/generated/**",
       "**/*.astro",
@@ -67,6 +71,36 @@ export default [
       ...reactHooks.configs.flat.recommended.rules,
       "no-undef": "error",
       "no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+      ],
+      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/incompatible-library": "off",
+      "react-refresh/only-export-components": [
+        "warn",
+        { allowConstantExport: true, allowExportNames: ["enhanceCodeBlock"] },
+      ],
+    },
+  },
+  {
+    files: ["**/*.{ts,tsx}"],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+      },
+      globals: { ...browserGlobals, ...nodeGlobals },
+    },
+    plugins: {
+      "@typescript-eslint": tseslint.plugin,
+      ...reactHooks.configs.flat.recommended.plugins,
+      "react-refresh": reactRefresh,
+    },
+    rules: {
+      ...reactHooks.configs.flat.recommended.rules,
+      "no-undef": "off",
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": [
         "error",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
