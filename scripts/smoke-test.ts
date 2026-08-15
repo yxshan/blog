@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
-import { PROJECT_ROOT } from "../src/core/content/source";
+import { publishedPosts } from "../src/core/content/normalize";
+import { loadPostSources, PROJECT_ROOT } from "../src/core/content/source";
 
 const distDir = path.join(PROJECT_ROOT, "dist");
 const requiredFiles = [
@@ -11,7 +12,7 @@ const requiredFiles = [
   "sitemap.xml",
   "posts/algorithm/reverse-list/index.html",
 ];
-const expectedPostCount = 14;
+const expectedPostCount = publishedPosts(loadPostSources()).length;
 const publicSourceMaps = fs
   .readdirSync(distDir, { recursive: true, encoding: "utf-8" })
   .filter((filePath) => filePath.endsWith(".map"));
@@ -64,12 +65,14 @@ if (feedPostCount !== expectedPostCount) {
   throw new Error(`RSS 文章数异常: ${feedPostCount}`);
 }
 
-const generatedPostDirs = [
-  ...fs.readdirSync(path.join(distDir, "posts/algorithm")),
-  ...fs.readdirSync(path.join(distDir, "posts/kaoyan")),
-];
-if (generatedPostDirs.length !== expectedPostCount) {
-  throw new Error(`静态文章路由数异常: ${generatedPostDirs.length}`);
+const generatedPostFiles = fs
+  .readdirSync(path.join(distDir, "posts"), {
+    recursive: true,
+    encoding: "utf-8",
+  })
+  .filter((filePath) => filePath.endsWith("index.html"));
+if (generatedPostFiles.length !== expectedPostCount) {
+  throw new Error(`静态文章路由数异常: ${generatedPostFiles.length}`);
 }
 
 console.log(
