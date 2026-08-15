@@ -8,15 +8,15 @@ Source lives in `src/` and follows an Astro static-site layout:
 - `src/layouts/BaseLayout.astro` provides the shared HTML shell and meta tags.
 - `src/components/Header.astro` and `Footer.astro` provide navigation chrome.
 - `src/components/home/` holds the React search island and static article cards.
-- `src/lib/posts.js` reads the post index and Markdown files at build time.
-- `src/lib/markdown.js` renders Markdown to sanitized static HTML.
+- `src/lib/posts.ts` reads the post index and Markdown files at build time.
+- `src/lib/markdown.ts` renders Markdown to sanitized static HTML.
 - `src/features/` holds reusable React islands and helpers.
 - `src/generated/posts-index.json` and `src/generated/search-index.json` are build-time indexes.
 - `posts/<category>/NNN-slug/index.md` contains Markdown articles; category and slug drive routing and sorting.
-- `scripts/generate-sitemap.mjs` generates `sitemap.xml` during the build.
+- `scripts/generate-sitemap.ts` generates `sitemap.xml` during the build.
 - Astro generates per-post entry pages directly under `dist/posts/<slug>/index.html`.
-- `scripts/generate-rss.mjs` generates `feed.xml` and `robots.txt`.
-- `scripts/generate-search-index.mjs` builds the full-text search index.
+- `scripts/generate-rss.ts` generates `feed.xml` and `robots.txt`.
+- `scripts/generate-search-index.ts` builds the full-text search index.
 - `dist/` is generated output and is git-ignored; GitHub Pages deploys it via `.github/workflows/deploy.yml`.
 
 ## Build, Test, and Development Commands
@@ -24,6 +24,7 @@ Source lives in `src/` and follows an Astro static-site layout:
 ```bash
 npm install      # install dependencies
 npm run dev      # start the Astro dev server at /blog
+npm run typecheck # run strict TypeScript checks
 npm run validate # validate post frontmatter, paths, and image references
 npm run lint     # run ESLint
 npm test         # run Vitest unit tests
@@ -32,7 +33,7 @@ npm run preview  # serve the production build locally
 ```
 
 Astro pages are generated at build time; `npm run build` regenerates the post and search indexes before rendering.
-Before pushing, run `npm run validate`, `npm run lint`, `npm test`, and `npm run build`.
+Before pushing, run `npm run typecheck`, `npm run validate`, `npm run lint`, `npm test`, `npm run build`, and `npm run test:e2e`.
 
 giscus comments are disabled until `.env` contains `VITE_GISCUS_REPO_ID` and `VITE_GISCUS_CATEGORY_ID`; copy `.env.example` to `.env` and fill in the values from the giscus app.
 
