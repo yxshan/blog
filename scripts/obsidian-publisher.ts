@@ -212,8 +212,10 @@ function cleanupWorktree(options: {
   fs.rmSync(options.worktreeRoot, { recursive: true, force: true });
 }
 
-function runLocalQualityChecks(worktreeRoot: string): void {
-  for (const [command, args] of [
+export function buildLocalQualityCommands(
+  browserChannel?: string,
+): Array<[string, string[]]> {
+  const commands: Array<[string, string[]]> = [
     ["npm", ["run", "typecheck"]],
     ["npm", ["run", "validate"]],
     ["npm", ["run", "lint"]],
@@ -222,11 +224,24 @@ function runLocalQualityChecks(worktreeRoot: string): void {
     ["npm", ["run", "test:coverage"]],
     ["npm", ["run", "build"]],
     ["npm", ["run", "test:smoke"]],
-    ["npx", ["playwright", "install", "chromium"]],
+  ];
+
+  if (!browserChannel?.trim()) {
+    commands.push(["npx", ["playwright", "install", "chromium"]]);
+  }
+
+  commands.push(
     ["npm", ["run", "test:e2e"]],
     ["npm", ["run", "security:audit"]],
-  ] as const) {
-    runPublisherCommand(command, [...args], worktreeRoot);
+  );
+  return commands;
+}
+
+function runLocalQualityChecks(worktreeRoot: string): void {
+  for (const [command, args] of buildLocalQualityCommands(
+    process.env.PLAYWRIGHT_CHANNEL,
+  )) {
+    runPublisherCommand(command, args, worktreeRoot);
   }
 }
 

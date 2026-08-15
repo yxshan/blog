@@ -4,6 +4,7 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { afterEach, describe, expect, it } from "vitest";
 import {
+  buildLocalQualityCommands,
   preparePublishedPost,
   publishPost,
   resolveObsidianPost,
@@ -269,6 +270,25 @@ describe("preparePublishedPost", () => {
     expect(() => preparePublishedPost(resolveObsidianPost(filePath))).toThrow(
       "frontmatter",
     );
+  });
+});
+
+describe("buildLocalQualityCommands", () => {
+  it("uses an installed browser channel without downloading Chromium", () => {
+    const commands = buildLocalQualityCommands("chrome");
+
+    expect(commands).not.toContainEqual([
+      "npx",
+      ["playwright", "install", "chromium"],
+    ]);
+    expect(commands).toContainEqual(["npm", ["run", "test:e2e"]]);
+  });
+
+  it("installs Chromium when no browser channel is configured", () => {
+    expect(buildLocalQualityCommands()).toContainEqual([
+      "npx",
+      ["playwright", "install", "chromium"],
+    ]);
   });
 });
 
