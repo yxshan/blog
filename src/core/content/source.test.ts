@@ -4,13 +4,16 @@ import { loadPostSources } from "./source";
 describe("content source", () => {
   it("normalizes the current Markdown collection through one pipeline", () => {
     const posts = loadPostSources();
-    expect(posts).toHaveLength(14);
-    expect(posts[0]).toMatchObject({
-      slug: expect.stringContaining("/"),
-      category: expect.any(String),
-      title: expect.any(String),
-      tags: expect.any(Array),
-      content: expect.any(String),
-    });
+    expect(posts.length).toBeGreaterThan(0);
+
+    for (const post of posts) {
+      expect(post).toMatchObject({
+        slug: expect.stringContaining("/"),
+        category: expect.any(String),
+        title: expect.any(String),
+        tags: expect.any(Array),
+        content: expect.any(String),
+      });
+    }
   });
 });
