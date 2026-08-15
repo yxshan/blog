@@ -128,5 +128,12 @@
       <pubDate>Tue, 28 Jul 2026 00:00:00 GMT</pubDate>
       <description>讲解视频：2010真题 #中等 #线性表 #顺序表 #反转  !题目信息 可将问题视为把数组$ab$转换为数组$ba$（$a$代表数组的前$p$个元素，$b$代表数组中余下的$n-p$个元素），先把$a$逆置得到$a^{-1}b$，再将$b$逆置得到$a^{-1}b^{-1}$，最后将整个$a^{-</description>
     </item>
+    <item>
+      <title>2011真题：两个等长升序序列的中位数</title>
+      <link>https://yxshan.github.io/blog/posts/kaoyan/median</link>
+      <guid>https://yxshan.github.io/blog/posts/kaoyan/median</guid>
+      <pubDate>Sat, 15 Aug 2026 00:00:00 GMT</pubDate>
+      <description>#中等 #线性表 #顺序表 #分治 #中位数 !011-median 给定两个长度相等的升序序列 $A$ 和 $B$，要求找出合并后升序序列的中位数。题目将长度为 $L$ 的序列中第 $\lceil L/2 \rceil$ 个元素定义为中位数，因此合并后的 $2n$ 个元素需要寻找第 $n$ 小的元</description>
+    </item>
   </channel>
 </rss>
