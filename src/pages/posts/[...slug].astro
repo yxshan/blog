@@ -1,21 +1,22 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Comments from "../../features/posts/Comments.jsx";
+import Comments from "../../features/posts/Comments";
+import type { GetStaticPaths } from "astro";
+import type { RuntimePost } from "../../core/contracts";
 import { getTagColor } from "../../features/tags/tagColors";
 import { formatDate } from "../../features/posts/date";
-import { getAllPosts, getPostBySlug, readPostBody } from "../../lib/posts";
+import { getAllPosts, readPostBody } from "../../lib/posts";
 import { renderMarkdown } from "../../lib/markdown";
 import { homePath, postPath } from "../../core/navigation/siteUrl";
 import { stripLeadingTitle } from "../../features/posts/body";
 
-export function getStaticPaths() {
-  return getAllPosts().map((post) => ({
+export const getStaticPaths: GetStaticPaths = () =>
+  getAllPosts().map((post) => ({
     params: { slug: post.slug },
     props: { post },
   }));
-}
 
-const { post } = Astro.props;
+const { post } = Astro.props as { post: RuntimePost };
 const content = renderMarkdown(
   stripLeadingTitle(readPostBody(post), post.title),
   post.modulePath,
@@ -43,7 +44,7 @@ const nextPost =
           {post.date && (
             <span class="inline-flex items-center gap-1.5">
               <span class="font-medium text-gray-700 dark:text-gray-300">发布日期</span>
-              <time datetime={formatDate(post.date)}>{formatDate(post.date)}</time>
+              <time datetime={post.date.toISOString()}>{formatDate(post.date)}</time>
             </span>
           )}
         </div>
