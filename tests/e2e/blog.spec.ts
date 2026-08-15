@@ -1,6 +1,17 @@
 import { expect, test, type Page } from "@playwright/test";
+import postsIndex from "../../src/generated/posts-index.json" with {
+  type: "json",
+};
 
 const browserErrors = new WeakMap<Page, string[]>();
+const publishedPosts = postsIndex.posts.filter((post) => !post.draft);
+const publishedPostCount = publishedPosts.length;
+const linkedIntervalPostCount = publishedPosts.filter(
+  (post) => post.tags.includes("链表") && post.tags.includes("区间"),
+).length;
+const algorithmPostCount = publishedPosts.filter(
+  (post) => post.category === "algorithm",
+).length;
 
 test.beforeEach(async ({ page }) => {
   const errors: string[] = [];
@@ -17,7 +28,7 @@ test.afterEach(async ({ page }) => {
 
 test("首页搜索、清空和无结果状态正常", async ({ page }) => {
   await page.goto("./");
-  await expect(page.getByText("共 14 篇文章")).toBeVisible();
+  await expect(page.getByText(`共 ${publishedPostCount} 篇文章`)).toBeVisible();
 
   const search = page.getByPlaceholder("搜索文章标题或摘要...");
   await search.fill("找公共元素");
@@ -25,7 +36,7 @@ test("首页搜索、清空和无结果状态正常", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "找公共元素" })).toBeVisible();
 
   await page.getByRole("button", { name: "清除搜索" }).click();
-  await expect(page.getByText("共 14 篇文章")).toBeVisible();
+  await expect(page.getByText(`共 ${publishedPostCount} 篇文章`)).toBeVisible();
 
   await search.fill("不存在的文章关键词");
   await expect(page.getByText("没有找到匹配的文章")).toBeVisible();
@@ -35,7 +46,9 @@ test("多标签、分类和未知查询参数可在刷新后恢复", async ({ pa
   await page.goto("./?source=e2e");
   await page.getByTitle("筛选 链表").click();
   await page.getByTitle("筛选 区间").click();
-  await expect(page.getByText("共 2 篇文章")).toBeVisible();
+  await expect(
+    page.getByText(`共 ${linkedIntervalPostCount} 篇文章`),
+  ).toBeVisible();
   await expect
     .poll(() => new URL(page.url()).searchParams.getAll("tag"))
     .toEqual(["链表", "区间"]);
@@ -53,7 +66,9 @@ test("多标签、分类和未知查询参数可在刷新后恢复", async ({ pa
   expect(new URL(page.url()).searchParams.get("source")).toBe("e2e");
 
   await page.goto("./?category=algorithm&source=e2e");
-  await expect(page.getByText("共 4 篇文章")).toBeVisible();
+  await expect(
+    page.getByText(`共 ${algorithmPostCount} 篇文章`),
+  ).toBeVisible();
   await expect(page.getByText("分类：algorithm ×")).toBeVisible();
 });
 
