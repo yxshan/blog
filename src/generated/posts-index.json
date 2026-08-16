@@ -188,6 +188,25 @@
       "excerpt": "#中等 #图 #邻接矩阵 #欧拉路径 #考研真题 !021-euler-path 给定无向连通图 G，且 E > 0。当图中度为奇数的顶点个数不超过 2 时，图存在包含所有边且每条边恰好经过一次的路径，称为欧拉路径。请判断是否存在欧拉路径。 图已经保证连通，因此只需判断奇度顶点个数。若图不保证连通，"
     },
     {
+      "slug": "kaoyan/unique-topo",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/023-unique-topo/index.md",
+      "title": "2024真题：有向图唯一拓扑序列判定",
+      "date": "2026-08-16",
+      "updated": "2026-08-16",
+      "tags": [
+        "中等",
+        "图",
+        "拓扑排序",
+        "邻接矩阵",
+        "考研真题"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "#中等 #图 #拓扑排序 #邻接矩阵 #考研真题 !023-unique-topo 给定采用邻接矩阵存储的有向图 G，要求判断它是否存在唯一的拓扑序列。若存在返回 1，否则返回 0。 拓扑序列存在的前提是有向图无环。若某一步同时存在两个或以上入度为 0 的顶点，则它们可以交换次序，拓扑序列不唯一。"
+    },
+    {
       "slug": "kaoyan/median",
       "category": "kaoyan",
       "modulePath": "/posts/kaoyan/011-median/index.md",
