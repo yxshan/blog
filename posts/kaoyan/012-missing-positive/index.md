@@ -35,7 +35,35 @@ A = (1, 2, 3)
 
 正整数 $1$、$2$、$3$ 都出现了，所以答案是 $4$。
 
-## 算法设计思路
+## 直接解：逐个检查正整数
+
+从 `1` 开始枚举候选答案，对每个正整数顺序扫描数组判断是否出现。第一个没有出现的数就是答案。
+
+```c
+int findMissMinBrute(int A[], int n) {
+    int candidate;
+
+    for (candidate = 1; candidate <= n + 1; candidate++) {
+        int i;
+        int found = 0;
+
+        for (i = 0; i < n; i++) {
+            if (A[i] == candidate) {
+                found = 1;
+                break;
+            }
+        }
+        if (!found) {
+            return candidate;
+        }
+    }
+    return n + 1;
+}
+```
+
+时间复杂度最坏为 `O(n²)`，空间复杂度为 `O(1)`。它不修改原数组，但没有利用数组位置保存信息。
+
+## 优化解：原地置换
 
 数组长度为 $n$ 时，答案一定在 $1$ 到 $n+1$ 之间。因为如果 $1$ 到 $n$ 都出现，数组中最多只有 $n$ 个元素，最小缺失正整数只能是 $n+1$。
 
