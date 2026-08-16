@@ -169,6 +169,25 @@
       "excerpt": "#中等 #二叉树 #二叉搜索树 #顺序存储 #中序遍历 #考研真题 !020-seq-bst 非空二叉树采用顺序存储。数组 SqBiTNode 保存结点值，左孩子下标为 2i+1，右孩子下标为 2i+2；-1 表示空位置，ElemNum 表示实际使用的数组长度。 要求判断该存储结果表示的二叉树是否为"
     },
     {
+      "slug": "kaoyan/k-vertices",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/022-k-vertices/index.md",
+      "title": "2023真题：求有向图中的 K 顶点",
+      "date": "2026-08-16",
+      "updated": "2026-08-16",
+      "tags": [
+        "中等",
+        "图",
+        "邻接矩阵",
+        "度",
+        "考研真题"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "#中等 #图 #邻接矩阵 #度 #考研真题 !022-k-vertices 给定采用邻接矩阵存储的有向图 G。若某顶点的出度大于入度，则称它为 K 顶点。请输出图中所有 K 顶点，并返回 K 顶点的个数。 对邻接矩阵而言，第 i 行非零元素个数是顶点 i 的出度，第 i 列非零元素个数是入度。 图中"
+    },
+    {
       "slug": "kaoyan/median",
       "category": "kaoyan",
       "modulePath": "/posts/kaoyan/011-median/index.md",
