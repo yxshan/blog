@@ -9,7 +9,30 @@
 <pre><code class="language-text">A = (1, 2, 3)
 </code></pre>
 <p>正整数 <span class="katex"><span class="katex-mathml">11</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">1</span></span></span></span>、<span class="katex"><span class="katex-mathml">22</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">2</span></span></span></span>、<span class="katex"><span class="katex-mathml">33</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">3</span></span></span></span> 都出现了，所以答案是 <span class="katex"><span class="katex-mathml">44</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">4</span></span></span></span>。</p>
-<h2>算法设计思路</h2>
+<h2>直接解：逐个检查正整数</h2>
+<p>从 <code>1</code> 开始枚举候选答案，对每个正整数顺序扫描数组判断是否出现。第一个没有出现的数就是答案。</p>
+<pre><code class="language-c">int findMissMinBrute(int A[], int n) {
+    int candidate;
+
+    for (candidate = 1; candidate &lt;= n + 1; candidate++) {
+        int i;
+        int found = 0;
+
+        for (i = 0; i &lt; n; i++) {
+            if (A[i] == candidate) {
+                found = 1;
+                break;
+            }
+        }
+        if (!found) {
+            return candidate;
+        }
+    }
+    return n + 1;
+}
+</code></pre>
+<p>时间复杂度最坏为 <code>O(n²)</code>，空间复杂度为 <code>O(1)</code>。它不修改原数组，但没有利用数组位置保存信息。</p>
+<h2>优化解：原地置换</h2>
 <p>数组长度为 <span class="katex"><span class="katex-mathml">nn</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.4306em"></span><span class="mord mathnormal">n</span></span></span></span> 时，答案一定在 <span class="katex"><span class="katex-mathml">11</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">1</span></span></span></span> 到 <span class="katex"><span class="katex-mathml">n+1n+1</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">1</span></span></span></span> 之间。因为如果 <span class="katex"><span class="katex-mathml">11</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">1</span></span></span></span> 到 <span class="katex"><span class="katex-mathml">nn</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.4306em"></span><span class="mord mathnormal">n</span></span></span></span> 都出现，数组中最多只有 <span class="katex"><span class="katex-mathml">nn</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.4306em"></span><span class="mord mathnormal">n</span></span></span></span> 个元素，最小缺失正整数只能是 <span class="katex"><span class="katex-mathml">n+1n+1</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">1</span></span></span></span>。</p>
 <p>因此只需要关注数组中的 <span class="katex"><span class="katex-mathml">11</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">1</span></span></span></span> 到 <span class="katex"><span class="katex-mathml">nn</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.4306em"></span><span class="mord mathnormal">n</span></span></span></span>。将数值 <span class="katex"><span class="katex-mathml">xx</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.4306em"></span><span class="mord mathnormal">x</span></span></span></span> 放到下标 <span class="katex"><span class="katex-mathml">x−1x-1</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">1</span></span></span></span> 的位置：</p>
 <ul>
