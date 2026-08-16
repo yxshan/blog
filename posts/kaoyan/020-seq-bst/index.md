@@ -35,6 +35,31 @@ draft: false
 
 这种方法逻辑直观，适合作为基线解，但会额外保存整棵树的中序序列。
 
+```c
+void inorderDirect(const SqBiTree *tree, int index, int order[], int *count) {
+    if (index >= tree->ElemNum || tree->SqBiTNode[index] == -1) {
+        return;
+    }
+    inorderDirect(tree, 2 * index + 1, order, count);
+    order[(*count)++] = tree->SqBiTNode[index];
+    inorderDirect(tree, 2 * index + 2, order, count);
+}
+
+int isBSTDirect(const SqBiTree *tree) {
+    int order[MAX_SIZE];
+    int count = 0;
+    int i;
+
+    inorderDirect(tree, 0, order, &count);
+    for (i = 1; i < count; i++) {
+        if (order[i - 1] >= order[i]) {
+            return 0;
+        }
+    }
+    return count > 0;
+}
+```
+
 ## 优化解：递归传递取值范围
 
 对每个结点维护允许出现的开区间。进入左子树时收紧上界，进入右子树时收紧下界；只要当前值越界，就可以立即返回 `0`。

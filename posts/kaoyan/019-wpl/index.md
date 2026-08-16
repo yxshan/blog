@@ -34,6 +34,19 @@ draft: false
 
 这种方法每个结点只访问一次，是最直接的基线解。它使用递归栈保存当前路径，空间与树高有关。
 
+```c
+int wplDirect(BiTNode *root, int depth) {
+    if (root == NULL) {
+        return 0;
+    }
+    if (root->left == NULL && root->right == NULL) {
+        return root->weight * depth;
+    }
+    return wplDirect(root->left, depth + 1)
+        + wplDirect(root->right, depth + 1);
+}
+```
+
 ## 优化解：显式栈遍历
 
 不使用递归，改用栈保存“结点 + 深度”。该方法的渐进时间复杂度不变，但可以避免递归层数过深；如果题目只要求时间和空间的渐进复杂度，递归写法更简洁。

@@ -109,7 +109,7 @@
       "difficulty": "medium",
       "leetcode": null,
       "draft": false,
-      "excerpt": "#中等 #链表 #去重 #哈希思想 #考研真题 单链表保存 m 个整数，且每个结点满足 data <= n。要求只保留绝对值第一次出现的结点，删除后续绝对值相等的结点，并保持剩余结点的相对顺序不变。 例如 21, -15, -15, -7, 15 删除后为 21, -15, -7。负号不影响“是否重"
+      "excerpt": "#中等 #链表 #去重 #哈希思想 #考研真题 !017-absolute-duplicate 单链表保存 m 个整数，且每个结点满足 data <= n。要求只保留绝对值第一次出现的结点，删除后续绝对值相等的结点，并保持剩余结点的相对顺序不变。 例如 21, -15, -15, -7, 15 删除"
     },
     {
       "slug": "kaoyan/reorder-list",
@@ -249,7 +249,7 @@
       "slug": "kaoyan/converse",
       "category": "kaoyan",
       "modulePath": "/posts/kaoyan/010-converse/index.md",
-      "title": "2010真题",
+      "title": "2010真题：线性表两段互换",
       "date": "2026-07-28",
       "updated": "2026-07-28",
       "tags": [
@@ -262,7 +262,7 @@
       "difficulty": "medium",
       "leetcode": null,
       "draft": false,
-      "excerpt": "讲解视频：2010真题 #中等 #线性表 #顺序表 #反转 #考研真题 !题目信息 可将问题视为把数组$ab$转换为数组$ba$（$a$代表数组的前$p$个元素，$b$代表数组中余下的$n-p$个元素），先把$a$逆置得到$a^{-1}b$，再将$b$逆置得到$a^{-1}b^{-1}$，最后将整个"
+      "excerpt": "#中等 #线性表 #顺序表 #反转 #考研真题 !010-converse 将顺序表 R 中的前 p 个元素与后面的 n-p 个元素整体互换，要求尽可能高效，并保持各段内部的相对顺序。例如 R = (a,b,c,d,e)、p=2 时，结果为 (c,d,e,a,b)。 把数组看成两段 ab，其中 a"
     },
     {
       "slug": "kaoyan/exchange",
