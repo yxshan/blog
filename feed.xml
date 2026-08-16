@@ -161,7 +161,7 @@
       <link>https://yxshan.github.io/blog/posts/kaoyan/kth-from-end</link>
       <guid>https://yxshan.github.io/blog/posts/kaoyan/kth-from-end</guid>
       <pubDate>Sun, 16 Aug 2026 00:00:00 GMT</pubDate>
-      <description>#中等 #链表 #双指针 #查找 #考研真题 已知一个带有表头结点的单链表，结点结构为 data 和 link，只给出头指针 list。请设计尽可能高效的算法，查找链表中倒数第 k 个位置的结点。若找到，输出该结点的 data 并返回 1；否则返回 0。 题目不允许改变链表，因此算法只能通过指针遍历</description>
+      <description>#中等 #链表 #双指针 #查找 #考研真题 !015-kth-from-end 已知一个带有表头结点的单链表，结点结构为 data 和 link，只给出头指针 list。请设计尽可能高效的算法，查找链表中倒数第 k 个位置的结点。若找到，输出该结点的 data 并返回 1；否则返回 0。 题目不允</description>
     </item>
     <item>
       <title>2012真题：两个链表的公共后缀起点</title>
