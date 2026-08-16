@@ -177,5 +177,12 @@
       <pubDate>Sun, 16 Aug 2026 00:00:00 GMT</pubDate>
       <description>#中等 #链表 #去重 #哈希思想 #考研真题 单链表保存 m 个整数，且每个结点满足 data &lt;= n。要求只保留绝对值第一次出现的结点，删除后续绝对值相等的结点，并保持剩余结点的相对顺序不变。 例如 21, -15, -15, -7, 15 删除后为 21, -15, -7。负号不影响“是否重</description>
     </item>
+    <item>
+      <title>2019真题：单链表交替重排</title>
+      <link>https://yxshan.github.io/blog/posts/kaoyan/reorder-list</link>
+      <guid>https://yxshan.github.io/blog/posts/kaoyan/reorder-list</guid>
+      <pubDate>Sun, 16 Aug 2026 00:00:00 GMT</pubDate>
+      <description>#困难 #链表 #反转 #双指针 #考研真题 !018-reorder-list 带头结点的单链表为 L=(a1,a2,...,an)，要求在空间复杂度为 O(1) 的条件下，将它重排为： L&apos;=(a1,an,a2,a(n-1),a3,a(n-2),...)。 只能调整结点链接，不能复制结点或修改数</description>
+    </item>
   </channel>
 </rss>
