@@ -226,6 +226,82 @@
       "excerpt": "#中等 #图 #拓扑排序 #邻接矩阵 #考研真题 !023-unique-topo 给定采用邻接矩阵存储的有向图 G，要求判断它是否存在唯一的拓扑序列。若存在返回 1，否则返回 0。 拓扑序列存在的前提是有向图无环。若某一步同时存在两个或以上入度为 0 的顶点，则它们可以交换次序，拓扑序列不唯一。"
     },
     {
+      "slug": "kaoyan/majority",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/024-majority/index.md",
+      "title": "2013真题：数组主元素查找",
+      "date": "2026-08-16",
+      "updated": "2026-08-16",
+      "tags": [
+        "中等",
+        "数组",
+        "投票算法",
+        "查找",
+        "考研真题"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "#中等 #数组 #投票算法 #查找 #考研真题 !024-majority 给定长度为 n 的整数数组 A，其中 0 <= A[i] < n。若某个值 x 出现次数 m > n/2，则称 x 为数组的主元素。要求找到主元素；若不存在，返回 -1。 A=(0,5,5,3,5,7,5,5) 中 5 出现"
+    },
+    {
+      "slug": "kaoyan/balanced-partition",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/025-balanced-partition/index.md",
+      "title": "2016真题：集合的平衡划分",
+      "date": "2026-08-16",
+      "updated": "2026-08-16",
+      "tags": [
+        "中等",
+        "数组",
+        "排序",
+        "贪心",
+        "考研真题"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "#中等 #数组 #排序 #贪心 #考研真题 !025-balanced-partition 给定由 n 个正整数组成的集合 A，将它划分为两个不相交子集 A1 和 A2。要求先使 n1-n2 最小，再在此条件下使 S1-S2 最大，其中 n1、n2 是元素个数，S1、S2 是元素和。 由于 n1+n"
+    },
+    {
+      "slug": "kaoyan/expression-infix",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/026-expression-infix/index.md",
+      "title": "2017真题：表达式树转换为中缀表达式",
+      "date": "2026-08-16",
+      "updated": "2026-08-16",
+      "tags": [
+        "中等",
+        "二叉树",
+        "表达式树",
+        "递归",
+        "考研真题"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "#中等 #二叉树 #表达式树 #递归 #考研真题 !026-expression-infix 给定一棵表达式树，叶结点保存操作数，非叶结点保存运算符。要求将表达式树转换为等价的中缀表达式并输出。树中可能出现一元负号。 图中第一棵树输出为 (a+b)(c(-d))，第二棵树输出为 (ab)+(-(c-"
+    },
+    {
+      "slug": "kaoyan/bst-closest-k",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/027-bst-closest-k/index.md",
+      "title": "2026真题：二叉搜索树中查找最接近 K 的结点",
+      "date": "2026-08-16",
+      "updated": "2026-08-16",
+      "tags": [
+        "中等",
+        "二叉搜索树",
+        "查找",
+        "双指针思想",
+        "考研真题"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "#中等 #二叉搜索树 #查找 #双指针思想 #考研真题 !027-bst-closest-k 给定一棵二叉搜索树和整数 K，查找树中关键字与 K 的差的绝对值最小的所有结点，并输出这个最小绝对值以及对应的关键字。 二叉搜索树的中序序列有序。若 K 不在树中，最接近它的结点只可能是查找路径上最后遇到的"
+    },
+    {
       "slug": "kaoyan/median",
       "category": "kaoyan",
       "modulePath": "/posts/kaoyan/011-median/index.md",
