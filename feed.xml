@@ -184,5 +184,12 @@
       <pubDate>Sun, 16 Aug 2026 00:00:00 GMT</pubDate>
       <description>#困难 #链表 #反转 #双指针 #考研真题 !018-reorder-list 带头结点的单链表为 L=(a1,a2,...,an)，要求在空间复杂度为 O(1) 的条件下，将它重排为： L&apos;=(a1,an,a2,a(n-1),a3,a(n-2),...)。 只能调整结点链接，不能复制结点或修改数</description>
     </item>
+    <item>
+      <title>2014真题：二叉树的带权路径长度</title>
+      <link>https://yxshan.github.io/blog/posts/kaoyan/wpl</link>
+      <guid>https://yxshan.github.io/blog/posts/kaoyan/wpl</guid>
+      <pubDate>Sun, 16 Aug 2026 00:00:00 GMT</pubDate>
+      <description>#中等 #二叉树 #递归 #树的遍历 #考研真题 !019-wpl 二叉树的带权路径长度（WPL）是所有叶结点的带权路径长度之和。给定一棵采用二叉链表存储的二叉树，叶结点的 weight 保存非负权值，要求计算整棵树的 WPL。 根结点到自身的路径长度为 0。因此，若根结点本身就是叶结点，它对 WP</description>
+    </item>
   </channel>
 </rss>
