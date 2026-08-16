@@ -40,7 +40,29 @@ res = (6, 24, 81, 36)
 - $res[2]=\max((-9)\times(-9),(-9)\times6)=81$
 - $res[3]=6\times6=36$
 
-## 算法设计思路
+## 直接解：枚举后缀中的所有搭配
+
+对每个 `i`，枚举所有 `j>=i`，计算 `A[i]*A[j]` 的最大值。它直接对应题意，适合用来验证优化算法。
+
+```c
+void calMulMaxBrute(int A[], int res[], int n) {
+    int i, j;
+
+    for (i = 0; i < n; i++) {
+        res[i] = A[i] * A[i];
+        for (j = i + 1; j < n; j++) {
+            int product = A[i] * A[j];
+            if (product > res[i]) {
+                res[i] = product;
+            }
+        }
+    }
+}
+```
+
+时间复杂度为 `O(n²)`，空间复杂度为 `O(1)`。
+
+## 优化解：维护后缀最大值和最小值
 
 对于固定的 $A[i]$，只需要知道后缀 $A[i\dots n-1]$ 中的最大值和最小值：
 
