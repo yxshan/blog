@@ -73,6 +73,24 @@
       "excerpt": "#中等 #链表 #双指针 #查找 #考研真题 已知一个带有表头结点的单链表，结点结构为 data 和 link，只给出头指针 list。请设计尽可能高效的算法，查找链表中倒数第 k 个位置的结点。若找到，输出该结点的 data 并返回 1；否则返回 0。 题目不允许改变链表，因此算法只能通过指针遍历"
     },
     {
+      "slug": "kaoyan/reorder-list",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/018-reorder-list/index.md",
+      "title": "2019真题：单链表交替重排",
+      "date": "2026-08-16",
+      "updated": "2026-08-16",
+      "tags": [
+        "链表",
+        "反转",
+        "双指针",
+        "考研真题"
+      ],
+      "difficulty": "hard",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "#困难 #链表 #反转 #双指针 #考研真题 带头结点的单链表为 L=(a1,a2,...,an)，要求在空间复杂度为 O(1) 的条件下，将它重排为： L'=(a1,an,a2,a(n-1),a3,a(n-2),...)。 只能调整结点链接，不能复制结点或修改数据。 先遍历链表，把每个数据结点的地"
+    },
+    {
       "slug": "kaoyan/median",
       "category": "kaoyan",
       "modulePath": "/posts/kaoyan/011-median/index.md",

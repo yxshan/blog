@@ -77,6 +77,25 @@
       "searchText": "2009真题：查找链表倒数第k个结点 #中等 #链表 #双指针 #查找 #考研真题 题目信息 已知一个带有表头结点的单链表，结点结构为 data 和 link ，只给出头指针 list 。请设计尽可能高效的算法，查找链表中倒数第 k 个位置的结点。若找到，输出该结点的 data 并返回 1 ；否则返回 0 。 题目不允许改变链表，因此算法只能通过指针遍历完成。这里将 list 视为指向首个数据结点的指针；如果实际代码中的 list 指向头结点，只需先令 list = list- link 。 直接解：先求长度，再定位 先遍历链表求出数据结点个数 n 。如果 k <= 0 或 k n ，查找失败；否则从表头再次出发，走到第 n-k+1 个结点。 这种方法思路直接、容易验证，代价是需要完整遍历一次，再从头走到目标位置。 typedef struct LNode { int data; struct LNode link; } LNode, LinkList; int findKthFromEndTwoPass(LinkList list, int k, int value) { LinkList p; int n = 0; int i; if (k <= 0) { return 0; } for (p = list; p != NULL; p = p- link) { n++; } if (k n) { return 0; } p = list; for (i = 1; i < n - k + 1; i++) { p = p- link; } value = p- data; return 1; } 时间复杂度为 O(n) ，空间复杂度为 O(1) 。 优化解：快慢指针一次扫描 让 fast 先向前走 k 步，再让 fast 和 slow 同步向后移动。当 fast 到达表尾时， slow 恰好指向倒数第 k 个结点。 如果 fast 不足 k 步就到达 NULL ，说明链表长度小于 k 。该方法不需要保存长度，也不需要第二次从表头定位。 int findKthFromEnd(LinkList list, int k, int value) { LinkList fast = list; LinkList slow = list; int i; if (k <= 0) { return 0; } for (i = 0; i < k; i++) { if (fast == NULL) { return 0; } fast = fast- link; } while (fast != NULL) { fast = fast- link; slow = slow- link; } value = slow- data; return 1; } 时间复杂度仍为 O(n) ，但只需一次连续扫描；空间复杂度为 O(1) 。 易错点 1. k 从 1 开始计数， k=1 表示最后一个数据结点。 2. 判断是否存在第 k 个结点时，必须在快指针每次前进前检查空指针。 3. 比较的是结点位置，不是 data 值；链表中允许出现相同数据。 题图"
     },
     {
+      "slug": "kaoyan/reorder-list",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/018-reorder-list/index.md",
+      "title": "2019真题：单链表交替重排",
+      "date": "2026-08-16",
+      "updated": "2026-08-16",
+      "tags": [
+        "链表",
+        "反转",
+        "双指针",
+        "考研真题"
+      ],
+      "difficulty": "hard",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "#困难 #链表 #反转 #双指针 #考研真题 带头结点的单链表为 L=(a1,a2,...,an)，要求在空间复杂度为 O(1) 的条件下，将它重排为： L'=(a1,an,a2,a(n-1),a3,a(n-2),...)。 只能调整结点链接，不能复制结点或修改数据。 先遍历链表，把每个数据结点的地",
+      "searchText": "2019真题：单链表交替重排 #困难 #链表 #反转 #双指针 #考研真题 题目信息 带头结点的单链表为 L=(a1,a2,...,an) ，要求在空间复杂度为 O(1) 的条件下，将它重排为： L'=(a1,an,a2,a(n-1),a3,a(n-2),...) 。 只能调整结点链接，不能复制结点或修改数据。 直接解：数组保存结点指针 先遍历链表，把每个数据结点的地址依次放入数组。然后使用左右两个下标，交替取左端和右端结点重新连接。 typedef struct node { int data; struct node next; } NODE; void reorderByArray(NODE head, int n) { NODE nodes[n]; NODE p = head- next; NODE tail = head; int i = 0; int left = 0; int right; while (p != NULL) { nodes[i++] = p; p = p- next; } right = i - 1; while (left <= right) { tail- next = nodes[left++]; tail = tail- next; if (left <= right) { tail- next = nodes[right--]; tail = tail- next; } } tail- next = NULL; } 时间复杂度为 O(n) ，但需要保存 n 个结点指针，空间复杂度为 O(n) 。它适合先验证重排顺序，也是理解原地解的基线。 优化解：找中点、逆置后半段、交替合并 把链表拆成前后两段：前半段保持顺序，后半段逆置。逆置后，后半段的顺序正好是 an,a(n-1),... ，最后交替合并两段即可。 void reorderList(NODE head) { NODE slow = head- next; NODE fast = head- next; NODE second; NODE prev = NULL; NODE first; if (slow == NULL slow- next == NULL) { return; } while (fast != NULL && fast- next != NULL) { slow = slow- next; fast = fast- next- next; } second = slow- next; slow- next = NULL; while (second != NULL) { NODE next = second- next; second- next = prev; prev = second; second = next; } first = head- next; second = prev; while (second != NULL) { NODE nextFirst = first- next; NODE nextSecond = second- next; first- next = second; second- next = nextFirst; first = nextFirst; second = nextSecond; } } 找中点、逆置和合并都只遍历链表常数次，因此时间复杂度为 O(n) ，只使用若干指针，空间复杂度为 O(1) 。 易错点 1. 切断前半段与后半段的连接，避免逆置或合并时形成环。 2. 奇数长度时，中点结点属于前半段；偶数长度时，前半段多一个结点也不会影响结果。 3. 合并时必须先保存两个后继指针，否则原链表的剩余部分会丢失。 题图"
+    },
+    {
       "slug": "kaoyan/median",
       "category": "kaoyan",
       "modulePath": "/posts/kaoyan/011-median/index.md",
