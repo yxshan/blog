@@ -178,6 +178,26 @@
       "searchText": "2022真题：顺序存储二叉树的二叉搜索树判定 #中等 #二叉树 #二叉搜索树 #顺序存储 #中序遍历 #考研真题 题目信息 非空二叉树采用顺序存储。数组 SqBiTNode 保存结点值，左孩子下标为 2 i+1 ，右孩子下标为 2 i+2 ； -1 表示空位置， ElemNum 表示实际使用的数组长度。 要求判断该存储结果表示的二叉树是否为二叉搜索树。本文按严格定义处理：左子树所有结点值小于根，右子树所有结点值大于根。 示例 图中的 T1 中序遍历为 27,25,30,40,60,80 ，不是递增序列，因此不是二叉搜索树。 T2 中序遍历为 50,30,35,40,60 ，同样不是二叉搜索树。 直接解：中序遍历后检查有序性 二叉搜索树的中序遍历结果必须严格递增。先把所有实际结点写入辅助数组，再检查相邻元素是否满足前者小于后者。 这种方法逻辑直观，适合作为基线解，但会额外保存整棵树的中序序列。 优化解：递归传递取值范围 对每个结点维护允许出现的开区间。进入左子树时收紧上界，进入右子树时收紧下界；只要当前值越界，就可以立即返回 0 。 该方法不保存中序数组，且每个实际结点只访问一次。 示例推演 以 T1 为例，中序遍历先访问 27 ，再访问 25 。由于 27 = 25 ，序列不再严格递增，可以判定 T1 不是二叉搜索树。 对范围法而言，访问 27 时它位于结点 30 的左子树，允许范围应为 (-∞,30) ，因此合法；访问 25 时若发现它落在某个祖先收紧后的范围之外，则立即判定失败。 代码实现 #define MAX SIZE 1000 typedef struct { int SqBiTNode[MAX SIZE]; int ElemNum; } SqBiTree; int checkBSTRange( const SqBiTree tree, int index, int lower, int hasLower, int upper, int hasUpper ) { int value; if (index = tree- ElemNum tree- SqBiTNode[index] == -1) { return 1; } value = tree- SqBiTNode[index]; if ((hasLower && value <= lower) (hasUpper && value = upper)) { return 0; } return checkBSTRange(tree, 2 index + 1, lower, hasLower, value, 1) && checkBSTRange(tree, 2 index + 2, value, 1, upper, hasUpper); } int isBST(const SqBiTree tree) { if (tree- ElemNum <= 0 tree- SqBiTNode[0] == -1) { return 0; } return checkBSTRange(tree, 0, 0, 0, 0, 0); } 正确性说明 根结点没有取值限制。若当前结点值为 x ，左子树所有结点必须小于 x ，右子树所有结点必须大于 x ；同时还要继承祖先结点形成的范围。递归因此检查了每个结点的全部祖先约束，返回 1 当且仅当整棵树满足二叉搜索树定义。 复杂度分析 - 时间复杂度： O(n) ，每个实际结点只访问一次。 - 空间复杂度： O(h) ，只使用递归栈，不保存中序序列。 易错点 1. 只比较父结点和左右孩子不够，必须传递祖先形成的完整范围。 2. 本文采用严格递增中序序列，重复值不满足定义。 3. 顺序存储下标从 0 开始，左右孩子分别是 2 i+1 和 2 i+2 。 4. -1 是空位置标记，不能作为实际结点值参与比较。"
     },
     {
+      "slug": "kaoyan/unique-topo",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/023-unique-topo/index.md",
+      "title": "2024真题：有向图唯一拓扑序列判定",
+      "date": "2026-08-16",
+      "updated": "2026-08-16",
+      "tags": [
+        "中等",
+        "图",
+        "拓扑排序",
+        "邻接矩阵",
+        "考研真题"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "#中等 #图 #拓扑排序 #邻接矩阵 #考研真题 !023-unique-topo 给定采用邻接矩阵存储的有向图 G，要求判断它是否存在唯一的拓扑序列。若存在返回 1，否则返回 0。 拓扑序列存在的前提是有向图无环。若某一步同时存在两个或以上入度为 0 的顶点，则它们可以交换次序，拓扑序列不唯一。",
+      "searchText": "2024真题：有向图唯一拓扑序列判定 #中等 #图 #拓扑排序 #邻接矩阵 #考研真题 题目信息 给定采用邻接矩阵存储的有向图 G ，要求判断它是否存在唯一的拓扑序列。若存在返回 1 ，否则返回 0 。 拓扑序列存在的前提是有向图无环。若某一步同时存在两个或以上入度为 0 的顶点，则它们可以交换次序，拓扑序列不唯一。 示例 进行拓扑排序时，如果每一步都只有一个入度为 0 且尚未处理的顶点，则选择没有分支，最终序列唯一。若某一步有两个候选顶点，至少可以得到两种不同的拓扑序列。 直接解：枚举拓扑序列 回溯枚举所有合法的拓扑序列。每一步选择一个当前入度为 0 的未处理顶点，递归处理；只要找到两种序列就可以返回 0 ，找到且仅找到一种才返回 1 。 这种方法直接对应“唯一”的定义，但在分支较多时可能产生指数级搜索。 优化解：Kahn 算法检查候选数量 使用 Kahn 拓扑排序，但每轮不把所有入度为 0 的顶点加入队列，而是直接统计候选数量： 1. 候选数为 0 ：图有环，不存在拓扑序列。 2. 候选数大于 1 ：存在多种选择，拓扑序列不唯一。 3. 候选数等于 1 ：处理该顶点并继续。 邻接矩阵需要扫描矩阵来减少后继顶点入度，因此本题下时间复杂度为 O( V ^2) 。 示例推演 首先统计每个顶点的入度。每轮扫描未处理顶点，若只有一个入度为 0 的顶点，就删除它发出的边并更新入度；若发现两个候选顶点，立即返回 0 。若所有顶点都被唯一选出，则返回 1 。 代码实现 #define MAXV 100 typedef struct { int numVertices; int numEdges; char VerticesList[MAXV]; int Edge[MAXV][MAXV]; } MGraph; int uniquely(MGraph G) { int indegree[MAXV] = {0}; int used[MAXV] = {0}; int i, j, step; for (i = 0; i < G.numVertices; i++) { for (j = 0; j < G.numVertices; j++) { if (G.Edge[i][j] != 0) { indegree[j]++; } } } for (step = 0; step < G.numVertices; step++) { int candidate = -1; int choices = 0; for (i = 0; i < G.numVertices; i++) { if (!used[i] && indegree[i] == 0) { candidate = i; choices++; } } if (choices != 1) { return 0; } used[candidate] = 1; for (j = 0; j < G.numVertices; j++) { if (G.Edge[candidate][j] != 0) { indegree[j]--; } } } return 1; } 正确性说明 每一步可选的入度为 0 顶点，恰好是当前拓扑序列的合法下一项。候选数为 0 表示存在环或无法继续；候选数大于 1 时，不同候选的先后顺序会产生不同拓扑序列；候选数为 1 时下一项被唯一确定。因此全程恰好一个候选，当且仅当拓扑序列唯一。 复杂度分析 - 时间复杂度： O( V ^2) ，邻接矩阵下统计入度和更新边均需扫描顶点集合。 - 空间复杂度： O( V ) ，保存入度和已处理标记。 易错点 1. 入度为 0 的候选顶点超过一个时，应判定“不唯一”，不能任选一个继续。 2. 候选数为 0 可能表示有环，也表示无法完成拓扑排序，均返回 0 。 3. 处理顶点后必须减少其所有后继的入度。"
+    },
+    {
       "slug": "kaoyan/median",
       "category": "kaoyan",
       "modulePath": "/posts/kaoyan/011-median/index.md",

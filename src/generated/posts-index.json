@@ -169,6 +169,25 @@
       "excerpt": "#中等 #二叉树 #二叉搜索树 #顺序存储 #中序遍历 #考研真题 !020-seq-bst 非空二叉树采用顺序存储。数组 SqBiTNode 保存结点值，左孩子下标为 2i+1，右孩子下标为 2i+2；-1 表示空位置，ElemNum 表示实际使用的数组长度。 要求判断该存储结果表示的二叉树是否为"
     },
     {
+      "slug": "kaoyan/unique-topo",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/023-unique-topo/index.md",
+      "title": "2024真题：有向图唯一拓扑序列判定",
+      "date": "2026-08-16",
+      "updated": "2026-08-16",
+      "tags": [
+        "中等",
+        "图",
+        "拓扑排序",
+        "邻接矩阵",
+        "考研真题"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "#中等 #图 #拓扑排序 #邻接矩阵 #考研真题 !023-unique-topo 给定采用邻接矩阵存储的有向图 G，要求判断它是否存在唯一的拓扑序列。若存在返回 1，否则返回 0。 拓扑序列存在的前提是有向图无环。若某一步同时存在两个或以上入度为 0 的顶点，则它们可以交换次序，拓扑序列不唯一。"
+    },
+    {
       "slug": "kaoyan/median",
       "category": "kaoyan",
       "modulePath": "/posts/kaoyan/011-median/index.md",
