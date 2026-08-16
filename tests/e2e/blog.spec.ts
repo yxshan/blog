@@ -1,7 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import postsIndex from "../../src/generated/posts-index.json" with {
-  type: "json",
-};
+import postsIndex from "../../src/generated/posts-index.json" with { type: "json" };
 
 const browserErrors = new WeakMap<Page, string[]>();
 const publishedPosts = postsIndex.posts.filter((post) => !post.draft);
@@ -66,9 +64,7 @@ test("多标签、分类和未知查询参数可在刷新后恢复", async ({ pa
   expect(new URL(page.url()).searchParams.get("source")).toBe("e2e");
 
   await page.goto("./?category=algorithm&source=e2e");
-  await expect(
-    page.getByText(`共 ${algorithmPostCount} 篇文章`),
-  ).toBeVisible();
+  await expect(page.getByText(`共 ${algorithmPostCount} 篇文章`)).toBeVisible();
   await expect(page.getByText("分类：algorithm ×")).toBeVisible();
 });
 
@@ -80,7 +76,82 @@ test("Header 搜索入口返回首页并聚焦搜索框", async ({ page }) => {
   await expect(page.getByPlaceholder("搜索文章标题或摘要...")).toBeFocused();
 });
 
+test("移动端标签布局与菜单键盘交互正常", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("./");
+
+  const tagRail = page.locator(".tag-filter-rail");
+  await expect(tagRail).toBeVisible();
+  const tagMetrics = await tagRail.evaluate((element) => ({
+    clientHeight: element.clientHeight,
+    clientWidth: element.clientWidth,
+    scrollWidth: element.scrollWidth,
+  }));
+  expect(tagMetrics.clientHeight).toBeGreaterThanOrEqual(96);
+  expect(tagMetrics.clientHeight).toBeLessThanOrEqual(112);
+  expect(tagMetrics.scrollWidth).toBeGreaterThan(tagMetrics.clientWidth);
+
+  const firstCard = page.locator(".article-card").first();
+  await expect(firstCard).toBeVisible();
+  expect((await firstCard.boundingBox())?.y ?? Infinity).toBeLessThan(430);
+
+  await page.setViewportSize({ width: 360, height: 800 });
+  const documentWidth = await page.evaluate(() => ({
+    client: document.documentElement.clientWidth,
+    scroll: document.documentElement.scrollWidth,
+  }));
+  expect(documentWidth.scroll).toBeLessThanOrEqual(documentWidth.client);
+
+  const menuButton = page.getByRole("button", { name: "打开菜单" });
+  await menuButton.click();
+  const menu = page.locator("[data-mobile-menu]");
+  await expect(menu).toHaveAttribute("data-state", "open");
+  await expect(menu).toHaveAttribute("aria-hidden", "false");
+  await expect(page.locator("body")).toHaveClass(/menu-open/);
+  await expect(
+    page.locator("[data-menu-panel] [data-menu-close]"),
+  ).toBeFocused();
+
+  await page.keyboard.press("Escape");
+  await expect(menu).toHaveAttribute("data-state", "closed");
+  await expect(page.locator("body")).not.toHaveClass(/menu-open/);
+  await expect(menuButton).toBeFocused();
+
+  await menuButton.click();
+  await page
+    .locator(".mobile-menu-backdrop")
+    .click({ position: { x: 5, y: 5 } });
+  await expect(menu).toHaveAttribute("data-state", "closed");
+
+  await menuButton.click();
+  await page.setViewportSize({ width: 1024, height: 800 });
+  await expect(menu).toHaveAttribute("data-state", "closed");
+  await expect(page.locator("body")).not.toHaveClass(/menu-open/);
+});
+
+test("减少动画偏好会关闭非必要过渡", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("./");
+  const durations = await page
+    .locator(".article-card")
+    .first()
+    .evaluate((card) => {
+      const style = window.getComputedStyle(card);
+      const toMilliseconds = (value: string) =>
+        value.endsWith("ms")
+          ? Number.parseFloat(value)
+          : Number.parseFloat(value) * 1000;
+      return {
+        animation: style.animationDuration.split(", ").map(toMilliseconds),
+        transition: style.transitionDuration.split(", ").map(toMilliseconds),
+      };
+    });
+  expect(durations.animation.every((value) => value <= 0.01)).toBe(true);
+  expect(durations.transition.every((value) => value <= 0.01)).toBe(true);
+});
+
 test("文章页导航、目录和主题切换正常", async ({ page }) => {
+  await page.context().grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("./posts/algorithm/reverse-list/");
 
   await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
@@ -99,10 +170,16 @@ test("文章页导航、目录和主题切换正常", async ({ page }) => {
   const expectedNextUrl = new URL(nextPostHref, page.url()).toString();
   await expect(page.locator('iframe[src*="giscus"]')).toHaveCount(0);
 
-  await page.getByRole("button", { name: "题目信息" }).click();
+  const firstTocItem = page.getByRole("button", { name: "题目信息" });
+  await firstTocItem.click();
+  await expect(firstTocItem).toHaveAttribute("aria-current", "location");
   await expect
     .poll(() => page.evaluate(() => window.scrollY))
     .toBeGreaterThan(0);
+
+  const copyButton = page.getByRole("button", { name: "复制代码" }).first();
+  await copyButton.click();
+  await expect(copyButton).toContainText("已复制");
 
   await page.getByRole("button", { name: "切换到暗色模式" }).click();
   await expect(page.locator("html")).toHaveClass(/dark/);

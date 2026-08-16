@@ -25,11 +25,11 @@ const tags = [...tagMap.entries()]
   .map(([name]) => name);
 ---
 
-<header class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-700 dark:bg-gray-900/80">
+<header class="site-header sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-700 dark:bg-gray-900/80">
   <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
     <a
       href={homePath()}
-      class="text-xl font-bold text-gray-900 no-underline hover:text-gray-700 dark:text-white dark:hover:text-gray-300"
+      class="site-logo rounded-md text-xl font-bold text-gray-900 no-underline hover:text-indigo-600 dark:text-white dark:hover:text-indigo-300"
     >
       yxshan&apos;s Blog
     </a>
@@ -37,7 +37,7 @@ const tags = [...tagMap.entries()]
     <div class="flex items-center gap-2">
       <a
         href={homePath("focus=1")}
-        class="rounded-lg p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+        class="interactive-icon text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
         aria-label="搜索"
       >
         <svg
@@ -58,37 +58,39 @@ const tags = [...tagMap.entries()]
       <button
         type="button"
         data-theme-toggle
-        class="rounded-lg p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+        class="interactive-icon text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
         aria-label="切换到暗色模式"
       >
-        <svg
-          data-theme-icon="light"
-          class="h-5 w-5"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <circle cx="12" cy="12" r="4" />
-          <path
-            stroke-linecap="round"
-            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
-          />
-        </svg>
-        <svg
-          data-theme-icon="dark"
-          class="hidden h-5 w-5"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
-          />
-        </svg>
+        <span class="theme-icon-stack" aria-hidden="true">
+          <svg
+            data-theme-icon="light"
+            class="theme-icon theme-icon-light"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="4" />
+            <path
+              stroke-linecap="round"
+              d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+            />
+          </svg>
+          <svg
+            data-theme-icon="dark"
+            class="theme-icon theme-icon-dark"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
+            />
+          </svg>
+        </span>
       </button>
 
       <button
@@ -96,7 +98,7 @@ const tags = [...tagMap.entries()]
         data-menu-toggle
         aria-expanded="false"
         aria-controls="mobile-menu"
-        class="rounded-lg p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white md:hidden"
+        class="interactive-icon text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white md:hidden"
         aria-label="打开菜单"
       >
         <svg
@@ -119,21 +121,24 @@ const tags = [...tagMap.entries()]
 <div
   id="mobile-menu"
   data-mobile-menu
-  class="fixed inset-0 z-50 hidden md:hidden"
+  data-state="closed"
+  aria-hidden="true"
+  inert
+  class="mobile-menu fixed inset-0 z-50 md:hidden"
 >
   <button
     type="button"
     data-menu-close
     aria-label="关闭菜单"
-    class="absolute inset-0 h-full w-full bg-black/40"
+    class="mobile-menu-backdrop absolute inset-0 h-full w-full bg-black/40"
   />
-  <nav class="absolute right-0 top-0 h-full w-80 overflow-y-auto border-l border-gray-200 bg-white p-5 shadow-2xl dark:border-gray-800 dark:bg-gray-900">
+  <nav data-menu-panel class="mobile-menu-panel absolute right-0 top-0 h-full w-80 max-w-[86vw] overflow-y-auto border-l border-gray-200 bg-white p-5 shadow-2xl dark:border-gray-800 dark:bg-gray-900">
     <div class="mb-6 flex items-center justify-between">
       <span class="text-lg font-bold">导航</span>
       <button
         type="button"
         data-menu-close
-        class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800"
+        class="interactive-icon text-gray-500 dark:text-gray-400"
         aria-label="关闭菜单"
       >
         <svg
@@ -153,13 +158,13 @@ const tags = [...tagMap.entries()]
 
     <a
       href={homePath()}
-      class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800"
+      class="mobile-menu-link block rounded-lg px-3 py-2 text-sm font-medium"
     >
       首页
     </a>
     <a
       href={homePath("focus=1")}
-      class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800"
+      class="mobile-menu-link block rounded-lg px-3 py-2 text-sm font-medium"
     >
       搜索
     </a>
@@ -171,7 +176,7 @@ const tags = [...tagMap.entries()]
       {categories.map((category) => (
         <a
           href={homePath(`category=${encodeURIComponent(category.name)}`)}
-          class="flex items-center justify-between rounded-lg px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+          class="mobile-menu-link flex items-center justify-between rounded-lg px-3 py-2 text-sm"
         >
           <span>{category.name}</span>
           <span class="text-xs text-gray-400">{category.count}</span>
@@ -186,7 +191,7 @@ const tags = [...tagMap.entries()]
       {tags.map((tag) => (
         <a
           href={homePath(`tag=${encodeURIComponent(tag)}`)}
-          class="rounded-full border border-gray-200 px-3 py-1 text-xs hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800"
+          class="mobile-menu-link rounded-full border border-gray-200 px-3 py-1 text-xs dark:border-gray-700"
         >
           {tag}
         </a>
@@ -196,13 +201,45 @@ const tags = [...tagMap.entries()]
 </div>
 
 <script>
-  const menu = document.querySelector("[data-mobile-menu]");
-  const openButtons = document.querySelectorAll("[data-menu-toggle]");
-  const closeButtons = document.querySelectorAll("[data-menu-close]");
+  const menu = document.querySelector<HTMLElement>("[data-mobile-menu]");
+  const panel = menu?.querySelector<HTMLElement>("[data-menu-panel]");
+  const openButtons = document.querySelectorAll<HTMLElement>(
+    "[data-menu-toggle]",
+  );
+  const closeButtons = document.querySelectorAll<HTMLElement>(
+    "[data-menu-close]",
+  );
+  let returnFocus: HTMLElement | null = null;
 
-  function setMenu(open) {
+  const focusableSelector = [
+    "a[href]",
+    "button:not([disabled])",
+    "input:not([disabled])",
+    '[tabindex]:not([tabindex="-1"])',
+  ].join(",");
+
+  function setMenu(open: boolean): void {
     if (!menu) return;
-    menu.classList.toggle("hidden", !open);
+    if (open) {
+      returnFocus =
+        document.activeElement instanceof HTMLElement
+          ? document.activeElement
+          : null;
+      menu.inert = false;
+      menu.setAttribute("aria-hidden", "false");
+      menu.dataset.state = "open";
+      document.body.classList.add("menu-open");
+      window.requestAnimationFrame(() => {
+        panel?.querySelector<HTMLElement>(focusableSelector)?.focus();
+      });
+    } else {
+      menu.dataset.state = "closed";
+      menu.setAttribute("aria-hidden", "true");
+      menu.inert = true;
+      document.body.classList.remove("menu-open");
+      returnFocus?.focus();
+      returnFocus = null;
+    }
     openButtons.forEach((button) =>
       button.setAttribute("aria-expanded", String(open)),
     );
@@ -217,4 +254,31 @@ const tags = [...tagMap.entries()]
   menu?.querySelectorAll("a").forEach((link) =>
     link.addEventListener("click", () => setMenu(false)),
   );
+
+  window.matchMedia("(min-width: 768px)").addEventListener("change", (event) => {
+    if (!event.matches || menu?.dataset.state !== "open") return;
+    returnFocus = null;
+    setMenu(false);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (menu?.dataset.state !== "open") return;
+    if (event.key === "Escape") {
+      event.preventDefault();
+      setMenu(false);
+      return;
+    }
+    if (event.key !== "Tab" || !panel) return;
+    const focusable = [...panel.querySelectorAll<HTMLElement>(focusableSelector)];
+    const first = focusable[0];
+    const last = focusable.at(-1);
+    if (!first || !last) return;
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
 </script>

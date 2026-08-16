@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import fm from "front-matter";
 import type { RuntimePost } from "../core/contracts";
+import { normalizePostBody } from "../core/content/body";
 import { resolveProjectPath } from "../core/content/source";
 import { getAllPosts } from "../core/content/catalog";
 
@@ -14,5 +15,6 @@ function readPostMarkdown(post: RuntimePost): string {
 }
 
 export function readPostBody(post: RuntimePost): string {
-  return fm<{ [key: string]: unknown }>(readPostMarkdown(post)).body;
+  const body = fm<{ [key: string]: unknown }>(readPostMarkdown(post)).body;
+  return normalizePostBody(body, { title: post.title, tags: post.tags });
 }

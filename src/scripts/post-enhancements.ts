@@ -12,7 +12,10 @@ export function enhanceCodeBlock(
   languageLabel.textContent = language || "text";
   const copyButton = document.createElement("button");
   copyButton.className = "copy-btn code-copy-btn";
-  copyButton.innerHTML = `<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>复制</span>`;
+  copyButton.type = "button";
+  copyButton.setAttribute("aria-label", "复制代码");
+  copyButton.dataset.copyState = "idle";
+  copyButton.innerHTML = `<svg class="h-3.5 w-3.5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="code-copy-label" aria-live="polite">复制</span>`;
   header.append(languageLabel, copyButton);
 
   const body = document.createElement("div");
@@ -30,16 +33,43 @@ export function enhanceCodeBlock(
   wrapper.append(header, body);
   block.parentElement?.replaceChild(wrapper, block);
   const codeText = wrapper.querySelector("code")?.textContent ?? "";
-  copyButton.addEventListener("click", () => {
-    void navigator.clipboard.writeText(codeText).then(() => {
-      const label = copyButton.querySelector("span");
-      if (!label) return;
-      label.textContent = "已复制";
-      window.setTimeout(() => {
-        label.textContent = "复制";
+  let resetTimer: number | undefined;
+  const setCopyFeedback = (
+    label: HTMLElement,
+    text: string,
+    state: "idle" | "copied" | "error",
+  ): void => {
+    label.textContent = text;
+    copyButton.dataset.copyState = state;
+    label.classList.remove("code-copy-label-updating");
+    void label.offsetWidth;
+    label.classList.add("code-copy-label-updating");
+  };
+  copyButton.addEventListener("click", async () => {
+    const label = copyButton.querySelector<HTMLElement>(".code-copy-label");
+    if (!label) return;
+    window.clearTimeout(resetTimer);
+    try {
+      await navigator.clipboard.writeText(codeText);
+      setCopyFeedback(label, "已复制", "copied");
+      resetTimer = window.setTimeout(() => {
+        setCopyFeedback(label, "复制", "idle");
       }, 2000);
-    });
+    } catch {
+      setCopyFeedback(label, "复制失败", "error");
+      resetTimer = window.setTimeout(() => {
+        setCopyFeedback(label, "复制", "idle");
+      }, 2000);
+    }
   });
+}
+
+export function enhanceTable(table: HTMLTableElement): void {
+  if (table.closest(".table-scroll-region")) return;
+  const wrapper = document.createElement("div");
+  wrapper.className = "table-scroll-region";
+  table.parentElement?.replaceChild(wrapper, table);
+  wrapper.appendChild(table);
 }
 
 function enhanceLinks(container: Element): void {
@@ -125,6 +155,9 @@ export function enhancePost(): void {
     const language = code.className.match(/language-(\w+)/)?.[1] ?? "";
     enhanceCodeBlock(pre, language.toUpperCase());
   });
+  container
+    .querySelectorAll<HTMLTableElement>("table")
+    .forEach((table) => enhanceTable(table));
   enhanceLinks(container);
   enhanceHashTags(container);
 }

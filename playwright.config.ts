@@ -6,11 +6,17 @@ const browserChannel = process.env.PLAYWRIGHT_CHANNEL;
 
 export default defineConfig({
   testDir: "./tests/e2e",
+  snapshotPathTemplate: "{testDir}/__screenshots__/{arg}{ext}",
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: process.env.CI ? "github" : "list",
+  expect: {
+    toHaveScreenshot: {
+      maxDiffPixelRatio: 0.005,
+    },
+  },
   use: {
     baseURL: `${origin}/blog/`,
     trace: "retain-on-failure",
