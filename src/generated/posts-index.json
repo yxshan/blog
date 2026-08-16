@@ -169,6 +169,25 @@
       "excerpt": "#中等 #二叉树 #二叉搜索树 #顺序存储 #中序遍历 #考研真题 !020-seq-bst 非空二叉树采用顺序存储。数组 SqBiTNode 保存结点值，左孩子下标为 2i+1，右孩子下标为 2i+2；-1 表示空位置，ElemNum 表示实际使用的数组长度。 要求判断该存储结果表示的二叉树是否为"
     },
     {
+      "slug": "kaoyan/euler-path",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/021-euler-path/index.md",
+      "title": "2021真题：无向图的欧拉路径判定",
+      "date": "2026-08-16",
+      "updated": "2026-08-16",
+      "tags": [
+        "中等",
+        "图",
+        "邻接矩阵",
+        "欧拉路径",
+        "考研真题"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "#中等 #图 #邻接矩阵 #欧拉路径 #考研真题 !021-euler-path 给定无向连通图 G，且 E > 0。当图中度为奇数的顶点个数不超过 2 时，图存在包含所有边且每条边恰好经过一次的路径，称为欧拉路径。请判断是否存在欧拉路径。 图已经保证连通，因此只需判断奇度顶点个数。若图不保证连通，"
+    },
+    {
       "slug": "kaoyan/median",
       "category": "kaoyan",
       "modulePath": "/posts/kaoyan/011-median/index.md",
