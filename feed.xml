@@ -212,5 +212,12 @@
       <pubDate>Sun, 16 Aug 2026 00:00:00 GMT</pubDate>
       <description>#中等 #图 #邻接矩阵 #度 #考研真题 !022-k-vertices 给定采用邻接矩阵存储的有向图 G。若某顶点的出度大于入度，则称它为 K 顶点。请输出图中所有 K 顶点，并返回 K 顶点的个数。 对邻接矩阵而言，第 i 行非零元素个数是顶点 i 的出度，第 i 列非零元素个数是入度。 图中</description>
     </item>
+    <item>
+      <title>2024真题：有向图唯一拓扑序列判定</title>
+      <link>https://yxshan.github.io/blog/posts/kaoyan/unique-topo</link>
+      <guid>https://yxshan.github.io/blog/posts/kaoyan/unique-topo</guid>
+      <pubDate>Sun, 16 Aug 2026 00:00:00 GMT</pubDate>
+      <description>#中等 #图 #拓扑排序 #邻接矩阵 #考研真题 !023-unique-topo 给定采用邻接矩阵存储的有向图 G，要求判断它是否存在唯一的拓扑序列。若存在返回 1，否则返回 0。 拓扑序列存在的前提是有向图无环。若某一步同时存在两个或以上入度为 0 的顶点，则它们可以交换次序，拓扑序列不唯一。</description>
+    </item>
   </channel>
 </rss>
