@@ -17,6 +17,8 @@ draft: false
 
 ## 题目信息
 
+![016-common-suffix](./016-common-suffix.png)
+
 两个单词分别由带头结点的单链表保存，两个链表可能共享一段后缀。给出 `str1` 和 `str2` 指向的首个数据结点，要求找出两个链表公共后缀的起始结点。
 
 这里的“公共”指两个指针指向同一个结点地址，而不是两个结点的 `data` 恰好相等。若没有公共后缀，返回 `NULL`。
@@ -108,8 +110,3 @@ LinkList findCommonNode(LinkList str1, LinkList str2) {
 1. 必须比较 `p == q`，不能比较 `p->data == q->data`。
 2. 公共部分必然从某个结点开始一直共享到尾部，所以尾指针不同可以直接排除。
 3. 对齐的是“到尾部的距离”，不是简单让两个指针从相同下标开始。
-
-## 题图
-
-![016-common-suffix](./016-common-suffix.png)
-
