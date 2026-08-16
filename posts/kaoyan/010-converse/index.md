@@ -6,6 +6,7 @@ tags:
   - 线性表
   - 顺序表
   - 反转
+  - 考研真题
 difficulty: 中等
 leetcode:
 updated: 2026-07-28
@@ -15,7 +16,7 @@ draft: false
 
 讲解视频：[2010真题](https://www.bilibili.com/video/BV1vwM3zFEhj?spm_id_from=333.788.videopod.sections&vd_source=5c0bcfe1efdcec850abdf100b7a15a09&p=12)
 
-#中等 #线性表 #顺序表 #反转 
+#中等 #线性表 #顺序表 #反转 #考研真题
 
 ## 题目信息
 
