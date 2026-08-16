@@ -55,6 +55,24 @@
       "excerpt": "#中等 #数组 #动态规划 #后缀 !014-max-product 给定长度为 $n$ 的整数数组 $A$ 和 $res$。对于每个下标 $i$，计算所有满足 $i\\leq j\\leq n-1$ 的乘积 $A[i]\\times A[j]$ 中的最大值，并将结果保存到 $res[i]$ 中。 函数原"
     },
     {
+      "slug": "kaoyan/common-suffix",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/016-common-suffix/index.md",
+      "title": "2012真题：两个链表的公共后缀起点",
+      "date": "2026-08-16",
+      "updated": "2026-08-16",
+      "tags": [
+        "链表",
+        "双指针",
+        "公共后缀",
+        "考研真题"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "#中等 #链表 #双指针 #公共后缀 #考研真题 两个单词分别由带头结点的单链表保存，两个链表可能共享一段后缀。给出 str1 和 str2 指向的首个数据结点，要求找出两个链表公共后缀的起始结点。 这里的“公共”指两个指针指向同一个结点地址，而不是两个结点的 data 恰好相等。若没有公共后缀，返"
+    },
+    {
       "slug": "kaoyan/median",
       "category": "kaoyan",
       "modulePath": "/posts/kaoyan/011-median/index.md",
