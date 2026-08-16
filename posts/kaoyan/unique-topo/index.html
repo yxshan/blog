@@ -8,6 +8,55 @@
 <h2>直接解：枚举拓扑序列</h2>
 <p>回溯枚举所有合法的拓扑序列。每一步选择一个当前入度为 <code>0</code> 的未处理顶点，递归处理；只要找到两种序列就可以返回 <code>0</code>，找到且仅找到一种才返回 <code>1</code>。</p>
 <p>这种方法直接对应“唯一”的定义，但在分支较多时可能产生指数级搜索。</p>
+<pre><code class="language-c">int countOrders(
+    MGraph *G, int indegree[], int used[], int step
+) {
+    int i, j;
+    int total = 0;
+
+    if (step == G-&gt;numVertices) {
+        return 1;
+    }
+
+    for (i = 0; i &lt; G-&gt;numVertices; i++) {
+        if (!used[i] &amp;&amp; indegree[i] == 0) {
+            used[i] = 1;
+            for (j = 0; j &lt; G-&gt;numVertices; j++) {
+                if (G-&gt;Edge[i][j] != 0) {
+                    indegree[j]--;
+                }
+            }
+
+            total += countOrders(G, indegree, used, step + 1);
+
+            for (j = 0; j &lt; G-&gt;numVertices; j++) {
+                if (G-&gt;Edge[i][j] != 0) {
+                    indegree[j]++;
+                }
+            }
+            used[i] = 0;
+
+            if (total &gt;= 2) {
+                return 2;
+            }
+        }
+    }
+    return total;
+}
+
+int uniquelyDirect(MGraph *G) {
+    int indegree[MAXV] = {0};
+    int used[MAXV] = {0};
+    int i, j;
+
+    for (i = 0; i &lt; G-&gt;numVertices; i++) {
+        for (j = 0; j &lt; G-&gt;numVertices; j++) {
+            indegree[j] += G-&gt;Edge[i][j] != 0;
+        }
+    }
+    return countOrders(G, indegree, used, 0) == 1;
+}
+</code></pre>
 <h2>优化解：Kahn 算法检查候选数量</h2>
 <p>使用 Kahn 拓扑排序，但每轮不把所有入度为 <code>0</code> 的顶点加入队列，而是直接统计候选数量：</p>
 <ol>

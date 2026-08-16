@@ -3,6 +3,8 @@
 <p><img src="/blog/_astro/016-common-suffix.D8ESKA1P.png" alt="016-common-suffix" /></p>
 <p>两个单词分别由带头结点的单链表保存，两个链表可能共享一段后缀。给出 <code>str1</code> 和 <code>str2</code> 指向的首个数据结点，要求找出两个链表公共后缀的起始结点。</p>
 <p>这里的“公共”指两个指针指向同一个结点地址，而不是两个结点的 <code>data</code> 恰好相等。若没有公共后缀，返回 <code>NULL</code>。</p>
+<h2>示例</h2>
+<p>若两个链表分别为 <code>a-&gt;b-&gt;i-&gt;n-&gt;g</code> 和 <code>b-&gt;e-&gt;i-&gt;n-&gt;g</code>，其中 <code>i</code> 之后的结点实际共享，则公共后缀起点是结点 <code>i</code>。</p>
 <h2>直接解：逐结点比较地址</h2>
 <p>依次取出第一个链表的每个结点，再从第二个链表头开始扫描。如果发现两个指针相等，就找到了公共后缀起点。</p>
 <pre><code class="language-c">typedef struct LNode {
@@ -74,6 +76,10 @@ LinkList findCommonNode(LinkList str1, LinkList str2) {
 }
 </code></pre>
 <p>时间复杂度为 <code>O(m+n)</code>，空间复杂度为 <code>O(1)</code>。</p>
+<h2>示例推演</h2>
+<p>先求两个链表长度和尾结点。若尾结点相同，再让较长链表的指针先走过长度差；此后两个指针同步前进，第一次指针相等的位置就是公共后缀起点。</p>
+<h2>代码实现</h2>
+<p>直接地址枚举和长度对齐两套 C 代码已分别放在对应解法下；实际答题优先使用长度对齐版本。</p>
 <h2>易错点</h2>
 <ol>
 <li>必须比较 <code>p == q</code>，不能比较 <code>p-&gt;data == q-&gt;data</code>。</li>

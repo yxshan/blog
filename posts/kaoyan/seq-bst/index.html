@@ -8,6 +8,29 @@
 <h2>直接解：中序遍历后检查有序性</h2>
 <p>二叉搜索树的中序遍历结果必须严格递增。先把所有实际结点写入辅助数组，再检查相邻元素是否满足前者小于后者。</p>
 <p>这种方法逻辑直观，适合作为基线解，但会额外保存整棵树的中序序列。</p>
+<pre><code class="language-c">void inorderDirect(const SqBiTree *tree, int index, int order[], int *count) {
+    if (index &gt;= tree-&gt;ElemNum || tree-&gt;SqBiTNode[index] == -1) {
+        return;
+    }
+    inorderDirect(tree, 2 * index + 1, order, count);
+    order[(*count)++] = tree-&gt;SqBiTNode[index];
+    inorderDirect(tree, 2 * index + 2, order, count);
+}
+
+int isBSTDirect(const SqBiTree *tree) {
+    int order[MAX_SIZE];
+    int count = 0;
+    int i;
+
+    inorderDirect(tree, 0, order, &amp;count);
+    for (i = 1; i &lt; count; i++) {
+        if (order[i - 1] &gt;= order[i]) {
+            return 0;
+        }
+    }
+    return count &gt; 0;
+}
+</code></pre>
 <h2>优化解：递归传递取值范围</h2>
 <p>对每个结点维护允许出现的开区间。进入左子树时收紧上界，进入右子树时收紧下界；只要当前值越界，就可以立即返回 <code>0</code>。</p>
 <p>该方法不保存中序数组，且每个实际结点只访问一次。</p>

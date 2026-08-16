@@ -3,6 +3,8 @@
 <p><img src="/blog/_astro/015-kth-from-end.23hbkIUq.png" alt="015-kth-from-end" /></p>
 <p>已知一个带有表头结点的单链表，结点结构为 <code>data</code> 和 <code>link</code>，只给出头指针 <code>list</code>。请设计尽可能高效的算法，查找链表中倒数第 <code>k</code> 个位置的结点。若找到，输出该结点的 <code>data</code> 并返回 <code>1</code>；否则返回 <code>0</code>。</p>
 <p>题目不允许改变链表，因此算法只能通过指针遍历完成。这里将 <code>list</code> 视为指向首个数据结点的指针；如果实际代码中的 <code>list</code> 指向头结点，只需先令 <code>list = list-&gt;link</code>。</p>
+<h2>示例</h2>
+<p>链表为 <code>1-&gt;2-&gt;3-&gt;4-&gt;5</code>，当 <code>k=2</code> 时，倒数第 <code>2</code> 个结点是 <code>4</code>；当 <code>k=6</code> 时查找失败。</p>
 <h2>直接解：先求长度，再定位</h2>
 <p>先遍历链表求出数据结点个数 <code>n</code>。如果 <code>k &lt;= 0</code> 或 <code>k &gt; n</code>，查找失败；否则从表头再次出发，走到第 <code>n-k+1</code> 个结点。</p>
 <p>这种方法思路直接、容易验证，代价是需要完整遍历一次，再从头走到目标位置。</p>
@@ -65,6 +67,10 @@ int findKthFromEndTwoPass(LinkList list, int k, int *value) {
 }
 </code></pre>
 <p>时间复杂度仍为 <code>O(n)</code>，但只需一次连续扫描；空间复杂度为 <code>O(1)</code>。</p>
+<h2>示例推演</h2>
+<p>令 <code>k=2</code>，快指针先前进两步到 <code>3</code>。随后快慢指针同步移动：快指针到 <code>5</code> 时慢指针到 <code>4</code>，快指针到 <code>NULL</code> 时慢指针仍指向 <code>4</code>。</p>
+<h2>代码实现</h2>
+<p>直接解和快慢指针优化解的完整 C 代码已分别放在对应解法下；考试中优先书写快慢指针版本。</p>
 <h2>易错点</h2>
 <ol>
 <li><code>k</code> 从 <code>1</code> 开始计数，<code>k=1</code> 表示最后一个数据结点。</li>

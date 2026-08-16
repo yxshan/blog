@@ -4,6 +4,8 @@
 <p>带头结点的单链表为 <code>L=(a1,a2,...,an)</code>，要求在空间复杂度为 <code>O(1)</code> 的条件下，将它重排为：</p>
 <p><code>L'=(a1,an,a2,a(n-1),a3,a(n-2),...)</code>。</p>
 <p>只能调整结点链接，不能复制结点或修改数据。</p>
+<h2>示例</h2>
+<p>链表 <code>a1-&gt;a2-&gt;a3-&gt;a4-&gt;a5</code> 重排后为 <code>a1-&gt;a5-&gt;a2-&gt;a4-&gt;a3</code>；偶数长度时 <code>a1-&gt;a2-&gt;a3-&gt;a4</code> 重排为 <code>a1-&gt;a4-&gt;a2-&gt;a3</code>。</p>
 <h2>直接解：数组保存结点指针</h2>
 <p>先遍历链表，把每个数据结点的地址依次放入数组。然后使用左右两个下标，交替取左端和右端结点重新连接。</p>
 <pre><code class="language-c">typedef struct node {
@@ -79,6 +81,10 @@ void reorderByArray(NODE *head, int n) {
 }
 </code></pre>
 <p>找中点、逆置和合并都只遍历链表常数次，因此时间复杂度为 <code>O(n)</code>，只使用若干指针，空间复杂度为 <code>O(1)</code>。</p>
+<h2>示例推演</h2>
+<p>以五个结点为例，慢指针找到 <code>a3</code>，将链表拆成 <code>a1-&gt;a2-&gt;a3</code> 和 <code>a4-&gt;a5</code>；逆置后半段得到 <code>a5-&gt;a4</code>，交替合并得到目标顺序。</p>
+<h2>代码实现</h2>
+<p>数组基线解和原地重排两套 C 代码已分别放在对应解法下；题目要求 <code>O(1)</code> 额外空间时使用原地版本。</p>
 <h2>易错点</h2>
 <ol>
 <li>切断前半段与后半段的连接，避免逆置或合并时形成环。</li>
