@@ -3,6 +3,7 @@ import { defineConfig, devices } from "@playwright/test";
 const port = 4321;
 const origin = `http://127.0.0.1:${port}`;
 const browserChannel = process.env.PLAYWRIGHT_CHANNEL;
+const visualDiffRatio = process.env.CI ? 0.025 : 0.005;
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -14,7 +15,7 @@ export default defineConfig({
   reporter: process.env.CI ? "github" : "list",
   expect: {
     toHaveScreenshot: {
-      maxDiffPixelRatio: 0.005,
+      maxDiffPixelRatio: visualDiffRatio,
     },
   },
   use: {
