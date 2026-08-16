@@ -37,6 +37,24 @@
       "excerpt": "#中等 #数组 #双指针 #贪心 !013-min-distance 给定三个非空整数集合 $S_1$、$S_2$ 和 $S_3$，三个集合中的元素分别按升序存储在三个数组中。从三个数组中各取一个元素组成三元组 $(a,b,c)$，要求找出所有可能三元组中的最小距离。 三元组距离定义为： $$D=a"
     },
     {
+      "slug": "kaoyan/max-product",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/014-max-product/index.md",
+      "title": "2025真题：数组后缀的最大乘积",
+      "date": "2026-08-16",
+      "updated": "2026-08-16",
+      "tags": [
+        "中等",
+        "数组",
+        "动态规划",
+        "后缀"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "#中等 #数组 #动态规划 #后缀 !014-max-product 给定长度为 $n$ 的整数数组 $A$ 和 $res$。对于每个下标 $i$，计算所有满足 $i\\leq j\\leq n-1$ 的乘积 $A[i]\\times A[j]$ 中的最大值，并将结果保存到 $res[i]$ 中。 函数原"
+    },
+    {
       "slug": "kaoyan/median",
       "category": "kaoyan",
       "modulePath": "/posts/kaoyan/011-median/index.md",
