@@ -55,6 +55,7 @@ export default function HomeApp({ catalog = postCatalog }: HomeAppProps) {
       }),
     [posts, queryState.category, queryState.tags, results],
   );
+  const transitionKey = filteredPosts.map((post) => post.slug).join("|");
 
   function syncParams(next: URLSearchParams): void {
     const search = serializeQueryState(next);
@@ -72,7 +73,7 @@ export default function HomeApp({ catalog = postCatalog }: HomeAppProps) {
   };
 
   return (
-    <div className="mx-auto flex h-full max-w-4xl flex-col px-4">
+    <div className="mx-auto flex h-full max-w-4xl flex-col px-4 py-6 md:py-8">
       <div className="mb-6">
         <SearchBar
           query={query}
@@ -98,17 +99,21 @@ export default function HomeApp({ catalog = postCatalog }: HomeAppProps) {
               updateQueryState(window.location.search, { category: null }),
             )
           }
-          className="mb-4 inline-flex items-center gap-1 self-start rounded-full px-3 py-1 text-xs text-gray-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+          className="filter-clear-chip mb-4 inline-flex items-center gap-1 self-start rounded-full px-3 py-1 text-xs text-gray-500 ring-1 ring-inset ring-gray-300 dark:text-gray-400 dark:ring-gray-700"
         >
           分类：{queryState.category} ×
         </button>
       )}
-      <p className="mb-4 text-sm text-gray-500">
+      <p
+        data-result-count
+        aria-live="polite"
+        className="mb-4 text-sm text-gray-500 dark:text-gray-400"
+      >
         {results
           ? `搜索「${query}」找到 ${filteredPosts.length} 篇结果`
           : `共 ${filteredPosts.length} 篇文章`}
       </p>
-      <PostList posts={filteredPosts} />
+      <PostList posts={filteredPosts} transitionKey={transitionKey} />
     </div>
   );
 }

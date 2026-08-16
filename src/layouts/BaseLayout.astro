@@ -30,9 +30,21 @@ const canonical = Astro.site
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="yxshan's Blog" />
     <meta name="twitter:card" content="summary" />
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        document.documentElement.classList.toggle(
+          "dark",
+          stored ? stored === "dark" : prefersDark,
+        );
+      })();
+    </script>
   </head>
   <body
-    class="min-h-screen bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100"
+    class="flex min-h-screen flex-col bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100"
   >
     <Header />
     <main id="main-content" class="flex-1">
@@ -47,28 +59,20 @@ const canonical = Astro.site
 
     <script is:inline>
       (function () {
-        const stored = localStorage.getItem("theme");
-        const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)",
-        ).matches;
-        const isDark = stored ? stored === "dark" : prefersDark;
         const button = document.querySelector("[data-theme-toggle]");
 
         function sync() {
           const dark = document.documentElement.classList.contains("dark");
-          document.documentElement.classList.toggle("dark", dark);
-          document.querySelectorAll("[data-theme-icon]").forEach((icon) => {
-            const isDarkIcon = icon.dataset.themeIcon === "dark";
-            icon.classList.toggle("hidden", isDarkIcon !== dark);
-          });
           button?.setAttribute(
             "aria-label",
             dark ? "切换到亮色模式" : "切换到暗色模式",
           );
         }
 
-        document.documentElement.classList.toggle("dark", isDark);
         sync();
+        requestAnimationFrame(() => {
+          document.documentElement.dataset.themeReady = "true";
+        });
 
         button?.addEventListener("click", () => {
           const next = !document.documentElement.classList.contains("dark");

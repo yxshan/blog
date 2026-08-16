@@ -28,7 +28,7 @@ export default function StaticArticleCard({ post }: StaticArticleCardProps) {
   return (
     <a
       href={postPath(slug)}
-      className="group relative block rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-200 hover:border-gray-300 hover:shadow-md dark:border-gray-700 dark:bg-gray-900 dark:hover:border-gray-500"
+      className="article-card theme-surface group relative block rounded-xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-900"
     >
       {difficulty && colorClass && (
         <span
@@ -37,7 +37,7 @@ export default function StaticArticleCard({ post }: StaticArticleCardProps) {
           {difficultyLabels[difficulty]}
         </span>
       )}
-      <h2 className="pr-20 text-lg font-semibold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400">
+      <h2 className="article-card-title pr-20 text-lg font-semibold text-gray-900 dark:text-gray-100">
         {title}
       </h2>
       {formattedDate && (
@@ -55,7 +55,7 @@ export default function StaticArticleCard({ post }: StaticArticleCardProps) {
             return (
               <span
                 key={tag}
-                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-0.5 text-xs font-medium ${color.bg} ${color.text}`}
+                className={`article-card-tag inline-flex items-center gap-1.5 rounded-full px-3 py-0.5 text-xs font-medium ${color.bg} ${color.text}`}
               >
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-current opacity-70" />
                 {tag}

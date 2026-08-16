@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import type { PostDocument, PostSource } from "../contracts";
+import { normalizePostBody } from "./body";
 import { extractExcerpt } from "./excerpt";
 import { normalizePost } from "./normalize";
 
@@ -46,13 +47,18 @@ export function parsePostFile(filePath: string): PostSource {
 
 function readPostSource(filePath: string): PostDocument {
   const source = parsePostFile(filePath);
+  const meta = normalizePost({
+    filePath: source.filePath,
+    data: source.frontmatter,
+  });
+  const content = normalizePostBody(source.content, {
+    title: meta.title,
+    tags: meta.tags,
+  });
   return {
-    ...normalizePost({
-      filePath: source.filePath,
-      data: source.frontmatter,
-      excerpt: extractExcerpt(source.content),
-    }),
-    content: source.content,
+    ...meta,
+    excerpt: extractExcerpt(content),
+    content,
   };
 }
 
