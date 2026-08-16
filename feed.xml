@@ -154,7 +154,7 @@
       <link>https://yxshan.github.io/blog/posts/kaoyan/max-product</link>
       <guid>https://yxshan.github.io/blog/posts/kaoyan/max-product</guid>
       <pubDate>Sun, 16 Aug 2026 00:00:00 GMT</pubDate>
-      <description>#中等 #数组 #动态规划 #后缀 !014-max-product 给定长度为 $n$ 的整数数组 $A$ 和 $res$。对于每个下标 $i$，计算所有满足 $i\leq j\leq n-1$ 的乘积 $A[i]\times A[j]$ 中的最大值，并将结果保存到 $res[i]$ 中。 函数原</description>
+      <description>#中等 #数组 #动态规划 #后缀 #考研真题 !014-max-product 给定长度为 $n$ 的整数数组 $A$ 和 $res$。对于每个下标 $i$，计算所有满足 $i\leq j\leq n-1$ 的乘积 $A[i]\times A[j]$ 中的最大值，并将结果保存到 $res[i]$</description>
     </item>
     <item>
       <title>2009真题：查找链表倒数第k个结点</title>
