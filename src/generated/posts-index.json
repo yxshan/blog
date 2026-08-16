@@ -188,6 +188,25 @@
       "excerpt": "#中等 #图 #邻接矩阵 #欧拉路径 #考研真题 !021-euler-path 给定无向连通图 G，且 E > 0。当图中度为奇数的顶点个数不超过 2 时，图存在包含所有边且每条边恰好经过一次的路径，称为欧拉路径。请判断是否存在欧拉路径。 图已经保证连通，因此只需判断奇度顶点个数。若图不保证连通，"
     },
     {
+      "slug": "kaoyan/k-vertices",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/022-k-vertices/index.md",
+      "title": "2023真题：求有向图中的 K 顶点",
+      "date": "2026-08-16",
+      "updated": "2026-08-16",
+      "tags": [
+        "中等",
+        "图",
+        "邻接矩阵",
+        "度",
+        "考研真题"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "#中等 #图 #邻接矩阵 #度 #考研真题 !022-k-vertices 给定采用邻接矩阵存储的有向图 G。若某顶点的出度大于入度，则称它为 K 顶点。请输出图中所有 K 顶点，并返回 K 顶点的个数。 对邻接矩阵而言，第 i 行非零元素个数是顶点 i 的出度，第 i 列非零元素个数是入度。 图中"
+    },
+    {
       "slug": "kaoyan/median",
       "category": "kaoyan",
       "modulePath": "/posts/kaoyan/011-median/index.md",
