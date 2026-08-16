@@ -156,5 +156,12 @@
       <pubDate>Sun, 16 Aug 2026 00:00:00 GMT</pubDate>
       <description>#中等 #数组 #动态规划 #后缀 !014-max-product 给定长度为 $n$ 的整数数组 $A$ 和 $res$。对于每个下标 $i$，计算所有满足 $i\leq j\leq n-1$ 的乘积 $A[i]\times A[j]$ 中的最大值，并将结果保存到 $res[i]$ 中。 函数原</description>
     </item>
+    <item>
+      <title>2009真题：查找链表倒数第k个结点</title>
+      <link>https://yxshan.github.io/blog/posts/kaoyan/kth-from-end</link>
+      <guid>https://yxshan.github.io/blog/posts/kaoyan/kth-from-end</guid>
+      <pubDate>Sun, 16 Aug 2026 00:00:00 GMT</pubDate>
+      <description>#中等 #链表 #双指针 #查找 #考研真题 已知一个带有表头结点的单链表，结点结构为 data 和 link，只给出头指针 list。请设计尽可能高效的算法，查找链表中倒数第 k 个位置的结点。若找到，输出该结点的 data 并返回 1；否则返回 0。 题目不允许改变链表，因此算法只能通过指针遍历</description>
+    </item>
   </channel>
 </rss>
