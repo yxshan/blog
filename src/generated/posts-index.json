@@ -73,6 +73,24 @@
       "excerpt": "#中等 #链表 #双指针 #查找 #考研真题 已知一个带有表头结点的单链表，结点结构为 data 和 link，只给出头指针 list。请设计尽可能高效的算法，查找链表中倒数第 k 个位置的结点。若找到，输出该结点的 data 并返回 1；否则返回 0。 题目不允许改变链表，因此算法只能通过指针遍历"
     },
     {
+      "slug": "kaoyan/absolute-duplicate",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/017-absolute-duplicate/index.md",
+      "title": "2015真题：删除绝对值相等的重复结点",
+      "date": "2026-08-16",
+      "updated": "2026-08-16",
+      "tags": [
+        "链表",
+        "去重",
+        "哈希思想",
+        "考研真题"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "#中等 #链表 #去重 #哈希思想 #考研真题 单链表保存 m 个整数，且每个结点满足 data <= n。要求只保留绝对值第一次出现的结点，删除后续绝对值相等的结点，并保持剩余结点的相对顺序不变。 例如 21, -15, -15, -7, 15 删除后为 21, -15, -7。负号不影响“是否重"
+    },
+    {
       "slug": "kaoyan/median",
       "category": "kaoyan",
       "modulePath": "/posts/kaoyan/011-median/index.md",
