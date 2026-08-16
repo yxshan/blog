@@ -20,7 +20,7 @@ jobs:
       ENABLE_PRIVATE_SOURCEMAPS: ${{ secrets.GLITCHTIP_AUTH_TOKEN != '' && vars.GLITCHTIP_URL != '' && vars.GLITCHTIP_ORG != '' && vars.GLITCHTIP_PROJECT != '' && vars.GLITCHTIP_DSN != '' }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Validate GlitchTip configuration
         if: vars.GLITCHTIP_DSN != '' && env.ENABLE_PRIVATE_SOURCEMAPS != 'true'
