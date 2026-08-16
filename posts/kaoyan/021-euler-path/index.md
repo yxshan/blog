@@ -38,6 +38,22 @@ draft: false
 
 这是矩阵存储下最直接的做法，已经达到读取输入所需的数量级。
 
+```c
+int isExistELDirect(MGraph G) {
+    int i, j;
+    int odd = 0;
+
+    for (i = 0; i < G.numVertices; i++) {
+        int degree = 0;
+        for (j = 0; j < G.numVertices; j++) {
+            degree += G.Edge[i][j] != 0;
+        }
+        odd += degree % 2 != 0;
+    }
+    return odd == 0 || odd == 2;
+}
+```
+
 ## 优化解：发现三个奇度顶点立即结束
 
 欧拉路径最多允许两个奇度顶点。因此统计过程中一旦发现第三个奇度顶点，就可以立即返回 `0`，不再扫描后续顶点。
@@ -98,4 +114,3 @@ int isExistEL(MGraph G) {
 1. 本题是无向图，度数应统计一行中的非零边，不要把入度和出度混淆。
 2. 奇度顶点数应为 `0` 或 `2`，不是“恰好 2 个”。
 3. 结论依赖图连通；若题目不保证连通，必须另行检查连通性。
-

@@ -32,6 +32,28 @@ draft: false
 
 对每个顶点分别扫描一行和一列，求出出度与入度后进行比较。该方法最贴合定义，但同一个矩阵位置可能在统计过程中被重复访问。
 
+```c
+int printKVerticesDirect(MGraph G) {
+    int i, j;
+    int count = 0;
+
+    for (i = 0; i < G.numVertices; i++) {
+        int outDegree = 0;
+        int inDegree = 0;
+
+        for (j = 0; j < G.numVertices; j++) {
+            outDegree += G.Edge[i][j] != 0;
+            inDegree += G.Edge[j][i] != 0;
+        }
+        if (outDegree > inDegree) {
+            printf("%c ", G.VerticesList[i]);
+            count++;
+        }
+    }
+    return count;
+}
+```
+
 ## 优化解：一次扫描同时累计两种度
 
 扫描矩阵元素 `Edge[i][j]` 时，如果存在有向边 `i -> j`，就同时执行 `outDegree[i]++` 和 `inDegree[j]++`。这样一次扫描即可得到全部顶点的入度和出度，再顺序输出满足条件的顶点。
@@ -91,4 +113,3 @@ int printKVertices(MGraph G) {
 1. 有向边 `i -> j` 增加的是 `i` 的出度和 `j` 的入度。
 2. K 顶点条件是“出度大于入度”，相等时不能输出。
 3. 若题目要求输出顶点编号或字符，应使用 `VerticesList`，不要直接输出数组下标。
-

@@ -34,6 +34,57 @@ draft: false
 
 这种方法直接对应“唯一”的定义，但在分支较多时可能产生指数级搜索。
 
+```c
+int countOrders(
+    MGraph *G, int indegree[], int used[], int step
+) {
+    int i, j;
+    int total = 0;
+
+    if (step == G->numVertices) {
+        return 1;
+    }
+
+    for (i = 0; i < G->numVertices; i++) {
+        if (!used[i] && indegree[i] == 0) {
+            used[i] = 1;
+            for (j = 0; j < G->numVertices; j++) {
+                if (G->Edge[i][j] != 0) {
+                    indegree[j]--;
+                }
+            }
+
+            total += countOrders(G, indegree, used, step + 1);
+
+            for (j = 0; j < G->numVertices; j++) {
+                if (G->Edge[i][j] != 0) {
+                    indegree[j]++;
+                }
+            }
+            used[i] = 0;
+
+            if (total >= 2) {
+                return 2;
+            }
+        }
+    }
+    return total;
+}
+
+int uniquelyDirect(MGraph *G) {
+    int indegree[MAXV] = {0};
+    int used[MAXV] = {0};
+    int i, j;
+
+    for (i = 0; i < G->numVertices; i++) {
+        for (j = 0; j < G->numVertices; j++) {
+            indegree[j] += G->Edge[i][j] != 0;
+        }
+    }
+    return countOrders(G, indegree, used, 0) == 1;
+}
+```
+
 ## 优化解：Kahn 算法检查候选数量
 
 使用 Kahn 拓扑排序，但每轮不把所有入度为 `0` 的顶点加入队列，而是直接统计候选数量：
@@ -113,4 +164,3 @@ int uniquely(MGraph G) {
 1. 入度为 `0` 的候选顶点超过一个时，应判定“不唯一”，不能任选一个继续。
 2. 候选数为 `0` 可能表示有环，也表示无法完成拓扑排序，均返回 `0`。
 3. 处理顶点后必须减少其所有后继的入度。
-
