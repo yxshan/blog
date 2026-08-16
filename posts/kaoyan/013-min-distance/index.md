@@ -41,7 +41,32 @@ S3 = (2, 9, 17, 30, 41)
 
 所以最小距离为 $2$。
 
-## 算法设计思路
+## 直接解：枚举全部三元组
+
+分别枚举三个数组的下标，计算每个三元组的距离并保留最小值。这是最容易验证正确性的基线方案。
+
+```c
+int minDistanceBrute(int A[], int n1, int B[], int n2, int C[], int n3) {
+    int answer = 2147483647;
+    int i, j, k;
+
+    for (i = 0; i < n1; i++) {
+        for (j = 0; j < n2; j++) {
+            for (k = 0; k < n3; k++) {
+                int d = tripleDistance(A[i], B[j], C[k]);
+                if (d < answer) {
+                    answer = d;
+                }
+            }
+        }
+    }
+    return answer;
+}
+```
+
+时间复杂度为 `O(n1*n2*n3)`，空间复杂度为 `O(1)`。
+
+## 优化解：只移动当前最小值
 
 设当前三元组中的最小值为 $min$，最大值为 $max$。由于三个数已经有序，不论三个数的排列顺序如何，都有：
 
