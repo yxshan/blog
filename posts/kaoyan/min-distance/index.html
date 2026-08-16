@@ -13,7 +13,27 @@ S3 = (2, 9, 17, 30, 41)
 <pre><code class="language-text">|9-10| + |10-9| + |9-9| = 2
 </code></pre>
 <p>所以最小距离为 <span class="katex"><span class="katex-mathml">22</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.6444em"></span><span class="mord">2</span></span></span></span>。</p>
-<h2>算法设计思路</h2>
+<h2>直接解：枚举全部三元组</h2>
+<p>分别枚举三个数组的下标，计算每个三元组的距离并保留最小值。这是最容易验证正确性的基线方案。</p>
+<pre><code class="language-c">int minDistanceBrute(int A[], int n1, int B[], int n2, int C[], int n3) {
+    int answer = 2147483647;
+    int i, j, k;
+
+    for (i = 0; i &lt; n1; i++) {
+        for (j = 0; j &lt; n2; j++) {
+            for (k = 0; k &lt; n3; k++) {
+                int d = tripleDistance(A[i], B[j], C[k]);
+                if (d &lt; answer) {
+                    answer = d;
+                }
+            }
+        }
+    }
+    return answer;
+}
+</code></pre>
+<p>时间复杂度为 <code>O(n1*n2*n3)</code>，空间复杂度为 <code>O(1)</code>。</p>
+<h2>优化解：只移动当前最小值</h2>
 <p>设当前三元组中的最小值为 <span class="katex"><span class="katex-mathml">minmin</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.6595em"></span><span class="mord mathnormal">min</span></span></span></span>，最大值为 <span class="katex"><span class="katex-mathml">maxmax</span><span class="katex-html"><span class="base"><span class="strut" style="height:0.4306em"></span><span class="mord mathnormal">ma</span><span class="mord mathnormal">x</span></span></span></span>。由于三个数已经有序，不论三个数的排列顺序如何，都有：</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml">∣a−b∣+∣b−c∣+∣c−a∣=2(max−min)|a-b|+|b-c|+|c-a|=2(max-min)</span><span class="katex-html"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord">∣</span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord mathnormal">b</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord">∣</span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord mathnormal">c</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord">∣</span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord mathnormal">a</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord">2</span><span class="mopen">(</span><span class="mord mathnormal">ma</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord mathnormal">min</span><span class="mclose">)</span></span></span></span></span></p>
 <p>因此问题转化为尽量缩小当前三元组的最大值与最小值之差。</p>
