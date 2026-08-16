@@ -137,6 +137,26 @@
       "searchText": "2019真题：单链表交替重排 #困难 #链表 #反转 #双指针 #考研真题 题目信息 带头结点的单链表为 L=(a1,a2,...,an) ，要求在空间复杂度为 O(1) 的条件下，将它重排为： L'=(a1,an,a2,a(n-1),a3,a(n-2),...) 。 只能调整结点链接，不能复制结点或修改数据。 直接解：数组保存结点指针 先遍历链表，把每个数据结点的地址依次放入数组。然后使用左右两个下标，交替取左端和右端结点重新连接。 typedef struct node { int data; struct node next; } NODE; void reorderByArray(NODE head, int n) { NODE nodes[n]; NODE p = head- next; NODE tail = head; int i = 0; int left = 0; int right; while (p != NULL) { nodes[i++] = p; p = p- next; } right = i - 1; while (left <= right) { tail- next = nodes[left++]; tail = tail- next; if (left <= right) { tail- next = nodes[right--]; tail = tail- next; } } tail- next = NULL; } 时间复杂度为 O(n) ，但需要保存 n 个结点指针，空间复杂度为 O(n) 。它适合先验证重排顺序，也是理解原地解的基线。 优化解：找中点、逆置后半段、交替合并 把链表拆成前后两段：前半段保持顺序，后半段逆置。逆置后，后半段的顺序正好是 an,a(n-1),... ，最后交替合并两段即可。 void reorderList(NODE head) { NODE slow = head- next; NODE fast = head- next; NODE second; NODE prev = NULL; NODE first; if (slow == NULL slow- next == NULL) { return; } while (fast != NULL && fast- next != NULL) { slow = slow- next; fast = fast- next- next; } second = slow- next; slow- next = NULL; while (second != NULL) { NODE next = second- next; second- next = prev; prev = second; second = next; } first = head- next; second = prev; while (second != NULL) { NODE nextFirst = first- next; NODE nextSecond = second- next; first- next = second; second- next = nextFirst; first = nextFirst; second = nextSecond; } } 找中点、逆置和合并都只遍历链表常数次，因此时间复杂度为 O(n) ，只使用若干指针，空间复杂度为 O(1) 。 易错点 1. 切断前半段与后半段的连接，避免逆置或合并时形成环。 2. 奇数长度时，中点结点属于前半段；偶数长度时，前半段多一个结点也不会影响结果。 3. 合并时必须先保存两个后继指针，否则原链表的剩余部分会丢失。"
     },
     {
+      "slug": "kaoyan/seq-bst",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/020-seq-bst/index.md",
+      "title": "2022真题：顺序存储二叉树的二叉搜索树判定",
+      "date": "2026-08-16",
+      "updated": "2026-08-16",
+      "tags": [
+        "二叉树",
+        "二叉搜索树",
+        "顺序存储",
+        "中序遍历",
+        "考研真题"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "#中等 #二叉树 #二叉搜索树 #顺序存储 #中序遍历 #考研真题 !020-seq-bst 非空二叉树采用顺序存储。数组 SqBiTNode 保存结点值，数组下标按照完全二叉树规则计算孩子位置：左孩子为 2i+1，右孩子为 2i+2；-1 表示该位置没有结点，ElemNum 表示实际使用的数组长度",
+      "searchText": "2022真题：顺序存储二叉树的二叉搜索树判定 #中等 #二叉树 #二叉搜索树 #顺序存储 #中序遍历 #考研真题 题目信息 非空二叉树采用顺序存储。数组 SqBiTNode 保存结点值，数组下标按照完全二叉树规则计算孩子位置：左孩子为 2 i+1 ，右孩子为 2 i+2 ； -1 表示该位置没有结点， ElemNum 表示实际使用的数组长度。 请判断该存储结果表示的二叉树是否为二叉搜索树。本文按严格二叉搜索树处理：任意结点的左子树值都小于该结点，右子树值都大于该结点。 直接解：中序遍历后检查有序性 二叉搜索树的中序遍历结果必须严格递增。先把顺序存储的二叉树进行中序遍历，写入辅助数组，再检查相邻元素是否严格递增。 #define MAX SIZE 1000 typedef struct { int SqBiTNode[MAX SIZE]; int ElemNum; } SqBiTree; void inorder(const SqBiTree tree, int index, int order[], int count) { if (index = tree- ElemNum tree- SqBiTNode[index] == -1) { return; } inorder(tree, 2 index + 1, order, count); order[ count] = tree- SqBiTNode[index]; ( count)++; inorder(tree, 2 index + 2, order, count); } int isBSTByInorder(const SqBiTree tree) { int order[MAX SIZE]; int count = 0; int i; if (tree- ElemNum <= 0 tree- SqBiTNode[0] == -1) { return 0; } inorder(tree, 0, order, &count); for (i = 1; i < count; i++) { if (order[i - 1] = order[i]) { return 0; } } return 1; } 时间复杂度为 O(n) ，但需要保存全部中序序列，空间复杂度为 O(n) ；递归栈另需 O(h) 空间。 优化解：递归传递取值范围 对每个结点直接维护它允许出现的开区间。根结点没有上下界；进入左子树后，上界变成当前结点值，进入右子树后，下界变成当前结点值。只要某个结点越界，就不是二叉搜索树。 int checkBSTRange( const SqBiTree tree, int index, int lower, int hasLower, int upper, int hasUpper ) { int value; if (index = tree- ElemNum tree- SqBiTNode[index] == -1) { return 1; } value = tree- SqBiTNode[index]; if ((hasLower && value <= lower) (hasUpper && value = upper)) { return 0; } return checkBSTRange(tree, 2 index + 1, lower, hasLower, value, 1) && checkBSTRange(tree, 2 index + 2, value, 1, upper, hasUpper); } int isBST(const SqBiTree tree) { if (tree- ElemNum <= 0 tree- SqBiTNode[0] == -1) { return 0; } return checkBSTRange(tree, 0, 0, 0, 0, 0); } 每个实际结点只访问一次，时间复杂度为 O(n) ；只使用递归栈，空间复杂度为 O(h) ，不再保存中序序列。 易错点 1. 只比较父结点和左右孩子是不够的，必须检查整个子树的范围。 2. 本文采用严格递增中序序列，因此重复值不满足二叉搜索树定义。 3. 顺序存储下标从 0 开始，左、右孩子分别是 2 i+1 和 2 i+2 。 4. -1 是空位置标记，不应把它作为实际结点值参与比较。"
+    },
+    {
       "slug": "kaoyan/median",
       "category": "kaoyan",
       "modulePath": "/posts/kaoyan/011-median/index.md",

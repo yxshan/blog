@@ -130,6 +130,25 @@
       "excerpt": "#困难 #链表 #反转 #双指针 #考研真题 !018-reorder-list 带头结点的单链表为 L=(a1,a2,...,an)，要求在空间复杂度为 O(1) 的条件下，将它重排为： L'=(a1,an,a2,a(n-1),a3,a(n-2),...)。 只能调整结点链接，不能复制结点或修改数"
     },
     {
+      "slug": "kaoyan/seq-bst",
+      "category": "kaoyan",
+      "modulePath": "/posts/kaoyan/020-seq-bst/index.md",
+      "title": "2022真题：顺序存储二叉树的二叉搜索树判定",
+      "date": "2026-08-16",
+      "updated": "2026-08-16",
+      "tags": [
+        "二叉树",
+        "二叉搜索树",
+        "顺序存储",
+        "中序遍历",
+        "考研真题"
+      ],
+      "difficulty": "medium",
+      "leetcode": null,
+      "draft": false,
+      "excerpt": "#中等 #二叉树 #二叉搜索树 #顺序存储 #中序遍历 #考研真题 !020-seq-bst 非空二叉树采用顺序存储。数组 SqBiTNode 保存结点值，数组下标按照完全二叉树规则计算孩子位置：左孩子为 2i+1，右孩子为 2i+2；-1 表示该位置没有结点，ElemNum 表示实际使用的数组长度"
+    },
+    {
       "slug": "kaoyan/median",
       "category": "kaoyan",
       "modulePath": "/posts/kaoyan/011-median/index.md",
